@@ -1,0 +1,546 @@
+% Standard Article Definition
+\documentclass[]{article}
+
+% Page Formatting
+\usepackage[margin=1in]{geometry}
+\setlength\parindent{0pt}
+
+% Graphics
+\usepackage{graphicx}
+
+% Math Packages
+\usepackage{physics}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{mathtools}
+
+% Extra Packages
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Section Heading Settings
+\usepackage{enumitem}
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand*{\thesection}{Problem \arabic{section}}
+\renewcommand*{\thesubsection}{\alph{subsection})}
+\renewcommand*{\thesubsubsection}{\quad \quad \roman{subsubsection})}
+
+%Custom Commands
+\newcommand{\Rel}{\mathcal{R}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\toI}{\xrightarrow{\textsf{\tiny I}}}
+\newcommand{\toS}{\xrightarrow{\textsf{\tiny S}}}
+\newcommand{\toB}{\xrightarrow{\textsf{\tiny B}}}
+
+\newcommand{\divisible}{ \ \vdots \ }
+\newcommand{\st}{\ : \ }
+
+
+% Theorem Definition
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+
+
+%opening
+\title{MATH 5302 Elementary Analysis II - Homework 1}
+\author{Jonas Wagner}
+\date{2022, Febuary 2\textsuperscript{nd}}
+
+\begin{document}
+
+\maketitle
+
+% Problem 1 ----------------------------------------------
+\section{}
+Consider $f(x) = 2x + 1$ over the interval $[1,3]$.
+Let $P$ be the partition $\{1,1.5,2,3\}$.
+
+\subsection{}
+\textbf{Problem:}
+Compute $L(f,P), U(f,P),$ and $U(f,P) - L(f,P)$
+
+\begin{definition}\label{def:darboux_sum}
+    Define bounded function $f : [a,b] \to \R$ and set $S \subseteq [a,b]$.
+
+    Let $M(f,S) := \sup{f(x) \st x \in S}$ and $m(f,S) = \inf{f(x) \st x \in S}$
+
+    Define the partition $P$ of $[a,b]$ as\[
+        P = \{a = x_0 < x_1 < \cdots < x_n = b\}
+    \]
+
+    The \underline{\emph{Upper Darboux Sum}} $U(f,P)$ for $f$ w.r.t. $P$ is defined as\[
+        U(f,P) = \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})
+    \]
+
+    The \underline{\emph{Lower Darboux Sum}} $L(f,P)$ for $f$ w.r.t. $P$ is defined as\[
+        L(f,P) = \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})
+    \]
+\end{definition}
+
+\textbf{Solution:}
+Let $f: [1, 3] \to \R$ defined by \[
+    f(x) = 2x + 1
+\] and partition $P$ of $[1,3]$ defined as \[
+    \{1,1.5,2,3\}
+\]
+
+\begin{align*}
+    L(f,P) &= \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= \sum_{i=1}^{3} m(2 x + 1,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= m(2x + 1, [1, 1.5]) * (1.5 - 1)
+            + m(2x + 1, [1.5, 2]) * (2 - 1.5)
+            + m(2x + 1, [2, 3]) * (3 - 2)\\
+        &= 3 (0.5) 
+            + 4 (0.5)
+            + 5 (1)\\
+    \Aboxed{L(f,P) &= 8.5}
+\end{align*}
+
+\begin{align*}
+    U(f,P) &= \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= \sum_{i=1}^{3} M(2 x + 1,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= M(2x + 1, [1, 1.5]) * (1.5 - 1)
+            + M(2x + 1, [1.5, 2]) * (2 - 1.5)
+            + M(2x + 1, [2, 3]) * (3 - 2)\\
+        &= 4 (0.5) 
+            + 5 (0.5)
+            + 7 (1)\\
+    \Aboxed{L(f,P) &= 11.5}
+\end{align*}
+
+\begin{align*}
+    \Aboxed{U(f,p) - L(f,p) &= 11.5 - 8.5 = 3}
+\end{align*}
+
+\subsection{}
+\textbf{Problem:}
+What happens to the value of $U(f,P) - L(f,P)$?
+
+\textbf{Solution:} it gets smaller
+
+\textbf{Proof:} 
+\begin{align*}
+    L(f,P) &= \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= \sum_{i=1}^{4} m(2 x + 1,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= m(2x + 1, [1, 1.5]) * (1.5 - 1)
+            + m(2x + 1, [1.5, 2]) * (2 - 1.5)\\
+            &\quad+ m(2x + 1, [2, 2.5]) * (2.5 - 2)
+                + m(2x + 1, [2.5, 3]) * (3 - 2.5)\\
+        &= 3 (0.5) 
+            + 4 (0.5)
+            + 5 (0.5)
+            + 6 (0.5)\\
+    \Aboxed{L(f,P) &= 9}
+\end{align*}
+
+\begin{align*}
+    U(f,P) &= \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= \sum_{i=1}^{3} M(2 x + 1,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= M(2x + 1, [1, 1.5]) * (1.5 - 1)
+            + M(2x + 1, [1.5, 2]) * (2 - 1.5)\\
+            &\quad+ M(2x + 1, [2, 2.5]) * (2.5 - 2)
+                + M(2x + 1, [2.5, 3]) * (3 - 2.5)\\
+        &= 4 (0.5) 
+            + 5 (0.5)
+            + 6 (0.5)
+            + 7 (0.5)\\
+    \Aboxed{L(f,P) &= 11}
+\end{align*}
+
+\begin{align*}
+    \Aboxed{U(f,p) - L(f,p) &= 11 - 9 = 2}
+\end{align*}
+
+\newpage
+\subsection{}
+\textbf{Problem:}
+Find a partition $P'$ of $[1,3]$ for which $U(L,P') - L(f,P') < 2$
+
+\textbf{Solution:}
+Let \[
+    P' = \qty{1, 1.4, 1.8, 2.2, 2.6, 3}
+\]
+
+\begin{align*}
+    L(f,P') &= \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= \sum_{i=1}^{5} m(2 x + 1,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= m(2x + 1, [1, 1.4]) * (1.4 - 1)\\
+            &\quad  + m(2x  + 1, [1.4, 1.8]) * (1.8 - 1.4)\\
+            &\quad  + m(2x + 1, [1.8, 2.2]) * (2.2 - 1.8)\\
+            &\quad  + m(2x + 1, [2.2, 2.6]) * (2.6 - 2.2)\\
+            &\quad  + m(2x + 1, [2.6, 3]) * (3 - 2.6)\\
+        &= 3 (0.4) 
+            + 3.8 (0.4)
+            + 4.6 (0.4)
+            + 5.4 (0.4)
+            + 6.2 (0.4)\\
+    \Aboxed{L(f,P') &= 9.2}
+\end{align*}
+
+\begin{align*}
+    U(f,P') &= \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= \sum_{i=1}^{5} M(2 x + 1,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= M(2x + 1, [1, 1.4]) * (1.4 - 1)\\
+            &\quad  + M(2x  + 1, [1.4, 1.8]) * (1.8 - 1.4)\\
+            &\quad  + M(2x + 1, [1.8, 2.2]) * (2.2 - 1.8)\\
+            &\quad  + M(2x + 1, [2.2, 2.6]) * (2.6 - 2.2)\\
+            &\quad  + M(2x + 1, [2.6, 3]) * (3 - 2.6)\\
+        &= 3.8 (0.4) 
+            + 4.6 (0.4)
+            + 5.4 (0.4)
+            + 6.2 (0.4)
+            + 7 (0.4)\\
+    \Aboxed{U(f,P') &= 10.8}
+\end{align*}
+
+\begin{align*}
+    \Aboxed{U(f,p) - L(f,p) &= 10.8 - 9.2 = 1.6}
+\end{align*}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Future reader... I spent too long on this...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define \[
+%     P_n = \qty{\frac{2i}{n} + 1 \st i = 0, \dots, n}
+% \]
+
+% \begin{align*}
+%     U(f,P_n) &= \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+%         &= \sum_{i=1}^n M(2x + 1, [\frac{2i-2}{n} + 1, \frac{2i}{n} + 1]) 
+%             \cdot (\frac{2i}{n} + 1 - (\frac{2i-2}{n} + 1))\\
+% \intertext{since $f(x)$ is a monotopically increasing function, 
+%             $M(f,[x_{i-1},x_i]) = f(x_i)$}
+%         &= \sum_{i=1}^n (2*(\frac{2i}{n} + 1) + 2)* \frac{2}{n}\\
+%         &= \frac{2}{n} \sum_{i=1}^n \frac{4 i}{n} + 4\\
+%         &= \frac{8}{n} + \frac{4}{n^2} \sum_{i=1}^n i\\
+%         &= \frac{8}{n} + \frac{4}{n^2} \frac{n (n+1)}{2}\\
+%         &= \frac{8}{n} + \frac{4n (n+1)}{2n^2}\\
+%         &= \frac{8}{n} + \frac{2(n+1)}{n}\\
+%         &= \frac{8}{n} + \frac{2}{n} + 2\\
+%         &= 2 + \frac{8}{n}
+% \end{align*}
+
+% \begin{align*}
+%     L(f,P_n) &= \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+%         &= \sum_{i=1}^n m(2x + 1, [\frac{i-1}{n} + 1, \frac{i}{n} + 1]) 
+%             \cdot (\frac{i}{n} + 1 - (\frac{i-1}{n} + 1))\\
+% \intertext{since $f(x)$ is a monotopically increasing function, 
+%             $M(f,[x_{i-1},x_i]) = f(x_{i-1})$}
+%         &= \sum_{i=1}^n (2*(\frac{i-1}{n} + 1) + 1)* \frac{1}{n}\\
+%         &= \frac{1}{n} \sum_{i=1}^n \frac{2 i - 2}{n} + 3\\
+%         &= \frac{3}{n} + \frac{2}{n^2} \sum_{i=1}^n (i - 1)\\
+%         &= \frac{3}{n} - \frac{2n}{n^2} + \frac{2}{n^2} \sum_{i=1}^n i\\
+%         &= \frac{3}{n} - \frac{2}{n} + \frac{2n(n+1)}{2 n^2}\\
+%         &= \frac{1}{n} + \frac{n+1}{n}\\
+%         &= 1 + \frac{2}{n}
+% \end{align*}
+
+% \begin{align*}
+%     % \Aboxed{
+%         U(f,P_n) - L(f,P_n) 
+%             &= \qty(1 + \frac{4}{n}) - \qty(1 + \frac{2}{n})\\
+%             &= \frac{2}{n}
+%     % }
+% \end{align*}
+
+% Therefore, 
+
+
+
+
+% Problem 2
+\newpage
+\section{}
+Let \[
+    f(x) = \begin{cases}
+        x & \text{if $x$ is rational on $[0,1]$}\\
+        0 & \text{if $x$ is irrational on $[0,1]$}
+    \end{cases}
+\]
+
+\subsection{}
+\textbf{Problem:}
+Find the upper and lower Darboux integrals for $f$ on the interval $[0,1]$.
+
+\begin{definition}\label{def:darboux_int}
+    Define bounded function $f : [a,b] \to \R$ and set $S \subseteq [a,b]$.
+
+    Let $M(f,S) := \sup{f(x) \st x \in S}$ and $m(f,S) = \inf{f(x) \st x \in S}$
+
+    Let $U(f,P)$ and $L(f,P)$ for $f$ w.r.t. $P$ be defined by\[
+        U(f,P) = \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})
+    \] and \[
+        L(f,P) = \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})
+    \]
+
+    The \underline{\emph{Upper Darboux Integral}} $U(f)$ for $f$ over $[a,b]$ is defined as \[
+        U(f) = \inf\qty{U(f,P) \st P = \{a = x_0 < x_1 < \cdots < x_n = b\}}
+    \]
+
+    The \underline{\emph{Lower Darboux Integral}} $L(f)$ for $f$ over $[a,b]$ is defined as \[
+        L(f) = \sup\qty{L(f,P) \st P = \{a = x_0 < x_1 < \cdots < x_n = b\}}
+    \]
+
+\end{definition}
+
+\textbf{Solution:}
+Let $P_1 = {0,1}$,
+\begin{align*}
+    U(f,P_1) &= \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= M(f,[0,1]) * (1 - 0)\\
+        &= 1 * 1\\
+    U(f,P_1) &= 1
+\end{align*}
+\begin{align*}
+    L(f,P_1) &= \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= m(f,[0,1]) * (1 - 0)\\
+        &= 0 * 1\\
+    L(f,P_1) &= 0
+\end{align*}
+
+$U(f)$ is bounded by $U(f,P_1)$,\[
+    U(f) = \inf_{P}\qty{U(f,P)} \leq U(f, P_1) = 1
+\]
+Similarly, $L(f)$ is bounded by $L(f,P_1)$,\[
+    L(f) = \sup_{P}\qty{L(f,P)} \geq L(f, P_1) = 0
+\]
+
+Let $P_n = \qty{\frac{i}{n}, \forall_{i = 0,\dots,n}}$,
+\begin{align*}
+    U(f,P_n) &= \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= \sum_{i=1}^{n} M(f, [\frac{i-1}{n}, \frac{i}{n}]) * (\frac{i}{n} - \frac{i-1}{n})\\
+        &= \sum_{i=1}^{n} \frac{i}{n} * (\frac{1}{n})\\
+        &= \frac{1}{n^2} \sum_{i=1}^{n} i\\
+        &= \frac{1}{n^2} \frac{n(n+1)}{2}\\
+        &= \frac{n+1}{2n}\\
+    U(f,P_n) &= \frac{1}{2} + \frac{1}{2n}
+\end{align*}
+\begin{align*}
+    L(f,P_n) &= \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= \sum_{i=1}^{n} m(f, [\frac{i-1}{n}, \frac{i}{n}]) * (\frac{i}{n} - \frac{i-1}{n})\\
+        &= \sum_{i=1}^{n} 0 * (\frac{1}{n})\\
+    L(f,P_n) &= 0
+\end{align*}
+
+$U(f)$ is bounded by $U(f,P_n)$,\[
+    U(f) = \inf_{P} \qty{U(f,P)} \leq U(f,P_n) = \frac{1}{2} + \frac{1}{2n}
+\] which when taking $n$ to the limit results in \[
+    \boxed{U(f) \leq \lim_{n\to\infty} \frac{1}{2} + \frac{1}{2n} = \frac{1}{2}}
+\]
+
+$L(f)$ is bounded by $L(f,P_n)$,\[
+    L(f) = \sup_{P} \qty{L(f,P)} \geq L(f,P_n) = 0
+\]
+For $f$, the definitions of $L(f,P)$ and $m(f, [a,b])$ actually demonstrate that $L(f,P) = 0 \forall_{P}$. 
+The definition of $L(f)$ then implies\[
+    \boxed{L(f) = \sup_{P} \qty(L(f,P) = 0) = 0}
+\]
+
+\subsection{}
+\textbf{Problem:}
+Is $f$ integrable on $[0,1]$?
+
+\begin{definition}\label{def:darboux_integrable}
+    $f$ is \emph{\underline{Darboux Integrable}} on $[a,b]$ iff $L(f) = U(f)$.
+    i.e.\[
+        \int_{a}^{b} f = \int_{a}^{b} f(x) \dd x = L(f) = U(f)
+    \]
+\end{definition}
+
+\textbf{Answer:}
+No
+
+\textbf{Proof:}
+\[
+    L(f) = 0 \neq \frac{1}{2} = U(f)
+\]
+
+% Problem 3
+\newpage
+\section{}
+Let \[
+    f(x) = \begin{cases}
+        1 & \text{if $\exists_{n \in \N} \st x = \frac{1}{n}$}\\
+        0 & \text{otherwise}
+    \end{cases}
+\]
+Show that $f$ is integrable on $[0,1]$ and compute $\int_{0}^{1} f$.
+
+\textbf{Solution:}
+Let $P_n = \qty{\frac{i}{n}, \forall_{i = 0,\dots,n}}$,
+\begin{align*}
+    U(f,P_n) &= \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= \sum_{i=1}^{n} M(f, [\frac{i-1}{n}, \frac{i}{n}]) * (\frac{i}{n} - \frac{i-1}{n})\\
+        &= \frac{1}{n}\sum_{i=1}^{n} M(f, [\frac{i-1}{n}, \frac{i}{n}])\\
+    \intertext{
+        $M(f, [a,b])$ is 0 unless $\qty{\frac{1}{n} \st \exists_{n \in \N}} \cap [a,b] \neq \emptyset$
+    }
+        &= \frac{1}{n}\sum_{i=1}^{n} \begin{cases}
+                1 & \exists_{k \in \N} \st \frac{1}{k} \in [\frac{i-1}{n}, \frac{i}{n}]\\
+                0 & \text{otherwise}
+            \end{cases}
+\end{align*}
+
+As $n$ increases, fewer portions of the partition have $M(f,[x_{i-1},x_{i}]) = 1$.
+Since as $n$ increases, the size of each partition also gets smaller,\[
+    \lim_{n\to\infty} U(f,P_n) = 0
+\]
+Therefore, by definition, \[
+    \boxed{U(f) = \inf_{P} \qty{U(f,P)} = 0}
+\]
+
+\begin{align*}
+    L(f,P_n) &= \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+        &= \sum_{i=1}^{n} m(f, [\frac{i-1}{n}, \frac{i}{n}]) * (\frac{i}{n} - \frac{i-1}{n})\\
+        &= \sum_{i=1}^{n} 0 * (\frac{1}{n})\\
+    L(f,P_n) &= 0
+\end{align*}
+$L(f)$ is bounded by $L(f,P_n)$,\[
+    L(f) = \sup_{P} \qty{L(f,P)} \geq L(f,P_n) = 0
+\]
+% For $f$, the definitions of $L(f,P)$ and $m(f, [a,b])$ actually demonstrate that $L(f,P) = 0 \forall_{P}$. 
+The definition of $L(f)$ then implies\[
+    \boxed{L(f) = \sup_{P} \qty(L(f,P) = 0) = 0}
+\]
+
+\textbf{Answer:}
+$f$ is integrable on $[0,1]$ since $L(f) = U(f)$.
+
+The integral is given as: \[
+    \int_{0}^{1} f = L(f) = U(f) = 0
+\]
+
+% Problem 4
+\newpage
+\section{}
+\textbf{Problem:}
+Let $f$ be a bounded function on $[a,b]$. 
+Supposes there exist sequences $(U_n)$ and $(L_n)$ of upper and lower Darboux sums for $f$ such that $\lim_{n\to\infty} (U_n - L_n) = 0$.
+Show that $f$ is integrable and $\int_{a}^{b} f = \lim_{n\to\infty} U_n = \lim_{n\to\infty} L_n$.
+
+% \textbf{Solution:}
+% Let $f : [a,b] \to \R$ be bounded $(\exists_{M \in \R} \st \forall_{x \in [a,b]} f(x) < M)$. 
+
+% Let sequences $(U_n)$ and $(L_n)$ be defined as, \footnote{
+%     Making the assumption that $U_n$ and $L_n$ share the same partition for each element $n$, 
+%     which may restrict the generality, but likely does not effect the proof
+% } \[
+%     \{U_n \st U_n = U(f,P_n)\}
+% \] and \[
+%     \{L_n \st L_n = L(f,P_n)\}
+% \] so that \[
+%     \lim_{n\to\infty} (U_n - L_n) = 0
+% \]
+
+\begin{theorem}
+    For bounded function $f : [a,b] \to \R$, if \[
+        \exists_{(U_n),(L_n)} \st \lim_{n\to\infty} (U_n - L_n) = 0
+    \] then $f$ is integrable and \[
+        \int_{a}^{b} f = \lim_{n\to\infty} U_n = \lim_{n\to\infty} L_n
+    \]
+    \begin{proof}
+        By Definition \ref{def:darboux_integrable}, 
+        $f$ is integrable iff $L(f) = U(f)$.
+
+        Fundamentally this is proven by the squeeze theorem.
+        From Definition \ref{def:darboux_int}, \[
+            L(f,P_l) \leq L(f) = \int_{a}^{b} f = U(f) \leq U(f,P_u)
+        \] for all partitions of $[a,b]$, $P_l$ and $P_u$.
+
+        The convergence of Darboux sum sequences $U_n$ and $L_n$ to the same point, \[
+            \lim_{n\to\infty} (U_n - L_n) = 0
+        \] "squeezes" the Darboux integrals to the same point.
+
+        \begin{gather*}
+            L_n = L(f,P_n) \leq L(f) = \int_{a}^{b} f = U(f) \leq U(f,P_n) = U_n\\
+            \lim_{n\to\infty} \qty{
+                L_n \leq L(f) = U(f) \leq U_n
+            }
+        \intertext{Since $\lim_{n\to\infty} L_n = \lim_{n\to\infty} U_n$,}
+            \boxed{\lim_{n\to\infty} L_n = L(f) = \int_{a}^{b} f = U(f) = \lim_{n\to\infty}}
+        \end{gather*}
+        
+    \end{proof}
+\end{theorem}
+
+
+% Problem 5
+\newpage
+\section{}
+Let $f$ be integrable on $[a,b]$, and suppose $g$ is a function on $[a,b]$ such that $g(x) = f(x)$ except for finitely many $x$ in $[a,b]$.
+Show that $g$ is integrable and $\int_{a}^{b} f = \int_{a}^{b} g$.
+
+\begin{theorem}
+    For integrable function $f : [a,b] \to \R$ and $g : [a,b] \to \R$,\[
+        f(x) = g(x) \forall_{x \in [a,b] \backslash S}
+    \] where $S$ is finite, then 
+    \begin{enumerate}
+        \item $g$ is Darboux integrable
+        \item $\int_{a}^{b} f = \int_{a}^{b} g$
+    \end{enumerate} 
+    \begin{proof}
+        By Definition \ref{def:darboux_integrable}, $f$ is integrable iff $L(f) = U(f)$.
+        In addition, Definition \ref{def:darboux_int} implies \[
+            L(f,P_l) \leq L(f) = \int_{a}^{b} f = U(f) \leq U(f,P_u)
+        \] for all partitions of $[a,b]$, $P_l$ and $P_u$.
+
+        From Definition \ref{def:darboux_sum}, for partition $P = \{a = x_0 < \cdots < x_n = b\}$, \[
+            L(f,P) = \sum_{i=1}^{n} m(f, [x_{i-1},x_{i}]) \cdot (x_{i} - x_{i-1})
+        \] and \[
+            U(f,P) = \sum_{i=1}^{n} M(f, [x_{i-1},x_{i}]) \cdot (x_{i} - x_{i-1})
+        \]
+
+        When comparing the $L(f,P)$ to $L(g,p)$ or $U(f,P)$ to $U(g,P)$,
+        we can decompose the partition segment with any differences between $m(\cdot)$ and $M(\cdot)$.
+        \begin{align*}
+            L(g,P_n) &= \sum_{i=1}^{n} m(g, [x_{i-1},x_{i}]) \cdot (x_{i} - x_{i-1})\\
+                &= \sum_{i=1}^{n} \qty(m(f, [x_{i-1},x_{i}]) + \Delta_{i}) \cdot (x_{i} - x_{i-1})\\
+                &= L(f,P) + \sum_{i=1}^{n} \Delta_{i} \cdot (x_{i} - x_{i-1})\\
+        \intertext{Since $S$ is a finite set of points in which $f(x) \neq g(x)$,}
+            \lim_{n\to\infty} L(g,P_n) &= \lim_{n\to\infty} L(f,P_n) + \lim_{n\to\infty} \sum_{i=1}^{n} \Delta_{i} \cdot (x_{i} - x_{i-1})\\
+            \Aboxed{L(g) = \lim_{n\to\infty} L(g,P_n) &= \lim_{n\to\infty} L(f,P_n) + 0 = L(f)}
+        \end{align*}
+        \begin{align*}
+            LU(g,P_n) &= \sum_{i=1}^{n} M(g, [x_{i-1},x_{i}]) \cdot (x_{i} - x_{i-1})\\
+                &= \sum_{i=1}^{n} \qty(M(f, [x_{i-1},x_{i}]) + \Delta_{i}) \cdot (x_{i} - x_{i-1})\\
+                &= U(f,P) + \sum_{i=1}^{n} \Delta_{i} \cdot (x_{i} - x_{i-1})\\
+        \intertext{Since $S$ is a finite set of points in which $f(x) \neq g(x)$,}
+            \lim_{n\to\infty} U(g,P_n) &= \lim_{n\to\infty} U(f,P_n) + \lim_{n\to\infty} \sum_{i=1}^{n} \Delta_{i} \cdot (x_{i} - x_{i-1})\\
+            \Aboxed{U(g) = \lim_{n\to\infty} U(g,P_n) &= \lim_{n\to\infty} U(f,P_n) + 0 = U(f)}
+        \end{align*}
+
+        Since $L(g) = L(f)$, $U(g) = U(f)$, and $L(f) = \int_{a}^{b} f = U(f)$,\[
+            L(g) = L(f) = \int_{a}^{b} f = U(f) = U(g)
+        \]
+        These equivalences mean that $g$ is Darboux integrable since \[
+            \boxed{L(g) = \int_{a}^{b} g = U(g)}
+        \] and that \[
+            \boxed{\int_{a}^{b} f = \int_{a}^{b} g}
+        \]
+    \end{proof}
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
