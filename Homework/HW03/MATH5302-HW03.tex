@@ -67,7 +67,12 @@ Let\[
     \end{cases}
 \] Let $F(x) = \int_{0}^{x} f(t) \dd t$.
 
-\subsection{Find $F(x)$}
+% \subsubsection{Problem:}
+\begin{enumerate}
+    \item Find $F(x)$
+    \item Where is $F$ continuous?
+    \item Where is $F$ differentiable? Calculate $F'$ at the points of differentiability.
+\end{enumerate}
 
 \begin{definition}\label{def:int_improp_a_b}
     Let $f : [a,b) \to \R$ be integrable $\forall_[a,A] \subset [a,b)$.
@@ -82,7 +87,28 @@ Let\[
     \end{enumerate}
 \end{definition}
 
-\subsubsection{Solution:}
+\begin{definition}\label{def:cont_fun}
+    A function $f : (a,b) \to \R$ is continuous on $[a,b]$ if 
+    \[
+        \forall_{x\in (a,b)} \forall_{\epsilon>0} \exists_{\delta(x,\epsilon)>0} \forall_{y\in \R} \abs{y-x} < \epsilon \implies \abs{f(y)-f(x)} < \delta
+    \]
+\end{definition}
+
+\begin{definition}\label{def:diff_fun}
+    Let $f : (a,b) \to \R$ be a function.    
+    \begin{enumerate}
+        \item The \emph{\underline{derivative of the function at point $x_0$}} is defined as
+        \[
+            f'(x_0) := \lim_{x \to x_0} \cfrac{f(x) - f(x_0)}{x - x_0}
+        \]
+        \item If the derivative is defined at $x_0$, then it is \emph{\underline{differentiable at $x_0$}}.
+        \item If the derivative is defined for all $x_0 \in (a,b)$, then the function $f$ is said to be \emph{\underline{differentialble}}.
+        \item When $f$ is differentiable, the \underline{\emph{derivative}} of $f(x)$ is defined as:
+        \[
+            f'(x) := \lim_{h \to 0} \cfrac{f(x + h) - f(x)}{h}
+        \]
+    \end{enumerate}
+\end{definition}
 
 \begin{example}
     Let $f : \R \to \R$, be defined as\[
@@ -90,12 +116,14 @@ Let\[
             0 &t<0\\
             t &0 \leq t \leq 1\\
             4 &t>1\\
-        \end{cases}
-    \] Define the integral $F: \R^{+} \to \R$ is defined as\[
-        F(t) = \begin{cases}
+        \end{cases} 
+    \]
+    \subsection{Find $F(x)$}
+    Define the integral $F: \R^{+} \to \R$ is defined as\[
+        \boxed{F(t) = \begin{cases}
             \frac{1}{2} t^2 &0 \leq t \leq 1\\
             \frac{1}{2} + 4 (t - 1) &t>1\\
-        \end{cases}
+        \end{cases}}
     \]
     \begin{proof}
         For $0<t<1$,
@@ -120,8 +148,265 @@ Let\[
             F(t \to 1^{-}) = lim_{t\to 1^{1}} \frac{t^2}{2} = \frac{1}{2} = \lim_{t\to1^{+}} \frac{1}{2} + 4(t-1) = F(t \to 1^{+})
         \] %NOTE:  be sure to use thi as proof for part b...
     \end{proof}
+    \subsection{Where is $F$ continuous?}
+    $F(t)$ is continuous for the entire domain, $[0,\infty)$. i.e. \[
+        \forall_{x \in [0,\infty)} \forall_{\epsilon>0} \exists_{\delta(x,\epsilon) > 0} \st \forall_{y \in \R} \abs{y-x} < \epsilon \implies \abs{f(y) - f(x)} < \delta
+    \]
+    \begin{proof}
+        (not required by problem...)
+        Essentially, this is proven by demonstrating that \[
+            \lim_{t \to 1^{-}} F(t) = \lim_{t \to 1^{+}} F(t)
+        \]
+    \end{proof}
+
+    \subsection{Where is $F$ differentiable? Calculate $F'$ at the points of differentiability.}
+    $F(t)$ is differentiable in $(a,1) \cup (1,\infty)$ which excludes 2 points from the domain: 0 and 1.\[
+        F' = \begin{cases}
+            t & 0 < t < 1\\
+            4 & t > 1\\
+            \textbf{Undefined} & t \in \{0, 1\}
+        \end{cases}
+    \]
+    \begin{proof}
+        (not required by problem...)
+        Essentially, this is proven by demonstrating that \[
+            \forall_{x \in (a,1) \cup (1,\infty)} \lim_{t \to x^{-}} F'(t) \neq \lim_{t \to x^{+}} F'(t)
+        \] This is also true since on regions $(a,1)$ and $(1,\infty)$, $F(t)$ is smooth continuous which by definition implies differentiability.
+        However, this is not the case for the boundary, $x=1$:\[
+            \lim_{t \to 1^{-}} F'(t) \neq \lim_{t \to 1^{+}} F'(t)
+        \] which by definition means that $F(x)$ not differentiable at $x = 1$.
+    \end{proof}
+
 \end{example}
 
+% Problem 2 --------------------------
+\newpage
+\section{}
+Let $f$ be a continuous function on $\R$ and define\[
+    F(x) = \int_{0}^{\sin{x}} f(t) \dd{t}
+\] Show that F is differentiable on $\R$ and compute $F'$.
+
+\begin{theorem}\label{thm:FTC}
+    If $g$ is a continuous function on $[a,b]$ that is differentiable on $(a,b)$, and if $g'$ is integrable on $[a,b]$, then \[
+        \int_{a}^{b} g' = g(b) - g(a)
+    \]
+\end{theorem}
+
+\begin{theorem}\label{thm:int_by_parts}
+    If $u$ and $v$ are continuous function on $[a,b]$ that are differentiable on $(a,b)$, and if $u'$ and $v'$ are integrable on $[a,b]$, then \[
+        \int_{a}^{b} u(x) v'(x) \dd{x} + \int_{a}^{b} u'(x) v(x) \dd{x} = \int_{a}^{b} u(x) v(x) \dd{x} = u(b)v(b) - u(a) v(a)
+    \]
+\end{theorem}
+
+\begin{theorem}\label{thm:int_u_sub}
+    Let $u : J \to l$ be differentiable with $u'$ continuous.
+    If $f$ continuous on $l$, then $f \odot u$ is continuous on $J$ and \[
+        \int_{a}^{b} f \odot u(x) u'(x) \dd{x} = \int_{u(a)}^{u{b}} f(u) \dd{u}
+    \] for $a,b \in J$.
+\end{theorem}
+
+
+\begin{example}
+    Let\[
+        F(x) = \int_{0}^{\sin{x}} f(t) \dd{t}
+    \] where $f$ is some continuous function on $\R$.
+
+    \subsection{Show that F is differentiable on $\R$}
+    Let $u(x) = \sin{x}$. 
+    This definition results in $u'(x) = \cos{x}$. 
+    Applying Theorem \ref{thm:int_u_sub}, we have \[
+        u(a) = \sin{a} = 0 \implies a = 0
+    \] and \[
+        u(b) = \sin{b} = \sin{x} \implies b = x
+    \] which defines the necessary conditions for differentiability according to the theorem.
+    \subsection{Compute $F'$.}
+    Following,
+    \begin{align*}
+        F(x) &= \int_{0}^{\sin{x}} f(t) \dd{t}\\
+            &= \int_{u(a)}^{u(b)} f(t) \dd{t}\\
+            &= \int_{a}^{b} f(u(x)) u'(x) \dd{x}\\
+            &= \int_{0}^{x} f(\sin(x)) \cos(x) \dd{x}
+    \end{align*}
+    Therefore, by the Fundamental Theorem of Calculus (Theorem \ref{thm:FTC}), \[
+        \boxed{F'(x) = f(\sin(x)) \cos(x)}
+    \]
+\end{example}
+
+% Problem 3 ----------------------------
+\newpage
+\section{}
+Let\[
+    F(x) = \begin{cases}
+        x^2 \sin(\frac{1}{x^2}) & \text{if } 0 < x \leq 1;\\
+        0 & \text{if } x = 0.
+    \end{cases}
+\]
+\begin{enumerate}
+    \item Show that $F$ has a derivative at every $x\in [0,1]$.
+    \item Show that $F'$ is not Riemann Integrable on $[0,1]$. (So F is not the integral of its derivative.)
+\end{enumerate}
+
+\begin{definition}\label{def:darboux_int}
+    Define bounded function $f : [a,b] \to \R$ and set $S \subseteq [a,b]$.
+    Let $M(f,S) := \sup{f(x) \st x \in S}$ and $m(f,S) = \inf{f(x) \st x \in S}$
+    Let $U(f,P)$ and $L(f,P)$ for $f$ w.r.t. $P$ be defined by\[
+        U(f,P) = \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})
+    \] and \[
+        L(f,P) = \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})
+    \]
+    The \underline{\emph{Upper Darboux Integral}} $U(f)$ for $f$ over $[a,b]$ is defined as \[
+        U(f) = \inf\qty{U(f,P) \st P = \{a = x_0 < x_1 < \cdots < x_n = b\}}
+    \]
+    The \underline{\emph{Lower Darboux Integral}} $L(f)$ for $f$ over $[a,b]$ is defined as \[
+        L(f) = \sup\qty{L(f,P) \st P = \{a = x_0 < x_1 < \cdots < x_n = b\}}
+    \]
+\end{definition}
+
+\begin{definition}\label{def:darboux_integrable}
+    $f$ is \emph{\underline{Darboux Integrable}} on $[a,b]$ iff $L(f) = U(f)$.
+    i.e.\[
+        \int_{a}^{b} f = \int_{a}^{b} f(x) \dd x = L(f) = U(f)
+    \]
+\end{definition}
+
+
+\begin{example}
+    Let $F : [0,1] \to \R$ be defined as\[
+        F(x) = \begin{cases}
+            x^2 \sin(\frac{1}{x^2}) & x \in (0,1]\\
+            0 & x = 0;
+        \end{cases}
+    \]
+    \subsection{Show that $F$ has a derivative at every $x\in [0,1]$.}
+    From Definition \ref{def:diff_fun}, the derivative of $f$ at point $x_0$, $f'(x_0)$ is defined as:\[
+        f'(x_0) := \lim_{x \to x_0} \cfrac{f(x) - f(x_0)}{x - x_0}
+        = \lim_{h \to 0} \cfrac{f(x_0+h) - f(x_0)}{h}
+    \]
+    The derivative $F'(x_0)$ is defined $\forall_{x_0 \in [0,1]}$.
+    \begin{proof}
+        For $x_0 \in (0,1)$,\begin{align*}
+            F'(x_0) 
+                &= \lim_{x \to x_0} \cfrac{
+                    x^2 \sin(\frac{1}{x^2}) - \qty(x_0)^2 \sin(\frac{1}{x_0^2})
+                }{x - x_0}\\
+            F'(x)
+                &= \lim_{h \to 0} \cfrac{
+                    \qty(x+h)^2 \sin(\frac{1}{(x+h)^2}) - \qty(x)^2 \sin(\frac{1}{x^2})
+                }{h}\\
+                &= \lim_{h \to 0} \cfrac{
+                    \qty(x^2 + 2 xh + h^2) \sin(\frac{1}{(x+h)^2}) - \qty(x)^2 \sin(\frac{1}{x^2})
+                }{h}\\
+                &= \lim_{h \to 0} \cfrac{
+                    \qty(x)^2 \qty(\sin(\frac{1}{(x+h)^2}) - \sin(\frac{1}{x^2})) + (2 xh + h^2) \sin(\frac{1}{(x+h)^2})
+                }{h}\\
+                &= \lim_{h \to 0} \cfrac{x^2 \qty(\sin(\frac{1}{(x+h)^2}) - \sin(\frac{1}{x^2}))}{h}\\
+                    &\qquad + \lim_{h \to 0} \cfrac{h^2 \sin(\frac{1}{(x+h)^2})}{h}\\
+                    &\qquad + \lim_{h \to 0} \cfrac{2 x h \sin(\frac{1}{(x+h)^2})}{h}\\
+                &= x^2 \lim_{h \to 0} \cfrac{\sin(\frac{1}{x+h}^2) - \sin(\sin{1}{x^2})}{h}
+                    + 0 + \lim_{h \to 0} 2 x \sin(\frac{1}{(x+h)^2})\\
+                &= 2 x \sin(\frac{1}{x^2}) + x^2 \dv{\sin(\frac{1}{x^2})}\\
+                &= 2 x \sin(\frac{1}{x^2}) + x^2 \qty(-2\frac{1}{x^3} \cos(\frac{1}{x^2}))\\
+            F'(x)
+                &= 2 x \sin(\frac{1}{x^2}) - 2 \frac{1}{x} \cos(\frac{1}{x^2})
+        \end{align*}
+        Which means that $F(x)$ is differentiable $\forall_{x_0 \in (0,1)}$.
+
+        This result can be expanded to the closed interval by taking the limit of $F(x)$ to the boundaries which also exist; therefore, $F(x)$ is differentiable $\forall_{x_0 \in [0,1]}$.
+    \end{proof}
+    \subsection{Show that $F'$ is not Riemann Integrable on $[0,1]$. (So F is not the integral of its derivative.)}
+    \textbf{Note:}
+    Stating $F'$ is not Riemann Integrable is equivalent to saying $F'$ is not Darboux Integrable.
+
+    % We have \[
+    %     F'(x) := 2 x \sin(\frac{1}{x^2}) - 2 \frac{1}{x} \cos(\frac{1}{x^2})
+    % \] defined over $[0,1]$.
+
+    % Let $P_n = \qty{\frac{i}{n}, \forall_{i = 0,\dots,n}}$,
+    % \begin{align*}
+    %     U(F'P_n) &= \sum_{i=1}^{n} M(F'[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+    %         &= \sum_{i=1}^{n} M(F' [\frac{i-1}{n}, \frac{i}{n}]) * (\frac{i}{n} - \frac{i-1}{n})\\
+    %         &= \frac{1}{n}\sum_{i=1}^{n} M(F' [\frac{i-1}{n}, \frac{i}{n}])\\
+    %     \intertext{
+    %         $M(F' [a,b])$ is 0 unless $\qty{\frac{1}{n} \st \exists_{n \in \N}} \cap [a,b] \neq \emptyset$
+    %     }
+    %         &= \frac{1}{n}\sum_{i=1}^{n} \begin{cases}
+    %                 1 & \exists_{k \in \N} \st \frac{1}{k} \in [\frac{i-1}{n}, \frac{i}{n}]\\
+    %                 0 & \text{otherwise}
+    %             \end{cases}
+    % \end{align*}
+    
+    % As $n$ increases, fewer portions of the partition have $M(F'[x_{i-1},x_{i}]) = 1$.
+    % Since as $n$ increases, the size of each partition also gets smaller,\[
+    %     \lim_{n\to\infty} U(F'P_n) = 0
+    % \]
+    % Therefore, by definition, \[
+    %     \boxed{U(f) = \inf_{P} \qty{U(F'P)} = 0}
+    % \]
+    
+    % \begin{align*}
+    %     L(F'P_n) &= \sum_{i=1}^{n} m(F'[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
+    %         &= \sum_{i=1}^{n} m(F' [\frac{i-1}{n}, \frac{i}{n}]) * (\frac{i}{n} - \frac{i-1}{n})\\
+    %         &= \sum_{i=1}^{n} 0 * (\frac{1}{n})\\
+    %     L(F'P_n) &= 0
+    % \end{align*}
+    % $L(f)$ is bounded by $L(F'P_n)$,\[
+    %     L(f) = \sup_{P} \qty{L(F'P)} \geq L(F'P_n) = 0
+    % \]
+    % % For $f$, the definitions of $L(F'P)$ and $m(F' [a,b])$ actually demonstrate that $L(F'P) = 0 \forall_{P}$. 
+    % The definition of $L(f)$ then implies\[
+    %     \boxed{L(f) = \sup_{P} \qty(L(F'P) = 0) = 0}
+    % \]
+
+
+
+
+
+\end{example}
+
+
+% Include Cauchy Criteria stuff...
+
+
+% Problem 4 ------------------------
+\newpage
+\section{}
+Show that for each $p > 0$, $\int_{1}^{\infty} \frac{\sin(x)}{x^p} \dd{x}$ converges.
+Hint: For 0<p<1, you may find it helpful to use integration by parts.
+
+\begin{theorem}
+    For all $p>0$, the integral \[
+        \int_{1}^{\infty} \cfrac{\sin(x)}{x^p}
+    \] converges.
+    \begin{proof}
+        First, letting $p = 1$, 
+    \end{proof}
+\end{theorem}
+
+
+
+% Include Cauchy Criteria stuff...
+
+
+
+
+
+
+
+% Problem 5 ------------------------
+\newpage
+\section{}
+Consider $\int_{1}^{\infty} \frac{x^p}{1 + x^q}$.
+\begin{enumerate}
+    \item For what values of p and q are the integral convergent?
+    \item For what values of p and q are the integral absolutely convergent?
+\end{enumerate}
+
+\begin{example}
+    Define the integral\[
+        \int_{1}^{\infty} \frac{x^p}{1 + x^q}
+    \]
+
+\end{example}
 
 
 \end{document}
