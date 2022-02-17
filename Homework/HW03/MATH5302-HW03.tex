@@ -1,0 +1,127 @@
+% Standard Article Definition
+\documentclass[]{article}
+
+% Page Formatting
+\usepackage[margin=1in]{geometry}
+\setlength\parindent{0pt}
+
+% Graphics
+\usepackage{graphicx}
+
+% Math Packages
+\usepackage{physics}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{mathtools}
+
+% Extra Packages
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Section Heading Settings
+\usepackage{enumitem}
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand*{\thesection}{Problem \arabic{section}}
+\renewcommand*{\thesubsection}{\alph{subsection})}
+\renewcommand*{\thesubsubsection}{}%\quad \quad \roman{subsubsection})}
+
+%Custom Commands
+\newcommand{\Rel}{\mathcal{R}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\toI}{\xrightarrow{\textsf{\tiny I}}}
+\newcommand{\toS}{\xrightarrow{\textsf{\tiny S}}}
+\newcommand{\toB}{\xrightarrow{\textsf{\tiny B}}}
+
+\newcommand{\divisible}{ \ \vdots \ }
+\newcommand{\st}{\ : \ }
+
+% Theorem Definition
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+
+
+%opening
+\title{MATH 5302 Elementary Analysis II - Homework 2}
+\author{Jonas Wagner}
+\date{2022, Febuary 9\textsuperscript{th}}
+
+\begin{document}
+
+\maketitle
+
+% Problem 1 ----------------------------------------------
+\section{}
+Let\[
+    f(t) = \begin{cases}
+        0 &\text{if } t<0\\
+        t &\text{if } 0 \leq t \leq 1\\
+        4 &\text{if } t>1\\
+    \end{cases}
+\] Let $F(x) = \int_{0}^{x} f(t) \dd t$.
+
+\subsection{Find $F(x)$}
+
+\begin{definition}\label{def:int_improp_a_b}
+    Let $f : [a,b) \to \R$ be integrable $\forall_[a,A] \subset [a,b)$.
+    If \[
+        \lim_{\epsilon\to 0^{+}} \int_{a}^{b-\epsilon} f(x) \dd{x}
+    \] exists, then \[
+        \int_{a}^{b} f(x) \dd{x} = \lim_{\epsilon\to 0^{+}} \int_{a}^{b-\epsilon} f(x) \dd{x}
+    \] is an \underline{\emph{improper integral}} from $a$ to $b$.
+    \begin{enumerate}
+        \item If $\int_{a}^{b} f(x) \dd{x}$ is finite, then the \emph{\underline{improper integral converges}}.
+        \item Otherwise $\int_{a}^{b} f(x) \dd{x}$ diverges, and thus the \emph{\underline{improper integral diverges}}.
+    \end{enumerate}
+\end{definition}
+
+\subsubsection{Solution:}
+
+\begin{example}
+    Let $f : \R \to \R$, be defined as\[
+        f(t) = \begin{cases}
+            0 &t<0\\
+            t &0 \leq t \leq 1\\
+            4 &t>1\\
+        \end{cases}
+    \] Define the integral $F: \R^{+} \to \R$ is defined as\[
+        F(t) = \begin{cases}
+            \frac{1}{2} t^2 &0 \leq t \leq 1\\
+            \frac{1}{2} + 4 (t - 1) &t>1\\
+        \end{cases}
+    \]
+    \begin{proof}
+        For $0<t<1$,
+        \begin{align*}
+            F(t) &= \int_{0}^{t} f(x) \dd{x}\\
+                &= \int_{0}^{t} x \dd{x}\\
+            \intertext{which is monotopically increasing, therefore:}
+                &= \eval{\frac{1}{2} x^2}_{0}^{t}\\
+                &= \frac{1}{2} t^2 - 0\\
+                &= \frac{t^2}{2}
+        \end{align*}
+        For $t>1$,
+        \begin{align*}
+            F(t) &= \int_{0}^{t} f(x) \dd{x}\\
+                &= \int_{0}^{1} x \dd{x} + \int_{1}^{t} 4 \dd{x}\\
+                &= \eval{\frac{1}{2} x^2}_{0}^{1} + \eval{4 x}_{1}^{t}\\
+                &= \frac{1^2}{2} - 0 + 4(t) - 4(1)\\
+                &= \frac{1}{2} + 4(t - 1)
+        \end{align*}
+        For $t=1$ and $t\geq 1$, $1\in [0,t)$ is a discontinuity within $f$; 
+        however, $F$ remains continuous but not differentiable at the discontinuity point.\[
+            F(t \to 1^{-}) = lim_{t\to 1^{1}} \frac{t^2}{2} = \frac{1}{2} = \lim_{t\to1^{+}} \frac{1}{2} + 4(t-1) = F(t \to 1^{+})
+        \] %NOTE:  be sure to use thi as proof for part b...
+    \end{proof}
+\end{example}
+
+
+
+\end{document}
