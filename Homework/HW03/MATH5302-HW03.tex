@@ -314,50 +314,8 @@ Let\[
         This result can be expanded to the closed interval by taking the limit of $F(x)$ to the boundaries which also exist; therefore, $F(x)$ is differentiable $\forall_{x_0 \in [0,1]}$.
     \end{proof}
     \subsection{Show that $F'$ is not Riemann Integrable on $[0,1]$. (So F is not the integral of its derivative.)}
-    \textbf{Note:}
-    Stating $F'$ is not Riemann Integrable is equivalent to saying $F'$ is not Darboux Integrable.
-
-    % We have \[
-    %     F'(x) := 2 x \sin(\frac{1}{x^2}) - 2 \frac{1}{x} \cos(\frac{1}{x^2})
-    % \] defined over $[0,1]$.
-
-    % Let $P_n = \qty{\frac{i}{n}, \forall_{i = 0,\dots,n}}$,
-    % \begin{align*}
-    %     U(F'P_n) &= \sum_{i=1}^{n} M(F'[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
-    %         &= \sum_{i=1}^{n} M(F' [\frac{i-1}{n}, \frac{i}{n}]) * (\frac{i}{n} - \frac{i-1}{n})\\
-    %         &= \frac{1}{n}\sum_{i=1}^{n} M(F' [\frac{i-1}{n}, \frac{i}{n}])\\
-    %     \intertext{
-    %         $M(F' [a,b])$ is 0 unless $\qty{\frac{1}{n} \st \exists_{n \in \N}} \cap [a,b] \neq \emptyset$
-    %     }
-    %         &= \frac{1}{n}\sum_{i=1}^{n} \begin{cases}
-    %                 1 & \exists_{k \in \N} \st \frac{1}{k} \in [\frac{i-1}{n}, \frac{i}{n}]\\
-    %                 0 & \text{otherwise}
-    %             \end{cases}
-    % \end{align*}
-    
-    % As $n$ increases, fewer portions of the partition have $M(F'[x_{i-1},x_{i}]) = 1$.
-    % Since as $n$ increases, the size of each partition also gets smaller,\[
-    %     \lim_{n\to\infty} U(F'P_n) = 0
-    % \]
-    % Therefore, by definition, \[
-    %     \boxed{U(f) = \inf_{P} \qty{U(F'P)} = 0}
-    % \]
-    
-    % \begin{align*}
-    %     L(F'P_n) &= \sum_{i=1}^{n} m(F'[x_{i-1},x_i]) \cdot (x_i - x_{i-1})\\
-    %         &= \sum_{i=1}^{n} m(F' [\frac{i-1}{n}, \frac{i}{n}]) * (\frac{i}{n} - \frac{i-1}{n})\\
-    %         &= \sum_{i=1}^{n} 0 * (\frac{1}{n})\\
-    %     L(F'P_n) &= 0
-    % \end{align*}
-    % $L(f)$ is bounded by $L(F'P_n)$,\[
-    %     L(f) = \sup_{P} \qty{L(F'P)} \geq L(F'P_n) = 0
-    % \]
-    % % For $f$, the definitions of $L(F'P)$ and $m(F' [a,b])$ actually demonstrate that $L(F'P) = 0 \forall_{P}$. 
-    % The definition of $L(f)$ then implies\[
-    %     \boxed{L(f) = \sup_{P} \qty(L(F'P) = 0) = 0}
-    % \]
-
-
+    % \textbf{Note:}
+    % Stating $F'$ is not Riemann Integrable is equivalent to saying $F'$ is not Darboux Integrable.
 
 
 
@@ -371,14 +329,40 @@ Let\[
 \newpage
 \section{}
 Show that for each $p > 0$, $\int_{1}^{\infty} \frac{\sin(x)}{x^p} \dd{x}$ converges.
-Hint: For 0<p<1, you may find it helpful to use integration by parts.
+Hint: For $0<p<1$, you may find it helpful to use integration by parts.
+
+\begin{definition}
+    Let $f : [a,\infty) \to \R$ be a function that is integrable over $[a,A] \subset [a,\infty]$.
+    If the limit\[
+        \lim_{A\to \infty} \int_{a}^{A} f(x) \dd{x}
+    \] exists then the \emph{\underline{improper integral from $a \to \infty$}} is denoted as \[
+        \int_{a}^{\infty} f(x) \dd{x} = \lim_{A\to \infty} \int_{a}^{A} f(x) \dd{x}
+    \]
+    \begin{enumerate}
+        \item If $\int_{a}^{\infty} f(x) \dd{a}$ is finite, then it is called \emph{\underline{converging}}.
+        \item If $\int_{a}^{\infty} f(x) \dd{a}$ is not finite, then it is called \emph{\underline{diverging}}.
+        \item This definition implies for $f : (-\infty, a] \to \R$ and \[
+            \int_{a}^{\infty} f(x) \dd{x} = \lim_{A\to \infty} \int_{a}^{A} f(x) \dd{x}
+        \]
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    Let $f:(-\infty,\infty) \to \R$ be a function which is integrable on $\forall [A,B] \subset (-\infty,\infty)$.
+    If 
+\end{definition}
+
+
+
+
+
 
 \begin{theorem}
     For all $p>0$, the integral \[
         \int_{1}^{\infty} \cfrac{\sin(x)}{x^p}
     \] converges.
     \begin{proof}
-        First, letting $p = 1$, 
+        First, letting $p \geq 1$, 
     \end{proof}
 \end{theorem}
 
