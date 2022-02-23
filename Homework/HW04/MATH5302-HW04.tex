@@ -63,7 +63,7 @@ Show that\[
     B(\alpha,\beta) = \int_0^1 x^{\alpha-1} (1-x)^{\beta-1} \dd{x}
 \] is well-defined for $\alpha > 0$ and $\beta > 0$.
 
-\begin{definition}
+\begin{definition} \label{def:well_defined}
     The improper integral \[
         \int_{0}^{a} f(x) \dd{x}
     \] is \emph{\underline{well-defined}} iff\[
@@ -71,8 +71,14 @@ Show that\[
     \] exists.
 \end{definition}
 
-\begin{definition}
-    The beta function $B(\alpha, \beta)$ is defined as \[
+\begin{definition} \label{def:gamma_fun}
+    The \underline{\emph{gamma function}} $\Gamma(\alpha)$ is defined as \[
+        \Gamma(\alpha) = \int_{0}^{\infty} e^{-x} x^{\alpha - 1} \dd{x}
+    \] for $0 < \alpha < \infty$.
+\end{definition}
+
+\begin{definition} \label{def:beta_fun}
+    The \underline{\emph{beta function}} $B(\alpha, \beta)$ is defined as \[
         B(\alpha,\beta) = \int_0^1 x^{\alpha-1} (1-x)^{\beta-1} \dd{x}
             = \cfrac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}
     \] for $\alpha>0$ and $\beta>0$.
@@ -172,7 +178,7 @@ Show that $f$ if Riemann integrable on $[a,b]$, then \[
     \lim_{\epsilon\to 0^{+}} \int_{a}^{b - \epsilon} f(x) \dd{x} = \int_{a}^{b} f(x) \dd{x}
 \]
 
-
+% insert definitions... seems like it follows directly from defs of reimann and improper integrals...
 
 
 
@@ -183,9 +189,20 @@ Show that $f$ if Riemann integrable on $[a,b]$, then \[
 % Problem 3 -------------------------------------------
 \newpage
 \section{}
-Evaluate $\int_0^1 (1-x^{\frac{2}{3}})^{\frac{3}{2}} \dd{x}$.
+Evaluate $\int_{0}^{1} (1-x^{\frac{2}{3}})^{\frac{3}{2}} \dd{x}$.
 Hint: Express the integral in terms of the gamma function first.
 
+\begin{example}
+    Let \[
+        F(x) = \int_{0}^{1} (1-x^{\frac{2}{3}})^{\frac{3}{2}} \dd{x}
+    \]
+
+    \begin{align*}
+        ???
+    \end{align*}
+
+
+\end{example}
 
 
 
@@ -200,6 +217,102 @@ Let \[
     \end{cases}
 \] Show that $f$ is bounded and continuous on $[0,1]$, but not of bounded variation on $[0,1]$.
 
+
+% Bounded Function
+\begin{definition} \label{def:bounded_fun}
+    $f : (a,b) \to \R$ is a \emph{\underline{bounded function}} iff \[
+        \exists_{N \in \R} \st \forall_{x \in (a,b)} \abs{f(x)} < N
+    \]
+\end{definition}
+
+\begin{definition} \label{def:cont_fun}
+    $f: (S_1, d_1) \to (S_2, d_2)$ is a \underline{\emph{continuous function}} iff \[
+        \forall_{x\in S_1} \forall_{\epsilon>0} \exists_{\delta(x,\epsilon)>0} \forall_{y\in S_1} : d_1(x,y) < \delta \implies d_2(f(x),f(y)) < \epsilon
+    \]
+\end{definition} \label{def:partition_variation}
+    For function $f: [a,b] \to \R$ and partition $P = \qty{a = x_0 < x_1 < \cdots < x_n = b}$:
+    \begin{enumerate}
+        \item the \emph{\underline{variaton of $f$ over $P$}} is defined as\[
+            V_{a}^{b}(f,P) = \sum_{i=1}^{n} \abs{f(x_i) - f(x_{i-1})}
+        \]
+        \item the \emph{\underline{variaton of $f$ from $a$ to $b$}} is defined as\[
+            V_{a}^{b}(f) = \sup_{P} V_{a}^{b}(f,P)
+        \]
+        \item $f$ is considered of \emph{\underline{bounded variation}} on $[a,b]$ if $V_{a}^{b}(f)$ is finite.
+        \item the \emph{\underline{family of functions of bounded variaton on $[a,b]$}} is denoted as $BV_{a}^{b}$.
+    \end{enumerate}
+\begin{definition}
+    
+\end{definition}
+
+\begin{example}
+    Let \[
+        f(x) = \begin{cases}
+            x \sin(\frac{1}{x}) & 0 < x \leq 1\\
+            0 & x = 0
+        \end{cases}
+    \] 
+    \subsection{$f(x)$ is bounded}
+    \begin{proof}
+        For $x \in \{0\}$, $f(x) = 0$. 
+        For $x \in (0,1]$, \[
+            f(x) = x \sin(\frac{1}{x}) \leq x (1) \leq 1
+        \] which is bounded. 
+        Therefore, $f(x)$ is bounded $\forall_{x \in [0,1]}$.
+    \end{proof}
+
+    \subsection{$f(x)$ is continuous}
+    \begin{proof}
+        For $x \in \{0\}$, $f(x) = 0$.
+        This means that \[
+            \lim_{x \to 0^{-}} f(x) = 0
+        \]
+        
+        For $x \in (0,1]$, \[
+            f(x) = x \sin(\frac{1}{x})
+        \] which is continuous on $(0,1]$.
+        Additionally, this results in \[
+            \lim_{x\to 0^{+}} f(x) = \lim_{x\to 0^{+}} x \sin(\frac{1}{x}) = 0
+        \]
+        Therefore, $f(x)$ is continuous $\forall_{x \in [0,1]}$.
+    \end{proof}
+
+    \subsection{$f(x)$ is not of bounded variation on $[0,1]$.}
+    \begin{proof}
+        In order for $f$ to be of bounded variation on $[a,b]$, the variation \[
+            V_{a}^{b}(f) = \sup_{P} V_{a}^{b} (f,P)
+        \] must be finite. 
+        The existence of this bound can be demonstrated with the following counter-example:
+        Let \[
+            \qty{a}_k := \qty{a_k = (2 k + 1) \frac{\pi}{2} \forall_{k = 0, \dots, N-1}}
+        \] For size $N$, define partition of $[0,1]$ \[
+            P_N = \qty{
+                0 = x_0 = 0 < x_1 = \frac{1}{a_{N-1}} < x_2 = \frac{1}{a_{N-2}} 
+                < \cdots < x_{n-1} = \frac{1}{a_0} < x_{n} = 1
+            }
+        \] which can be used to construct a sequence, but that's not the point.
+
+        The variation $V_{a}^{b}(f, P_N)$ is finite only for bounded $N$. 
+        i.e. $\exists_{0 < M_N < \infty}$ that bounds the variation $V_{a}^{b}(f,P_N)$ for a given $N$:
+        \begin{align*}
+            V_{a}^{b}(f, P_N) 
+                &= \sum_{i=1}^{N} \abs{f(x_i) - f(x_i-1)}\\
+                &= \abs{\frac{1}{a_{N-1}} \sin(a_{N-1})} 
+                    + \sum_{i=2}^{N} \abs{
+                        \frac{1}{a_{N-i}} \sin(a_{N-i}) - \frac{1}{a_{N-i-1}} \sin(a_{N-i-1})
+                    }\\
+                &= \abs{\frac{1}{a_{N-1}}} 
+                    + \sum_{i=1}^{N} 
+                        \abs{\frac{1}{a_{N-i}} - \frac{1}{a_{N-i-1}}} 
+                        \abs{(1) - (-1)}\footnote{or $\abs{-1 - 1}$}\\
+                &= \abs{\frac{1}{a_{N-1}}} 
+                    + 2 \sum_{i=1}^{N} \abs{\frac{a_{N-i} - a_{N-i-1}}{a_{N-i} a_{N-i-1}}}
+        \end{align*}
+
+        However, this variation over $[a,b]$ is since the sum does not converge as $N \to \infty$.
+    \end{proof}
+
+\end{example}
 
 
 
