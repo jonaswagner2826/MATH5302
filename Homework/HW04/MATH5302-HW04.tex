@@ -59,307 +59,36 @@
 
 % Problem 1 ----------------------------------------------
 \section{}
-Let\[
-    f(t) = \begin{cases}
-        0 &\text{if } t<0\\
-        t &\text{if } 0 \leq t \leq 1\\
-        4 &\text{if } t>1\\
-    \end{cases}
-\] Let $F(x) = \int_{0}^{x} f(t) \dd t$.
-
-% \subsubsection{Problem:}
-\begin{enumerate}
-    \item Find $F(x)$
-    \item Where is $F$ continuous?
-    \item Where is $F$ differentiable? Calculate $F'$ at the points of differentiability.
-\end{enumerate}
-
-\begin{definition}\label{def:int_improp_a_b}
-    Let $f : [a,b) \to \R$ be integrable $\forall_[a,A] \subset [a,b)$.
-    If \[
-        \lim_{\epsilon\to 0^{+}} \int_{a}^{b-\epsilon} f(x) \dd{x}
-    \] exists, then \[
-        \int_{a}^{b} f(x) \dd{x} = \lim_{\epsilon\to 0^{+}} \int_{a}^{b-\epsilon} f(x) \dd{x}
-    \] is an \underline{\emph{improper integral}} from $a$ to $b$.
-    \begin{enumerate}
-        \item If $\int_{a}^{b} f(x) \dd{x}$ is finite, then the \emph{\underline{improper integral converges}}.
-        \item Otherwise $\int_{a}^{b} f(x) \dd{x}$ diverges, and thus the \emph{\underline{improper integral diverges}}.
-    \end{enumerate}
-\end{definition}
-
-\begin{definition}\label{def:cont_fun}
-    A function $f : (a,b) \to \R$ is continuous on $[a,b]$ if 
-    \[
-        \forall_{x\in (a,b)} \forall_{\epsilon>0} \exists_{\delta(x,\epsilon)>0} \forall_{y\in \R} \abs{y-x} < \epsilon \implies \abs{f(y)-f(x)} < \delta
-    \]
-\end{definition}
-
-\begin{definition}\label{def:diff_fun}
-    Let $f : (a,b) \to \R$ be a function.    
-    \begin{enumerate}
-        \item The \emph{\underline{derivative of the function at point $x_0$}} is defined as
-        \[
-            f'(x_0) := \lim_{x \to x_0} \cfrac{f(x) - f(x_0)}{x - x_0}
-        \]
-        \item If the derivative is defined at $x_0$, then it is \emph{\underline{differentiable at $x_0$}}.
-        \item If the derivative is defined for all $x_0 \in (a,b)$, then the function $f$ is said to be \emph{\underline{differentialble}}.
-        \item When $f$ is differentiable, the \underline{\emph{derivative}} of $f(x)$ is defined as:
-        \[
-            f'(x) := \lim_{h \to 0} \cfrac{f(x + h) - f(x)}{h}
-        \]
-    \end{enumerate}
-\end{definition}
-
-\begin{example}
-    Let $f : \R \to \R$, be defined as\[
-        f(t) = \begin{cases}
-            0 &t<0\\
-            t &0 \leq t \leq 1\\
-            4 &t>1\\
-        \end{cases} 
-    \]
-    \subsection{Find $F(x)$}
-    Define the integral $F: \R^{+} \to \R$ is defined as\[
-        \boxed{F(t) = \begin{cases}
-            \frac{1}{2} t^2 &0 \leq t \leq 1\\
-            \frac{1}{2} + 4 (t - 1) &t>1\\
-        \end{cases}}
-    \]
-    \begin{proof}
-        For $0<t<1$,
-        \begin{align*}
-            F(t) &= \int_{0}^{t} f(x) \dd{x}\\
-                &= \int_{0}^{t} x \dd{x}\\
-            \intertext{which is monotopically increasing, therefore:}
-                &= \eval{\frac{1}{2} x^2}_{0}^{t}\\
-                &= \frac{1}{2} t^2 - 0\\
-                &= \frac{t^2}{2}
-        \end{align*}
-        For $t>1$,
-        \begin{align*}
-            F(t) &= \int_{0}^{t} f(x) \dd{x}\\
-                &= \int_{0}^{1} x \dd{x} + \int_{1}^{t} 4 \dd{x}\\
-                &= \eval{\frac{1}{2} x^2}_{0}^{1} + \eval{4 x}_{1}^{t}\\
-                &= \frac{1^2}{2} - 0 + 4(t) - 4(1)\\
-                &= \frac{1}{2} + 4(t - 1)
-        \end{align*}
-        For $t=1$ and $t\geq 1$, $1\in [0,t)$ is a discontinuity within $f$; 
-        however, $F$ remains continuous but not differentiable at the discontinuity point.\[
-            F(t \to 1^{-}) = lim_{t\to 1^{1}} \frac{t^2}{2} = \frac{1}{2} = \lim_{t\to1^{+}} \frac{1}{2} + 4(t-1) = F(t \to 1^{+})
-        \] %NOTE:  be sure to use thi as proof for part b...
-    \end{proof}
-    \subsection{Where is $F$ continuous?}
-    $F(t)$ is continuous for the entire domain, $[0,\infty)$. i.e. \[
-        \forall_{x \in [0,\infty)} \forall_{\epsilon>0} \exists_{\delta(x,\epsilon) > 0} \st \forall_{y \in \R} \abs{y-x} < \epsilon \implies \abs{f(y) - f(x)} < \delta
-    \]
-    \begin{proof}
-        (not required by problem...)
-        Essentially, this is proven by demonstrating that \[
-            \lim_{t \to 1^{-}} F(t) = \lim_{t \to 1^{+}} F(t)
-        \]
-    \end{proof}
-
-    \subsection{Where is $F$ differentiable? Calculate $F'$ at the points of differentiability.}
-    $F(t)$ is differentiable in $(a,1) \cup (1,\infty)$ which excludes 2 points from the domain: 0 and 1.\[
-        F' = \begin{cases}
-            t & 0 < t < 1\\
-            4 & t > 1\\
-            \textbf{Undefined} & t \in \{0, 1\}
-        \end{cases}
-    \]
-    \begin{proof}
-        (not required by problem...)
-        Essentially, this is proven by demonstrating that \[
-            \forall_{x \in (a,1) \cup (1,\infty)} \lim_{t \to x^{-}} F'(t) \neq \lim_{t \to x^{+}} F'(t)
-        \] This is also true since on regions $(a,1)$ and $(1,\infty)$, $F(t)$ is smooth continuous which by definition implies differentiability.
-        However, this is not the case for the boundary, $x=1$:\[
-            \lim_{t \to 1^{-}} F'(t) \neq \lim_{t \to 1^{+}} F'(t)
-        \] which by definition means that $F(x)$ not differentiable at $x = 1$.
-    \end{proof}
-
-\end{example}
-
-% Problem 2 --------------------------
-\newpage
-\section{}
-Let $f$ be a continuous function on $\R$ and define\[
-    F(x) = \int_{0}^{\sin{x}} f(t) \dd{t}
-\] Show that F is differentiable on $\R$ and compute $F'$.
-
-\begin{theorem}\label{thm:FTC}
-    If $g$ is a continuous function on $[a,b]$ that is differentiable on $(a,b)$, and if $g'$ is integrable on $[a,b]$, then \[
-        \int_{a}^{b} g' = g(b) - g(a)
-    \]
-\end{theorem}
-
-\begin{theorem}\label{thm:int_by_parts}
-    If $u$ and $v$ are continuous function on $[a,b]$ that are differentiable on $(a,b)$, and if $u'$ and $v'$ are integrable on $[a,b]$, then \[
-        \int_{a}^{b} u(x) v'(x) \dd{x} + \int_{a}^{b} u'(x) v(x) \dd{x} = \int_{a}^{b} u(x) v(x) \dd{x} = u(b)v(b) - u(a) v(a)
-    \]
-\end{theorem}
-
-\begin{theorem}\label{thm:int_u_sub}
-    Let $u : J \to l$ be differentiable with $u'$ continuous.
-    If $f$ continuous on $l$, then $f \odot u$ is continuous on $J$ and \[
-        \int_{a}^{b} f \odot u(x) u'(x) \dd{x} = \int_{u(a)}^{u{b}} f(u) \dd{u}
-    \] for $a,b \in J$.
-\end{theorem}
-
-
-\begin{example}
-    Let\[
-        F(x) = \int_{0}^{\sin{x}} f(t) \dd{t}
-    \] where $f$ is some continuous function on $\R$.
-
-    \subsection{Show that F is differentiable on $\R$}
-    Let $u(x) = \sin{x}$. 
-    This definition results in $u'(x) = \cos{x}$. 
-    Applying Theorem \ref{thm:int_u_sub}, we have \[
-        u(a) = \sin{a} = 0 \implies a = 0
-    \] and \[
-        u(b) = \sin{b} = \sin{x} \implies b = x
-    \] which defines the necessary conditions for differentiability according to the theorem.
-    \subsection{Compute $F'$.}
-    Following,
-    \begin{align*}
-        F(x) &= \int_{0}^{\sin{x}} f(t) \dd{t}\\
-            &= \int_{u(a)}^{u(b)} f(t) \dd{t}\\
-            &= \int_{a}^{b} f(u(x)) u'(x) \dd{x}\\
-            &= \int_{0}^{x} f(\sin(x)) \cos(x) \dd{x}
-    \end{align*}
-    Therefore, by the Fundamental Theorem of Calculus (Theorem \ref{thm:FTC}), \[
-        \boxed{F'(x) = f(\sin(x)) \cos(x)}
-    \]
-\end{example}
-
-% Problem 3 ----------------------------
-\newpage
-\section{}
-Let\[
-    F(x) = \begin{cases}
-        x^2 \sin(\frac{1}{x^2}) & \text{if } 0 < x \leq 1;\\
-        0 & \text{if } x = 0.
-    \end{cases}
-\]
-\begin{enumerate}
-    \item Show that $F$ has a derivative at every $x\in [0,1]$.
-    \item Show that $F'$ is not Riemann Integrable on $[0,1]$. (So F is not the integral of its derivative.)
-\end{enumerate}
-
-% \begin{definition}\label{def:darboux_int}
-%     Define bounded function $f : [a,b] \to \R$ and set $S \subseteq [a,b]$.
-%     Let $M(f,S) := \sup{f(x) \st x \in S}$ and $m(f,S) = \inf{f(x) \st x \in S}$
-%     Let $U(f,P)$ and $L(f,P)$ for $f$ w.r.t. $P$ be defined by\[
-%         U(f,P) = \sum_{i=1}^{n} M(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})
-%     \] and \[
-%         L(f,P) = \sum_{i=1}^{n} m(f,[x_{i-1},x_i]) \cdot (x_i - x_{i-1})
-%     \]
-%     The \underline{\emph{Upper Darboux Integral}} $U(f)$ for $f$ over $[a,b]$ is defined as \[
-%         U(f) = \inf\qty{U(f,P) \st P = \{a = x_0 < x_1 < \cdots < x_n = b\}}
-%     \]
-%     The \underline{\emph{Lower Darboux Integral}} $L(f)$ for $f$ over $[a,b]$ is defined as \[
-%         L(f) = \sup\qty{L(f,P) \st P = \{a = x_0 < x_1 < \cdots < x_n = b\}}
-%     \]
-% \end{definition}
-
-% \begin{definition}\label{def:darboux_integrable}
-%     $f$ is \emph{\underline{Darboux Integrable}} on $[a,b]$ iff $L(f) = U(f)$.
-%     i.e.\[
-%         \int_{a}^{b} f = \int_{a}^{b} f(x) \dd x = L(f) = U(f)
-%     \]
-% \end{definition}
-
-
-\begin{example}
-    Let $F : [0,1] \to \R$ be defined as\[
-        F(x) = \begin{cases}
-            x^2 \sin(\frac{1}{x^2}) & x \in (0,1]\\
-            0 & x = 0;
-        \end{cases}
-    \]
-    \subsection{Show that $F$ has a derivative at every $x\in [0,1]$.}
-    From Definition \ref{def:diff_fun}, the derivative of $f$ at point $x_0$, $f'(x_0)$ is defined as:\[
-        f'(x_0) := \lim_{x \to x_0} \cfrac{f(x) - f(x_0)}{x - x_0}
-        = \lim_{h \to 0} \cfrac{f(x_0+h) - f(x_0)}{h}
-    \]
-    The derivative $F'(x_0)$ is defined $\forall_{x_0 \in [0,1]}$.
-    \begin{proof}
-        For $x_0 \in (0,1)$,\begin{align*}
-            F'(x_0) 
-                &= \lim_{x \to x_0} \cfrac{
-                    x^2 \sin(\frac{1}{x^2}) - \qty(x_0)^2 \sin(\frac{1}{x_0^2})
-                }{x - x_0}\\
-            F'(x)
-                &= \lim_{h \to 0} \cfrac{
-                    \qty(x+h)^2 \sin(\frac{1}{(x+h)^2}) - \qty(x)^2 \sin(\frac{1}{x^2})
-                }{h}\\
-                &= \lim_{h \to 0} \cfrac{
-                    \qty(x^2 + 2 xh + h^2) \sin(\frac{1}{(x+h)^2}) - \qty(x)^2 \sin(\frac{1}{x^2})
-                }{h}\\
-                &= \lim_{h \to 0} \cfrac{
-                    \qty(x)^2 \qty(\sin(\frac{1}{(x+h)^2}) - \sin(\frac{1}{x^2})) + (2 xh + h^2) \sin(\frac{1}{(x+h)^2})
-                }{h}\\
-                &= \lim_{h \to 0} \cfrac{x^2 \qty(\sin(\frac{1}{(x+h)^2}) - \sin(\frac{1}{x^2}))}{h}\\
-                    &\qquad + \lim_{h \to 0} \cfrac{h^2 \sin(\frac{1}{(x+h)^2})}{h}\\
-                    &\qquad + \lim_{h \to 0} \cfrac{2 x h \sin(\frac{1}{(x+h)^2})}{h}\\
-                &= x^2 \lim_{h \to 0} \cfrac{\sin(\frac{1}{x+h}^2) - \sin(\sin{1}{x^2})}{h}
-                    + 0 + \lim_{h \to 0} 2 x \sin(\frac{1}{(x+h)^2})\\
-                &= 2 x \sin(\frac{1}{x^2}) + x^2 \dv{\sin(\frac{1}{x^2})}\\
-                &= 2 x \sin(\frac{1}{x^2}) + x^2 \qty(-2\frac{1}{x^3} \cos(\frac{1}{x^2}))\\
-            F'(x)
-                &= 2 x \sin(\frac{1}{x^2}) - 2 \frac{1}{x} \cos(\frac{1}{x^2})
-        \end{align*}
-        Which means that $F(x)$ is differentiable $\forall_{x_0 \in (0,1)}$.
-
-        This result can be expanded to the closed interval by taking the limit of $F(x)$ to the boundaries which also exist; therefore, $F(x)$ is differentiable $\forall_{x_0 \in [0,1]}$.
-    \end{proof}    
-\end{example}
-
-
-% Include Cauchy Criteria stuff...
-
-
-% Problem 4 ------------------------
-\newpage
-\section{}
-Show that for each $p > 0$, $\int_{1}^{\infty} \frac{\sin(x)}{x^p} \dd{x}$ converges.
-Hint: For $0<p<1$, you may find it helpful to use integration by parts.
+Show that\[
+    B(\alpha,\beta) = \int_0^1 x^{\alpha-1} (1-x)^{\beta-1} \dd{x}
+\] is well-defined for $\alpha > 0$ and $\beta > 0$.
 
 \begin{definition}
-    Let $f : [a,\infty) \to \R$ be a function that is integrable over $[a,A] \subset [a,\infty]$.
-    If the limit\[
-        \lim_{A\to \infty} \int_{a}^{A} f(x) \dd{x}
-    \] exists then the \emph{\underline{improper integral from $a \to \infty$}} is denoted as \[
-        \int_{a}^{\infty} f(x) \dd{x} = \lim_{A\to \infty} \int_{a}^{A} f(x) \dd{x}
-    \]
-    \begin{enumerate}
-        \item If $\int_{a}^{\infty} f(x) \dd{a}$ is finite, then it is called \emph{\underline{converging}}.
-        \item If $\int_{a}^{\infty} f(x) \dd{a}$ is not finite, then it is called \emph{\underline{diverging}}.
-        \item This definition implies for $f : (-\infty, a] \to \R$ and \[
-            \int_{a}^{\infty} f(x) \dd{x} = \lim_{A\to \infty} \int_{a}^{A} f(x) \dd{x}
-        \]
-    \end{enumerate}
+    The improper integral \[
+        \int_{0}^{a} f(x) \dd{x}
+    \] is \emph{\underline{well-defined}} iff\[
+        \lim_{\epsilon \to 0} \int_{0}^{a} f(x) \dd{x}
+    \] exists.
 \end{definition}
 
 \begin{definition}
-    Let $f:(-\infty,\infty) \to \R$ be a function which is integrable on $\forall [A,B] \subset (-\infty,\infty)$.
-    If for some $a \in (-\infty, \infty)$ there exists $\int_{-\infty}^{a} f(x) \dd{x}$ and $\int_{a}^{\infty} f(x) dd{x}$ converges, then \[
-        \int_{-\infty}^{\infty} f(x) \dd{x} 
-        = \int_{-\infty}^{a} f(x) \dd{x}
-        + \int_{a}^{\infty} f(x) dd{x}
-    \] converges.
+    The beta function $B(\alpha, \beta)$ is defined as \[
+        B(\alpha,\beta) = \int_0^1 x^{\alpha-1} (1-x)^{\beta-1} \dd{x}
+            = \cfrac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}
+    \] for $\alpha>0$ and $\beta>0$.
 \end{definition}
 
-\begin{theorem}\label{thm:comp_test}
-    \textbf{Comparison Test:}
-    Let $f,g:[a,b) \to \R$ be two functions such that 
-    (i) $f(x)$ and $g(x)$ are integrable on $[a,A]\subset[a,b)$, for $a<A<b$;
-    (ii) There exists $a < M < b$ such that $0\leq f(x) \leq g(x)$ forall $x \in [M,b)$.
-    Then,\begin{enumerate}
-        \item If $\int_a^b g(x) \dd{x}$ converges then $\int_a^b f(x) \dd{x}$ also converges;
-        \item If $\int_a^b f(x) \dd{x}$ diverges then $\int_a^b f(x) \dd{x}$ also diverges.
-    \end{enumerate}
-\end{theorem}
+
+% \begin{theorem}\label{thm:comp_test}
+%     \textbf{Comparison Test:}
+%     Let $f,g:[a,b) \to \R$ be two functions such that 
+%     (i) $f(x)$ and $g(x)$ are integrable on $[a,A]\subset[a,b)$, for $a<A<b$;
+%     (ii) There exists $a < M < b$ such that $0\leq f(x) \leq g(x)$ forall $x \in [M,b)$.
+%     Then,\begin{enumerate}
+%         \item If $\int_a^b g(x) \dd{x}$ converges then $\int_a^b f(x) \dd{x}$ also converges;
+%         \item If $\int_a^b f(x) \dd{x}$ diverges then $\int_a^b f(x) \dd{x}$ also diverges.
+%     \end{enumerate}
+% \end{theorem}
 
 \begin{theorem}\label{thm:limit_comp_test}
     \textbf{Limit Comparison Test:}
@@ -383,53 +112,109 @@ Hint: For $0<p<1$, you may find it helpful to use integration by parts.
 %     \]
 % \end{theorem}
 
-
-\subsection{Solution:}
 \begin{theorem}
-    For all $p>0$, the integral \[
-        \int_{1}^{\infty} \cfrac{\sin(x)}{x^p} \dd{x}
-    \] converges.
+    The improper integral that defines the beta function \[
+        B(\alpha,\beta) = \int_0^1 x^{\alpha-1} (1-x)^{\beta-1} \dd{x}
+    \] is well-defined for $\alpha > 0$ and $\beta > 0$. 
     \begin{proof}
-        By integration by parts we have\begin{align*}
-            \int_{1}^{\infty} \cfrac{\sin(x)}{x^p} \dd{x}
-                &= \int_{1}^{\infty} \sin(x) \cfrac{1}{x^p} \dd{x}\\
-                &= \eval{\frac{-\cos(x)}{x^p}}_{0}^{\infty} - p \int_{0}^{\infty} \frac{cos(x)}{x^{p+1}} \dd{x}
+        The integrand of $B(\alpha,\beta)$, \[
+            b(\alpha,\beta) = x^{\alpha-1} (1-x)^{\beta - 1}
+        \] is not strictly bounded $\forall_{\alpha,\beta>0}$, but this is not necessary for convergence. 
+        $\forall{\alpha,\beta \in [0,\infty)}$ the $b(\alpha,\beta)$ is bounded. 
+        This makes $B(\alpha,\beta)$ a proper integral which is therefore convergent.
+
+        In the other case the integrand is not bounded, but the improper integral still converges. 
+        $\forall_{\alpha \in (0,1)}$ then $b(\alpha,\beta)$ is unbounded at $x = 0$.
+        Similarly, $\forall_{\beta \in (0,1)}$ then $b(\alpha,\beta)$ is unbounded at $x = 1$.        
+
+        The beta function can instead be split up into two parts:\[
+            B(\alpha,\beta) 
+                = \int_{0}^{c} x^{\alpha-1} (1-x)^{\beta-1} \dd{x}
+                + \int_{c}^{1} x^{\alpha-1} (1-x)^{\beta-1} \dd{x}
+        \] where $c \in (0,1)$.
+
+        For the first improper integral, $\int_{0}^{c} x^{\alpha-1} (1-x)^{\beta-1} \dd{x}$
+        a discontinuity exists at $x = 0$ for $\alpha \in (0,1)$. 
+        Using the Limit Comparison Test from Theorem \ref{thm:limit_comp_test} with $g(x) = x^{\alpha - 1}$, 
+        \begin{align*}
+            \lim_{x\to 0^{+}} \frac{f(x)}{g(x)} 
+                &= \lim_{x\to 0^{+}} \frac{x^{\alpha-1} (1-x)^{\beta-1}}{x^{\alpha - 1}}\\
+                &= \lim_{x\to 0^{+}} (1-x)^{\beta-1}\\
+                &= 1 \neq 0
         \end{align*}
-        The demonstration of convergence can be done with the by extending the upper limit up to infinity:\[
-            \lim_{L\to \infty} \int_{1}^{L} \frac{\sin(x)}{x^p}
-            = \lim_{L\to \infty} \eval{\frac{-\cos(x)}{x^p}}_{1}^{L} - p \int_{1}^{L} \frac{\cos(x)}{x^{p+1}} \dd{x}
-        \]
-        Since $\abs{\frac{\cos(x)}{x^{p+1}}} \leq \abs{\frac{1}{x^{p+1}}}$ $\forall_{x \geq 1}$, we can use the Comparison test (Theorem \ref{thm:comp_test}) to conclude that $\int_1^{L}\frac{\cos(x)}{x^{p+1}} < \int_1^{L} \frac{1}{x^{p+1}}$.
-        Further, since $\int_1^{\infty} \frac{1}{x^{p+1}}$ converges $\forall_{p+1 > 1}$, this portion converges $\forall_{p > 0}$.
-        Therefore, $\lim_{L\to \infty} \int_{1}^{L} \frac{\sin(x)}{x^p}$ converges since $\lim_{L\to \infty} \eval{\frac{-\cos(x)}{x^p}}_{1}^{L}$ is finite and $\lim_{L\to\infty} \int_1^{L}\frac{\cos(x)}{x^{p+1}}$ converges.
+        Which then implies that $\int_{0}^{c} x^{\alpha-1} (1-x)^{\beta-1} \dd{x}$ 
+        converges $\forall_{\alpha,\beta > 0}$.
+
+        For the second improper integral, $\int_{c}^{1} x^{\alpha-1} (1-x)^{\beta-1} \dd{x}$
+        a discontinuity exists at $x = 1$ for $\beta \in (0,1)$. 
+        Using the Limit Comparison Test from Theorem \ref{thm:limit_comp_test} with $g(x) = (1-x)^{\beta - 1}$, 
+        \begin{align*}
+            \lim_{x\to 1^{-}} \frac{f(x)}{g(x)} 
+                &= \lim_{x\to 1^{-}} \frac{x^{\alpha-1} (1-x)^{\beta-1}}{(1-x)^{\beta - 1}}\\
+                &= \lim_{x\to 1^{-}} x^{\alpha - 1}\\
+                &= 1 \neq 0
+        \end{align*}
+        Which then implies that $\int_{c}^{1} x^{\alpha-1} (1-x)^{\beta-1} \dd{x}$ 
+        converges $\forall_{\alpha,\beta > 0}$.
+
+        Together, the convergence of $\int_{0}^{c} x^{\alpha-1} (1-x)^{\beta-1} \dd{x}$ 
+        and $\int_{c}^{1} x^{\alpha-1} (1-x)^{\beta-1} \dd{x}$ 
+        implies that $B(\alpha,\beta)$ converges $\forall_{\alpha,\beta>0}$ and therefore $B(\alpha,\beta)$ is well defined.
     \end{proof}
 \end{theorem}
 
 
 
-% Include Cauchy Criteria stuff...
-
-
-
-
-
-
-
-% Problem 5 ------------------------
+% Problem 2 -------------------------------------------
 \newpage
 \section{}
-Consider $\int_{1}^{\infty} \frac{x^p}{1 + x^q}$.
-\begin{enumerate}
-    \item For what values of p and q are the integral convergent?
-    \item For what values of p and q are the integral absolutely convergent?
-\end{enumerate}
+Show that $f$ if Riemann integrable on $[a,b]$, then \[
+    \lim_{\epsilon\to 0^{+}} \int_{a}^{b - \epsilon} f(x) \dd{x} = \int_{a}^{b} f(x) \dd{x}
+\]
 
-\begin{example}
-    Define the integral\[
-        \int_{1}^{\infty} \frac{x^p}{1 + x^q}
-    \]
-    
-\end{example}
+
+
+
+
+
+
+
+
+% Problem 3 -------------------------------------------
+\newpage
+\section{}
+Evaluate $\int_0^1 (1-x^{\frac{2}{3}})^{\frac{3}{2}} \dd{x}$.
+Hint: Express the integral in terms of the gamma function first.
+
+
+
+
+
+% Problem 4 -------------------------------------------
+\newpage
+\section{}
+Let \[
+    f(x) = \begin{cases}
+        x \sin(\frac{1}{x}) &\text{if } 0<x \leq 1;\\
+        0 &\text{if } x = 0
+    \end{cases}
+\] Show that $f$ is bounded and continuous on $[0,1]$, but not of bounded variation on $[0,1]$.
+
+
+
+
+
+% Problem 5 -------------------------------------------
+\newpage
+\section{}
+Assume $f$ is differentiable on $[a,b]$ with $\abs{f'(x)} \leq M < \infty$ for $a\leq x\leq b$.
+Show that $f$ is of bounded variation and $V_a^b (f) \leq M(b-a)$.
+(Hint: Use Mean Value Theorem)
+
+
+
+
+
 
 
 \end{document}
