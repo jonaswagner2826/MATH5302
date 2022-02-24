@@ -1,9 +1,9 @@
 # Fdb version 3
-["pdflatex"] 1645632620 "c:/Users/Jonas/OneDrive - The University of Texas at Dallas/2022_Spring/MATH5302/Homework/HW04/MATH5302-HW04.tex" "MATH5302-HW04.pdf" "MATH5302-HW04" 1645632863
-  "MATH5302-HW04.aux" 1645632623 1993 0df7208552e3723c9f6de0808b6ad01f "pdflatex"
-  "MATH5302-HW04.out" 1645632623 772 627ba8d7f6e59f8f3b6a300bf9956aed "pdflatex"
-  "MATH5302-HW04.tex" 1645632861 12533 73bb6b8c0bb4595e161353afd8cd932a ""
-  "c:/Users/Jonas/OneDrive - The University of Texas at Dallas/2022_Spring/MATH5302/Homework/HW04/MATH5302-HW04.tex" 1645632861 12533 73bb6b8c0bb4595e161353afd8cd932a ""
+["pdflatex"] 1645705392 "c:/Users/Jonas/OneDrive - The University of Texas at Dallas/2022_Spring/MATH5302/Homework/HW04/MATH5302-HW04.tex" "MATH5302-HW04.pdf" "MATH5302-HW04" 1645705395
+  "MATH5302-HW04.aux" 1645705394 2085 1f557034bd3daded2eb3b9b5740e315b "pdflatex"
+  "MATH5302-HW04.out" 1645705394 772 627ba8d7f6e59f8f3b6a300bf9956aed "pdflatex"
+  "MATH5302-HW04.tex" 1645705391 18971 5a2d0d6bb73637e1db5b591582e8bed0 ""
+  "c:/Users/Jonas/OneDrive - The University of Texas at Dallas/2022_Spring/MATH5302/Homework/HW04/MATH5302-HW04.tex" 1645705391 18971 5a2d0d6bb73637e1db5b591582e8bed0 ""
   "c:/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1630536755 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1630534826 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1630534826 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -28,6 +28,7 @@
   "c:/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1630535722 1116 933a60c408fc0a863a92debe84b2d294 ""
   "c:/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1630535722 1120 8b7d695260f3cff42e636090a8002094 ""
   "c:/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1630535722 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
+  "c:/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmti7.tfm" 1630535722 1492 86331993fe614793f5e7e755835c31c5 ""
   "c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1630534826 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1630534826 32080 340ef9bf63678554ee606688e7b5339d ""
   "c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb" 1630534826 36554 b67dc2cfa451409e100b3fcf5f506509 ""
@@ -46,6 +47,7 @@
   "c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1630534826 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
   "c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1630534826 32716 08e384dc442464e7285e891af9f45947 ""
   "c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1630534826 37944 359e864bd06cde3b1cf57bb20757fb06 ""
+  "c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb" 1630534826 36607 d654cb3f2bc54f57509240071db3bffa ""
   "c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1630534826 34694 870c211f62cb72718a00e353f14f254d ""
   "c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb" 1630534826 35309 940e81a5b9e04201a07e8b33a3ae6e64 ""
   "c:/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1630538310 71627 94eb9990bed73c364d7f53f960cc8c5b ""
@@ -118,6 +120,6 @@
   "c:/texlive/2021/texmf.cnf" 1630540902 713 e69b156964470283e0530f5060668171 ""
   (generated)
   "MATH5302-HW04.pdf"
-  "MATH5302-HW04.aux"
   "MATH5302-HW04.out"
+  "MATH5302-HW04.aux"
   "MATH5302-HW04.log"

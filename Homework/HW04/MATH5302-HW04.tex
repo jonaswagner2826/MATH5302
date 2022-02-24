@@ -169,8 +169,6 @@ Show that\[
     \end{proof}
 \end{theorem}
 
-
-
 % Problem 2 -------------------------------------------
 \newpage
 \section{}
@@ -178,13 +176,49 @@ Show that $f$ if Riemann integrable on $[a,b]$, then \[
     \lim_{\epsilon\to 0^{+}} \int_{a}^{b - \epsilon} f(x) \dd{x} = \int_{a}^{b} f(x) \dd{x}
 \]
 
-% insert definitions... seems like it follows directly from defs of reimann and improper integrals...
+\begin{definition}\label{def:Riemann_int}
+    Let $f: [a,b] \to \R$ be bounded on $[a,b]$.
+    \begin{enumerate}
+        \item A \emph{\underline{Partition}} of $[a,b]$ is any ordered $P \subset [a,b]$ given as \[
+            P = \qty{a = x_0 < x_1 < \cdots < x_n < b}
+        \]
+        \item A \emph{\underline{Mesh}} of partition $P$, $\text{mesh}(P)$, is the maximum length of the subintervals in $P$. 
+        (i.e) For $P  = \qty{a = x_0 < x_1 < \cdots < x_n < b}$,\[
+            \text{mesh}(P) = \max[\qty{x_{i} - x_{i-1} \st i = 1, 2, \dots, n}]
+        \]
+        \item A \emph{\underline{Riemann Sum}} of $f$ associated with partition $P$, $S(f,P)$, is the sum defined as \[
+            \sum_{i=1}^{n} f(x_i^{*}) (x_i - x_{i-1})
+        \] where the specific $x_{i}^{*} \in [x_{i-1}, x_{i}]$ is arbitrary.
+        \item $f$ is considered \emph{\underline{Riemann Integrable}} on $[a,b]$ if\[
+            \exists_{r} \forall_{\epsilon>0} \exists_{\delta>0} 
+            \st \forall_{S(f,P) \st \text{mesh}(P) < \delta} \implies \abs{S(f,P) - r} < \epsilon
+        \] where the number $r$ is considered the \emph{\underline{Riemann Integral}} of $f$ on $[a,b]$, $\mathcal{R}\int_{a}^{b} f$.
+    \end{enumerate}
+\end{definition}
 
-
-
-
-
-
+\begin{theorem}
+    Let $f : [a,b] \to \R$.
+    $f$ being Riemann integrable on $[a,b]$ implies that \[
+        \lim_{\epsilon\to 0^{+}} \int_{a}^{b - \epsilon} f(x) \dd{x} = \int_{a}^{b} f(x) \dd{x}
+    \]
+    \begin{proof}
+        By the definition of a function being Riemann Integrable, Definition \ref{def:Riemann_int}, it is known that $f$ must be bounded.
+        From this fact, the limit described will always exists and an asymptote at the boundary would not be a concern.
+        Using the construction of Riemann sum itself, 
+        \begin{align*}
+            \lim_{\epsilon\to 0^{+}} \int_{a}^{b - \epsilon} f(x) \dd{x} 
+                &= \lim_{\epsilon \to 0^{+}} r \st \forall_{P = \qty{a = x_0 < x_1 < \cdots < x_n < b - \epsilon}}
+                \forall_{\epsilon_0>0} \exists_{\delta>0} 
+                \st \forall_{S(f,P) \st \text{mesh}(P) < \delta} \implies \abs{S(f,P) - r} < \epsilon_0\\
+                &= r \st \forall_{P = \qty{a = x_0 < x_1 < \cdots < x_n < b}} \forall_{\epsilon_0>0} \exists_{\delta>0} 
+                \st \forall_{S(f,P) \st \text{mesh}(P) < \delta} \implies \abs{S(f,P) - r} < \epsilon_0\\
+            \Aboxed{
+                \lim_{\epsilon\to 0^{+}} \int_{a}^{b - \epsilon} f(x) \dd{x} 
+                    &= \mathcal{R} \int_a^b f = \int_{a}^{b} f(x) \dd{x}
+            }
+        \end{align*}
+    \end{proof}
+\end{theorem}
 
 % Problem 3 -------------------------------------------
 \newpage
@@ -195,16 +229,55 @@ Hint: Express the integral in terms of the gamma function first.
 \begin{example}
     Let \[
         F(x) = \int_{0}^{1} (1-x^{\frac{2}{3}})^{\frac{3}{2}} \dd{x}
+    \] This can be simplified using u-substitution.
+    Let \[
+        u = x^{\frac{2}{3}}
+    \] then \[
+        \dd{u} = \frac{2}{3} x^{-\frac{1}{3}} \dd{x}
+    \] and \[
+        \dd{x} = \frac{3}{2} x^{\frac{1}{3}} \dd{u}
     \]
-
+    The bounds are found as \[
+        0 = u(a) = a^{\frac{2}{3}} \implies a = 0^{\frac{3}{2}} = 0
+    \] and \[
+        1 = u(b) = b^{\frac{2}{3}} \implies b = 1^{\frac{3}{2}} = 1
+    \]
+    
     \begin{align*}
-        ???
+        F(x) 
+            &= \int_{0}^{1} \qty(1 - x^{\frac{2}{3}} )^{\frac{3}{2}} 
+                        \qty(\frac{3}{2} x^{\frac{1}{3}} \dd{u})\\
+            &= \frac{3}{2} \int_{0}^{1} \qty(1 - u)^{\frac{3}{2}} u^{\frac{1}{2}} \dd{u}\\
+            &= \frac{3}{2} \int_{0}^{1} u^{\frac{3}{2}-1} \qty(1 - u)^{\frac{5}{2}-1}  \dd{u}\\
+        \intertext{which is of the form of the beta function as defined in Definition \ref{def:beta_fun}}
+            &= \frac{3}{2} B(\frac{3}{2}, \frac{5}{2})\\
+            &= \frac{3}{2} \cfrac{
+                                        \Gamma(\frac{3}{2})\Gamma(\frac{5}{2})
+                                    }{
+                                        \Gamma(\frac{3}{2} + \frac{5}{2})
+                                    }\\
+            &= \cfrac{
+                3 \Gamma(\frac{3}{2})\Gamma(\frac{5}{2})
+            }{
+                2 \Gamma(4)
+            }\\
+            &= \cfrac{
+                3 \qty(\frac{\sqrt{\pi}}{2}) \qty(\frac{3\sqrt{\pi}}{4})
+            }{
+                2 \qty(3!)
+            }\\
+            &= \cfrac{
+                \frac{9 \pi}{8}
+            }{
+                (2)(3)(2)(1)
+            }\\
+            &= \frac{9 \pi}{96}\\
+        \Aboxed{
+            F(x) &= \frac{3 \pi}{32} \approx 0.29452
+        }
     \end{align*}
 
-
 \end{example}
-
-
 
 
 % Problem 4 -------------------------------------------
@@ -229,8 +302,10 @@ Let \[
     $f: (S_1, d_1) \to (S_2, d_2)$ is a \underline{\emph{continuous function}} iff \[
         \forall_{x\in S_1} \forall_{\epsilon>0} \exists_{\delta(x,\epsilon)>0} \forall_{y\in S_1} : d_1(x,y) < \delta \implies d_2(f(x),f(y)) < \epsilon
     \]
-\end{definition} \label{def:partition_variation}
-    For function $f: [a,b] \to \R$ and partition $P = \qty{a = x_0 < x_1 < \cdots < x_n = b}$:
+\end{definition} 
+
+\begin{definition} \label{def:partition_variation}
+For function $f: [a,b] \to \R$ and partition $P = \qty{a = x_0 < x_1 < \cdots < x_n = b}$:
     \begin{enumerate}
         \item the \emph{\underline{variaton of $f$ over $P$}} is defined as\[
             V_{a}^{b}(f,P) = \sum_{i=1}^{n} \abs{f(x_i) - f(x_{i-1})}
@@ -241,8 +316,6 @@ Let \[
         \item $f$ is considered of \emph{\underline{bounded variation}} on $[a,b]$ if $V_{a}^{b}(f)$ is finite.
         \item the \emph{\underline{family of functions of bounded variaton on $[a,b]$}} is denoted as $BV_{a}^{b}$.
     \end{enumerate}
-\begin{definition}
-    
 \end{definition}
 
 \begin{example}
@@ -324,10 +397,52 @@ Assume $f$ is differentiable on $[a,b]$ with $\abs{f'(x)} \leq M < \infty$ for $
 Show that $f$ is of bounded variation and $V_a^b (f) \leq M(b-a)$.
 (Hint: Use Mean Value Theorem)
 
+\begin{theorem} \label{thm:mean_val}
+    \textbf{Mean Value Theorem:}
+    Let $f : [a,b] \to \R$ be continuous on $[a,b]$ and differentiable on $(a,b)$. 
+    There exists $c \in (a,b)$ such that\[
+        f'(c) = \cfrac{f(b) - f(a)}{b-a}
+    \]
+\end{theorem}
 
 
+\begin{theorem}
+    Let $f : [a,b] \to \R$ be differentiable on $[a,b]$. 
+    If the derivative is bounded $\exists_{M > 0} \st \forall_{x \in [a,b]} \abs{f'(x)} \leq M < \infty$, 
+    then $f$ will have a bounded variation with $V_{a}^{b}(f) \leq M(b-a)$.
+    \begin{proof}
+        From Definition \ref{def:partition_variation}, we have the following:
+        The variation of $f$ associated with $P$ is \[
+            V_{a}^{b}(f,P) = \sum_{i=1}^{N} \abs{f(x_i) - f(x_{i-1})}
+        \]
+        In order for $f$ to be of bounded variation on $[a,b]$, the variation \[
+            V_{a}^{b}(f) = \sup_{P} V_{a}^{b} (f,P)
+        \] must be finite.
+        
+        We also refer to the principles underlying Theorem \ref{thm:mean_val}, which ultimately states that \[
+            \exists_{c \in (a,b)} \st f'(c) = \cfrac{f(b) - f(a)}{b-a}
+        \] which represents the mean of the the derivative overall.
 
-
-
+        Since $f'(x)$ has a bound, $\abs{f'(x)} \leq M$, $V_{a}^{b}(f,P)$ for a given $P$ will also be bounded.
+        \begin{align*}
+            V_{a}^{b}(f,P) 
+                &= \sum_{i=1}^{N} \abs{f(x_i) - f(x_{i-1})}\\
+                &\leq \sum_{i=1}^{N} \abs{M (x_{i} - x{i-1})}\\
+                &= \sum_{i=1}^{N} \abs{M} \abs{x_{i} - x{i-1}}\\
+                &= M \sum_{i=1}^{N} x_{i} - x_{i-1}\\
+                &= M \qty(x_1 - x_0 + x_2 - x_1 + \dots + x_{N-1} - x_{N-2} + x_{N} - x_{N-1})\\
+                &= M \qty(x_1 - x_1 + x_2 - x_2 + \dots + x_{N-1} - x_{N-1} + x_{N} - x_0)\\
+                &= M \qty(x_{N} - x_0)\\
+                &= M \qty(b - a)
+        \end{align*}
+        This means that\[
+            V_{a}^{b}(f,P) \leq M (b-a)
+        \] forall partitions of $[a,b]$.
+        Therefore, by definition, the variation of $f$ on $[a,b]$ is
+        \[\boxed{
+            V_{a}^{b}(f) \leq M (b-a)
+        }\]
+    \end{proof}
+\end{theorem}
 
 \end{document}
