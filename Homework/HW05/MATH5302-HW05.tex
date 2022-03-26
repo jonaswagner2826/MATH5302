@@ -1,0 +1,180 @@
+% Standard Article Definition
+\documentclass[]{article}
+
+% Page Formatting
+\usepackage[margin=1in]{geometry}
+\setlength\parindent{0pt}
+
+% Graphics
+\usepackage{graphicx}
+
+% Math Packages
+\usepackage{physics}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{mathtools}
+
+% Extra Packages
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Section Heading Settings
+\usepackage{enumitem}
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand*{\thesection}{Problem \arabic{section}}
+\renewcommand*{\thesubsection}{\alph{subsection})}
+\renewcommand*{\thesubsubsection}{}%\quad \quad \roman{subsubsection})}
+
+%Custom Commands
+\newcommand{\Rel}{\mathcal{R}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\toI}{\xrightarrow{\textsf{\tiny I}}}
+\newcommand{\toS}{\xrightarrow{\textsf{\tiny S}}}
+\newcommand{\toB}{\xrightarrow{\textsf{\tiny B}}}
+
+\newcommand{\divisible}{ \ \vdots \ }
+\newcommand{\st}{\ : \ }
+
+% Theorem Definition
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+
+
+%opening
+\title{MATH 5302 Elementary Analysis II - Homework 5}
+\author{Jonas Wagner}
+\date{2022, March 25\textsuperscript{th}}
+
+\begin{document}
+
+\maketitle
+
+% Problem 1 ----------------------------------------------
+\section{}
+Let $f$ be a real-valued bounded function on $[-1,1]$. 
+Let\[
+    \alpha(x) = \begin{cases}
+        0 &\text{if} \ -1 \leq x < 0;\\
+        2 &\text{if} \  0 \leq x \leq 1.
+    \end{cases}
+\]
+Assume $f$ is Riemann-Stieljes integrable with respect to $\alpha$ on $[-1,1]$. 
+Show that \begin{enumerate}
+    \item $f$ is continuous at $0$ from the left.
+    \item $\int_{-1}^{1} f(x) \dd{\alpha(x)} = 2 f(0)$.
+\end{enumerate}
+
+% Part a
+\subsection{$f$ is continuous at $0$ from the left}
+\begin{example}
+    Let $f : [-1, 1] \to \R$ bounded.
+    Let \[
+        \alpha(x) = \begin{cases}
+            0   & -1 \leq x < 0\\
+            2   &  0 \leq x < 1
+        \end{cases}
+    \] If $f$ is Riemann-Stieljes integrable w.r.t. $\alpha$ on $[-1,1]$, then $f$ is continuous at 0 from the left.
+    \begin{proof}
+
+    \end{proof}
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+% Problem 2 ----------------------------------------------
+\newpage
+\section{}
+Let $f$ and $\alpha$ be real-valued bounded functions on $[a,b]$ and $\alpha$ is increasing. 
+Let $L(f,\alpha)$ and $U(f,\alpha)$ represents the lower and upper Darboux-Stieltjes integral of $f$ with respect to $\alpha$ on $[a,b]$, respectively,\begin{enumerate}
+    \item Show that $U(f,\alpha) \leq U(\abs{f},\alpha)$.
+    \item Is it true that $L(f,\alpha) \leq L(\abs{f},\alpha)$?
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+% Problem 3 ----------------------------------------------
+\newpage
+\section{}
+Let $\alpha$ be a bounded real-0valued increasing function on $[a,b]$. 
+Assume $a < c < b$ and $\alpha$ is continuous at $c$. 
+Let \[
+    f(x) = \begin{cases}
+        1   &\text{if } x = c;\\
+        0   &\text{if } x \neq c.
+    \end{cases}
+\] Show directly that $f$ is Darboux-Stieltjes integrable on $[a,b]$ and $\int_{a}^{b} f(x) \dd{\alpha(x)} = 0$. 
+(Do not use Theorem 8.16.)
+
+
+
+
+
+
+
+
+
+
+% Problem 4 ----------------------------------------------
+\newpage
+\section{}
+Let $f$ and $\alpha$ be real-valued bounded functions on $[a,b]$ and $\alpha$ is increasing on $[a,b]$. 
+Assume $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$. 
+Let $[c,d] \subset [a,b]$. 
+Show that $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[c,d]$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Problem 5 ----------------------------------------------
+\newpage
+\section{}
+Let $\alpha$ be a real-valued bounded function on $[a,b]$ and $\alpha$ is increasing with $\alpha(a) < \alpha(b)$. 
+Let \[
+    f(x) = \begin{cases}
+        1   &\text{if $x$ is rational};\\
+        0   &\text{if $x$ is irrational}.\\
+    \end{cases}
+\] Show that if $\alpha$ is continuous on $[a,b]$, then $f$ is not Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$.
+
+
+
+
+
+
+
+
+
+
+\end{document}
