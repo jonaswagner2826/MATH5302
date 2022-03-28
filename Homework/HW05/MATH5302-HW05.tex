@@ -51,7 +51,7 @@
 %opening
 \title{MATH 5302 Elementary Analysis II - Homework 5}
 \author{Jonas Wagner}
-\date{2022, March 25\textsuperscript{th}}
+\date{2022, March 28\textsuperscript{th}}
 
 \begin{document}
 
@@ -76,7 +76,8 @@
             L(f, \alpha, P) = \sum_{i=1}^{n} m(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
         \] respectively with \[
             \Delta_i \alpha = \alpha(x_i) - \alpha(x_{i-1})
-        \] 
+        \] A more general sum $S(f, \alpha, P)$ is when $f(x_i^*)$ for $x_i^* \in [x_{i-1}, x_{i}]$ is used instead.
+
         \emph{\textbf{\underline{Note:}}} \[
             m(f,[a,b]) \cdot (\alpha(b) - \alpha(a)) 
             \leq L(f, \alpha, P) 
@@ -152,6 +153,18 @@
             \implies \abs{f(x) - f(x_0)} < \epsilon
         \]
     \end{enumerate}
+    \emph{\underline{\textbf{Properties:}}}
+    \begin{enumerate}
+        \item $f$ continuous on closed $[a,b]$, then $f$ is uniformly continuous on $[a,b]$.
+        \item $f$ differentiable at $x \in [a,b]$ implies Locally Lipschitz continuous at $x$.
+        \item $C^1[a,b]$ is the set of differentiable functions with continuous derivatives on $[a,b]$.
+        \item $C^1[a,b]$ $\subset$ differentiable functions with bounded derivatives
+        \item Differentiable with bounded derivatives 
+        $\implies$ Lipschitz continuous 
+        $\implies$ Absolutely continuous
+        $\implies$ uniformly continuous
+        $\implies$ continuous
+    \end{enumerate}
 \end{definition}
 
 
@@ -183,19 +196,60 @@ Show that \begin{enumerate}
         \end{cases}
     \] If $f$ is Riemann-Stieljes integrable w.r.t. $\alpha$ on $[-1,1]$, then $f$ is continuous at 0 from the left.
     \begin{proof}
-
+        $f$ is Riemann-Stieljes integrable w.r.t. $\alpha$ on $[-1,1]$ means that \[
+            \forall_{\epsilon > 0} \exists_{\gamma}  \exists_{\delta > 0} :
+            \forall_{P : \text{mesh}(P) < \delta} \implies \abs{S(f, \alpha, P) - \epsilon}
+        \] For \[
+            P = \qty{-1 = x_0 < x_1 < \cdots < x_{k-1} = - \gamma < x_{k} = 0 < x_{k-1} < \cdots x_n = 1}
+        \] with $\text{mesh}(P) < \delta$.
+        For $x$ s.t. $- \gamma < x < 0$
+        Select $x_i^* \in [x_{i}, x_{i+1}]$ and $x_{k-1}^* = x$. \begin{align*}
+            \sum_{i=1}^{n} f(x_{i}^*) \Delta_i \alpha 
+                &= f(x) (\alpha(x_k) - \alpha(x_{k-1}))\\
+                &= f(x) (2 - 0) = 2 f(x)\\
+            \sum_{i=1}^{n} f(x_{i}^*) \Delta_i \alpha 
+                &= 2 f(x)
+        \end{align*} Therefore, \[
+            \abs{f(x) - \gamma} < \epsilon
+        \] and \[
+            \lim_{x \to 0^-} f(x) = \gamma
+        \] Then by taking $x_{k-1}^* = 0$, the Riemann-Stieltjes sum $S = f(0)$, therefore \[
+            \abs{f(x = 0) - \gamma} < \epsilon, \ \forall_{\epsilon > 0}
+        \] which is the definition of continuity meaning that $f$ is continuous at $0$ from the left.
     \end{proof}
 \end{example}
 
-
-
-
-
-
-
-
-
-
+% Part b
+\subsection{$\int_{-1}^{1} f(x) \dd{\alpha(x)} = 2 f(0)$}
+\begin{example}
+    Let $f : [-1, 1] \to \R$ bounded.
+    Let \[
+        \alpha(x) = \begin{cases}
+            0   & -1 \leq x < 0\\
+            2   &  0 \leq x < 1
+        \end{cases}
+    \] If $f$ is Riemann-Stieljes integrable w.r.t. $\alpha$ on $[-1,1]$, then $\int_{-1}^{1} f(x) \dd{\alpha(x)} = 2 f(0)$
+    \begin{proof}
+        Let \[
+            P = \qty{-1 = x_0 < x_1 < \cdots < x_{k-1} = - \gamma < x_{k} = 0 < x_{k-1} < \cdots x_n = 1}
+        \] with $\text{mesh}(P) < \delta$. 
+        By definition, \[
+            \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha(x)} = \lim_{\delta \to 0} S(f, \alpha, P)
+        \] and \begin{align*}
+            S(f, \alpha, P) 
+                &= \sum_{i=1}^{n} f(x_{i}^*) \Delta_i \alpha\\
+                &= \sum_{i=1}^{n} f(x_{i}^*) (\alpha(x_i) - \alpha(x_{i-1}))
+            \intertext{since $\alpha(x_i) - \alpha(x_{i-1}) = 0 \forall_{i \neq k}$}
+                &= f(x_{k}) (\alpha(x_k) - \alpha(x_{k-1}))\\
+                &= f(x_k) (2 - 0) = 2 f(x_k) = 2 f(0)\\
+            \Aboxed{
+                \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha(x)} 
+                % = S(f, \alpha, P) \forall_{P}
+                &= 2 f(0)
+            }
+        \end{align*}
+    \end{proof}
+\end{example}
 
 
 % Problem 2 ----------------------------------------------
@@ -207,18 +261,74 @@ Let $L(f,\alpha)$ and $U(f,\alpha)$ represents the lower and upper Darboux-Stiel
     \item Is it true that $L(f,\alpha) \leq L(\abs{f},\alpha)$?
 \end{enumerate}
 
-
-
-
-
-
-
-
+\begin{example}
+    Let $f : [a,b] \to \R$ and $\alpha : [a,b] \to \R$, with $f$ and $\alpha$ both bounded with $\alpha$ also increasing on $[a,b]$.
+    Let partition $P$ be defined as \[
+        P = \qty{a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b}
+    \] Let \[
+        M(f, [x_1, x_2]) = \sup_{x \in [x_1, x_2]} f(x)
+    \] and \[
+        m(f, [x_1, x_2]) = \inf_{x \in [x_1, x_2]} f(x)
+    \] Then by definition, \[            
+        U(f, \alpha, P) = \sum_{i=1}^{n} M(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
+    \] and \[
+        L(f, \alpha, P) = \sum_{i=1}^{n} m(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
+    \] respectively with \[
+        \Delta_i \alpha = \alpha(x_i) - \alpha(x_{i-1})
+    \] Additionally, \[            
+        U(f, \alpha) = \inf_{P \text{ partition of } [a,b]} U(f, \alpha, P)
+    \] and \[
+        L(f, \alpha) = \sup_{P \text{ partition of } [a,b]} U(f, \alpha, P)
+    \]
+    \begin{enumerate}
+        \item \emph{\underline{\textbf{Show that $U(f,\alpha) \leq U(\abs{f},\alpha)$.}}} \begin{proof}
+            Since $f$ is a real-valued function, $\forall_{x \in [a,b]} f(x) \leq \abs{f(x)}$. 
+            For every $[x_1,x_2] \in [a,b]$, \[
+                M(f, [x_1, x_2]) 
+                    = \sup_{x \in [x_1, x_2]} f(x) 
+                    \leq \sup_{x \in [x_1, x_2]} \abs{f(x)} 
+                = M(\abs{f}, [x_1, x_2])
+            \] Then for every $P$, \[
+                U(f, \alpha, P) 
+                    = \sum_{i=1}^{n} M(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha 
+                    \leq \sum_{i=1}^{n} M(\abs{f}, [x_{i-1}, x_i]) \cdot \Delta_i \alpha 
+                = U(\abs{f}, \alpha, P)
+            \] Therefore, \[
+                U(f, \alpha) 
+                    = \inf_{P \text{ partition of } [a,b]} U(f, \alpha, P)
+                    \leq \inf_{P \text{ partition of } [a,b]} U(\abs{f}, \alpha, P)
+                = U(\abs{f}, \alpha)
+            \]
+        \end{proof}
+        \item \emph{\textbf{\underline{Is it true that $L(f,\alpha) \leq L(\abs{f},\alpha)$?}}} 
+        Yes, by the same logic as the previous statement. 
+        Essentially since every value of $f \leq \abs{f}$, the same progression is true.
+        \begin{proof}
+            Since $f$ is a real-valued function, $\forall_{x \in [a,b]} f(x) \leq \abs{f(x)}$. 
+            For every $[x_1,x_2] \in [a,b]$, \[
+                m(f, [x_1, x_2]) 
+                    = \inf_{x \in [x_1, x_2]} f(x) 
+                    \leq \inf_{x \in [x_1, x_2]} \abs{f(x)} 
+                = m(\abs{f}, [x_1, x_2])
+            \] Then for every $P$, \[
+                L(f, \alpha, P) 
+                    = \sum_{i=1}^{n} m(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha 
+                    \leq \sum_{i=1}^{n} m(\abs{f}, [x_{i-1}, x_i]) \cdot \Delta_i \alpha 
+                = L(\abs{f}, \alpha, P)
+            \] Therefore, \[
+                L(f, \alpha) 
+                    = \sup_{P \text{ partition of } [a,b]} L(f, \alpha, P)
+                    \leq \sup_{P \text{ partition of } [a,b]} L(\abs{f}, \alpha, P)
+                = L(\abs{f}, \alpha)
+            \]
+        \end{proof}
+    \end{enumerate}        
+\end{example}
 
 % Problem 3 ----------------------------------------------
 \newpage
 \section{}
-Let $\alpha$ be a bounded real-0valued increasing function on $[a,b]$. 
+Let $\alpha$ be a bounded real-valued increasing function on $[a,b]$. 
 Assume $a < c < b$ and $\alpha$ is continuous at $c$. 
 Let \[
     f(x) = \begin{cases}
@@ -228,14 +338,74 @@ Let \[
 \] Show directly that $f$ is Darboux-Stieltjes integrable on $[a,b]$ and $\int_{a}^{b} f(x) \dd{\alpha(x)} = 0$. 
 (Do not use Theorem 8.16.)
 
+\begin{example}
+    Let $\alpha : [a,b] \to \R$ bounded and increasing.
+    Let $c \in (a,b)$ such that $\alpha$ is continuous at $c$.
+    Let \[
+        f(x) = \begin{cases}
+            1   &\text{if } x = c;\\
+            0   &\text{if } x \neq c.
+        \end{cases}
+    \]
+    \begin{enumerate}
+        \item \textbf{\emph{\underline{$f$ is Darboux-Stieltjes integrable on $[a,b]$.}}}
+        \begin{proof}
+            By definition, $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$ if and only if \[
+                \forall_{\epsilon>0} \exists_{P = \qty{a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b}} : 
+                U(f,\alpha,P) - L(f,\alpha,P) < \epsilon
+            \] 
+            Let $\epsilon > 0$. 
+            Let partition $P$ be defined as \[
+                P = \qty{a = x_0 < x_1 < \cdots < x_{k-1} < x_{k} = c < x_{k-1} < \cdots < x_{n-1} < x_n = b}
+            \] such that $\text{mesh}(P) < \delta$ for some $\delta > 0$.
+            % Select $x_i^* \in [x_{i-1},x_i]$ s.t. $f(x_i^*) < \inf_{x \in [x_{i-1}, x_i]} f(x) + \epsilon$
+            The lower Darboux-Stieltjes sum is given by \begin{align*}
+                L(f, \alpha, P) 
+                    &= \sum_{i=1}^n m(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                    &= \sum_{i=1}^n (\inf_{x \in [x_{i-1}, x_i]} f(x)) \Delta_i \alpha\\
+                \intertext{since $f(x) = 0 \forall_{i} \neq k$,}
+                    &= \sum_{i=1}^{k-1} (0) \Delta_i \alpha
+                        + \sum_{i=k+2}^{n} (0) \Delta_i \alpha
+                        + \inf_{x \in [x_{k-1}, x_k]} f(x) \Delta_k \alpha
+                        + \inf_{x \in [x_{k}, x_{k-1}]} f(x) \Delta_{k+1} \alpha
+                \intertext{which still results in $0$ terms}
+                    &= 0 + 0 + 0 (\Delta_k \alpha) + 0 (\Delta_{k+1} \alpha)\\
+                L(f, \alpha, P) &= 0
+            \end{align*}
 
-
-
-
-
-
-
-
+            The upper Darboux-Stieltjes sum is given by \begin{align*}
+                U(f, \alpha, P) 
+                    &= \sum_{i=1}^n M(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                    &= \sum_{i=1}^n (\sup_{x \in [x_{i-1}, x_i]} f(x)) \Delta_i \alpha\\
+                \intertext{since $f(x) = 0 \forall_{i} \neq k$,}
+                    &= \sum_{i=1}^{k-1} (0) \Delta_i \alpha\\
+                        &\quad + \sum_{i=k+2}^{n} (0) \Delta_i \alpha\\
+                        &\quad + \sup_{x \in [x_{k-1}, x_k]} f(x) \Delta_k \alpha\\
+                        &\quad + \sup_{x \in [x_{k}, x_{k-1}]} f(x) \Delta_{k+1} \alpha\\
+                    &= 0 + 0 + 1 (\Delta_k \alpha) + 1 (\Delta_{k+1} \alpha)\\
+                    &= (\alpha(x_{k}) - \alpha(x_{k-1})) + (\alpha(x_{k+1}) - \alpha(x_{k}))\\
+                    &= \alpha(x_{k+1}) - \alpha(x_{k-1}\\
+                \intertext{since $\text{mesh}(P) < \delta$,}
+                    &\leq 2 \delta\\
+                U(f, \alpha, P) &\leq 2 \delta
+            \end{align*}
+            
+            Thus, setting $\delta < \frac{\epsilon}{2}$ results in \[
+                U(f, \alpha, P) - L(f, \alpha, P) \leq 2\delta < \epsilon
+            \]
+        \end{proof}
+        \item \emph{\underline{\textbf{$\int_{a}^{b} f(x) \dd{\alpha(x)} = 0$}}}
+        \begin{proof}
+            From above we have $L(f, \alpha, P) = 0$ and $U(f, \alpha, P) \leq 2 \delta$ for $\text{mesh}(P) < \delta$.
+            So we have $L(f, \alpha) = \sup_{P} L(f, \alpha, P) = 0$.
+            Taking the limit as $\delta \to 0$, we have \[
+                U(f, \alpha) = \lim_{\delta \to 0} U(f, \alpha, P) \leq \lim_{\delta \to 0} 2 \delta = 0
+            \] so \[
+                \mathcal{DS} \int_{a}^{b} f \dd{\alpha} = U(f,\alpha) = L(f, \alpha) = 0
+            \]
+        \end{proof}
+    \end{enumerate}
+\end{example}
 
 % Problem 4 ----------------------------------------------
 \newpage
@@ -245,17 +415,65 @@ Assume $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$.
 Let $[c,d] \subset [a,b]$. 
 Show that $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[c,d]$.
 
-
-
-
-
-
-
-
-
-
-
-
+\begin{example}
+    Let $f : [a,b] \to \R$ and $\alpha : [a,b] \to \R$, with $f$ bounded on $[a,b]$ and $\alpha$ bounded and increasing on $[a,b]$.
+    Let partition $P$ be defined as \[
+        P = \qty{a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b}
+    \] Assume $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$. 
+    
+    $f$ is is Darboux-Stieltjes integrable with respect to $\alpha$ on all $[c,d] \subset [a,b]$
+    \begin{proof}
+        $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$ means that \[
+            \forall_{\epsilon>0} \exists_{P = \qty{a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b}} : 
+            U(f,\alpha,P) - L(f,\alpha,P) < \epsilon
+        % \] which means $\exists_{P}$ resulting in \[
+        %     U(f,\alpha, P) - L(f,\alpha, P) = 0
+        \] when taking the limit of epsilon to 0. 
+        For this $P$, find $cl$, $cu$, $dl$, and $du$ so that\[
+            P = \qty{a = x_0 < x_1 < \cdots < x_{cl} < c < x_{cu} < \cdots < x_{dl} < d < x_{du} < \cdots < x_n = b}
+        \] Take \[
+            P_{cd} = \qty{x_{cl} < c < x_{c} < \cdots < x_{dl} = d < x_{du}}
+        \]
+        \begin{align*}
+            U(f,\alpha,P) - L(f,\alpha,P) 
+                &= \sum_{i=1}^n M(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                    &\quad - \sum_{i=1}^n m(f, [x_{i-1},x_{i}]) \Delta_i \alpha
+                    &&< \epsilon\\
+                &= \sum_{i=1}^{cl-1} M(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                    &\quad + \sum_{i=cl}^{du} M(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                    &\quad + \sum_{i=du+1}^n M(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                    &\quad - \sum_{i=1}^{cl-1} m(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                    &\quad - \sum_{i=cl}^{du} m(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                    &\quad - \sum_{i=du+1}^{n} m(f, [x_{i-1},x_{i}]) \Delta_i \alpha
+                    &&< \epsilon\\
+                % &= \sum_{i=1}^{cl} M(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                %     &\quad + \sum_{i=cu}^{dl} M(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                %     &\quad + \sum_{i=du}^n M(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                %     &\quad - \sum_{i=1}^{cl} m(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                %     &\quad - \sum_{i=cu}^{dl} m(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+                %     &\quad - \sum_{i=du}^{n} m(f, [x_{i-1},x_{i}]) \Delta_i \alpha
+                %     &&< \epsilon
+        \end{align*}
+        Observing the bounded sum \[
+            \sum_{i=cl}^{du} M(f, [x_{i-1},x_{i}]) \Delta_i \alpha 
+            - \sum_{i=cl}^{du} m(f, [x_{i-1},x_{i}]) \Delta_i \alpha
+            < \epsilon - (***)
+        % \]
+        % and \[
+        %     \sum_{i=cu}^{dl} M(f, [x_{i-1},x_{i}]) \Delta_i \alpha 
+        %     - \sum_{i=cu}^{dl} m(f, [x_{i-1},x_{i}]) \Delta_i \alpha
+        %     < \epsilon_2
+        \] with $***$ being all the other bounded terms transferred to the RHS.
+        This is a sum that bounds the $U(f,\alpha,P_{cd}) - L(f,\alpha,P_{cd})$ from above by potentially including the regions $[x_{cl}, c)$ and $(d, x_{du}]$ which would have an additional bounded term.
+        Taking $\text{mesh}(P) \to 0$ we cause $x_{cl} \to c$ and $x_{du} \to d$ so that \[
+            U(f,\alpha,P_{cd}) - L(f,\alpha,P_{cd}) 
+                = \sum_{i=cl}^{du} M(f, [x_{i-1},x_{i}]) - m(f, [x_{i-1}, x_{i}]) \Delta_i \alpha
+                < \epsilon_{cd} = \epsilon - (***)
+        \] and therefore since $\epsilon - (***)$ is bounded for all $\delta$, \[
+            \forall_{\epsilon>0} \exists_{\delta} : \text{mesh}(P) < \delta \implies U(f,\alpha,P_{cd}) - L(f,\alpha,P_{cd}) < \epsilon_{cd}
+        \]
+    \end{proof}
+\end{example}
 
 % Problem 5 ----------------------------------------------
 \newpage
@@ -268,13 +486,42 @@ Let \[
     \end{cases}
 \] Show that if $\alpha$ is continuous on $[a,b]$, then $f$ is not Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$.
 
-
-
-
-
-
-
-
-
+\begin{example}
+    Let $\alpha : [a,b] \to \R$ bounded and increasing with $\alpha(a) < \alpha(b)$.
+    Let \[
+        f(x) = \begin{cases}
+            1   &\text{if $x$ is rational};\\
+            0   &\text{if $x$ is irrational}.\\
+        \end{cases}
+    \] If $\alpha$ is continuous on $[a,b]$ then $f$ is not Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$.
+    \begin{proof}
+        By definition, $\alpha$ continuous on the closed interval $[a,b]$ implies $\alpha$ is uniformly continuous on $[a,b]$. 
+        This means that \[ 
+            \forall_{\epsilon_1} \exists_{\delta>0} : a \leq x < y \leq b, \ y - x < \delta 
+            \implies \alpha(y) - \alpha(x) < \epsilon_1
+        % \]
+        % $\alpha$ is continuous at every $x_0$, where $\alpha$ is continuous at $x_0$ iff \[
+        %     \forall_{\epsilon > 0} \exists_{\delta>0} : 
+        %     \forall_{x \in [a,b]} \land \abs{x - x_0} < \delta
+        %     \implies \abs{\alpha(x) - \alpha(x_0)} < \epsilon
+        \] In order for $f$ to be Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$, then for every $\epsilon_2$ there must exists a partition $P$ of $[a,b]$, \[
+            P = \qty{a = x_0 < x_1 < \cdots < x_n = b}
+        \] so that \[
+            U(f, \alpha, P) - L(f, \alpha, P) < \epsilon_2
+        \] For this example, we have \begin{align*}
+            U(f,\alpha,P) - L(f,\alpha,P) 
+                &= \sum_{i=1}^n M(f, [x_{i-1},x_{i}]) \Delta_i \alpha 
+                    - \sum_{i=1}^n m(f, [x_{i-1},x_{i}]) \Delta_i \alpha\\
+            \intertext{Since $\alpha$ is continuous and increasing, $\Delta_i \alpha = \alpha(x_{i-1})-\alpha(x_{i}) > 0$}
+                &= \sum_{i=1}^n M(f, [x_{i-1},x_{i}]) \qty(\alpha(x_{i-1})-\alpha(x_{i})) 
+                    - \sum_{i=1}^n m(f, [x_{i-1},x_{i}]) \qty(\alpha(x_{i-1})-\alpha(x_{i}))
+            \intertext{For $f$ we have that $M(f, [x_1, x_2]) = 1$ and $m(f, [x_1, x_2]) = 0$ $\forall_{x_1 \neq x_2 \in [a,b]}$}
+                &= \sum_{i=1}^n (1) \qty(\alpha(x_{i-1})-\alpha(x_{i})) 
+                    - \sum_{i=1}^n (0) \qty(\alpha(x_{i-1})-\alpha(x_{i}))\\
+                &= \sum_{i=1}^n \alpha(x_{i-1}) - \alpha(x_{i})\\
+                &= \alpha(x_n) - \alpha(x_0) = \alpha(b) - \alpha(a) > 0
+        \end{align*} Which contradicts the conditions needed for $f$ to be Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$.
+    \end{proof}
+\end{example}
 
 \end{document}
