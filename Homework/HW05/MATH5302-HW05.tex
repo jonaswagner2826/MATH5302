@@ -57,7 +57,107 @@
 
 \maketitle
 
+
+\section*{Preliminaries}
+\begin{definition}
+    \textbf{\emph{Darboux-Stieltjes Integral}}
+    Let $f : [a,b] \to \R$ and $\alpha : [a,b] \to \R$, with $f$ bounded and $\alpha$ increasing on $[a,b]$.
+    Let partition $P$ be defined as \[
+        P = \qty{a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b}
+    \] Let \[
+        M(f, [x_1, x_2]) = \sup_{x \in [x_1, x_2]} f(x)
+    \] and \[
+        m(f, [x_1, x_2]) = \inf_{x \in [x_1, x_2]} f(x)
+    \]
+    \begin{enumerate}
+        \item The upper and lower \emph{\underline{Darboux-Stieltjes Sums}} are defined \[            
+            U(f, \alpha, P) = \sum_{i=1}^{n} M(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
+        \] and \[
+            L(f, \alpha, P) = \sum_{i=1}^{n} m(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
+        \] respectively with \[
+            \Delta_i \alpha = \alpha(x_i) - \alpha(x_{i-1})
+        \] 
+        \emph{\textbf{\underline{Note:}}} \[
+            m(f,[a,b]) \cdot (\alpha(b) - \alpha(a)) 
+            \leq L(f, \alpha, P) 
+            \leq U(f, \alpha, P)
+            \leq M(f,[a,b]) \cdot (\alpha(b) - \alpha(a)) 
+        \]
+        \item The upper and lower \emph{\underline{Darboux-Stieltjes Integrals}} are defined \[            
+            U(f, \alpha) = \inf_{P \text{ partition of } [a,b]} U(f, \alpha, P)
+        \] and \[
+            L(f, \alpha) = \sup_{P \text{ partition of } [a,b]} U(f, \alpha, P)
+        \] respectively.
+
+        \emph{\textbf{\underline{Note:}}}\[
+            L(f, \alpha)
+            \leq L(f, \alpha, P) 
+            \leq U(f, \alpha, P)
+            \leq U(f, \alpha)
+        \] for any $P$ partition of $[a,b]$.
+        \item $f$ is called \emph{\underline{Darboux-Stieltjes Integrable}} with respect to $\alpha$ if and only if \[
+            \forall_{\epsilon>0} \exists_{P = \qty{a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b}} : 
+            U(f,\alpha,P) - L(f,\alpha,P) < \epsilon
+        \] in which case the \emph{\underline{Darboux-Stieltjes Integral}} with respect to $\alpha$ is defined as \[
+            \mathcal{DS} \int_{a}^{b} f \dd{\alpha} = U(f,\alpha) = L(f, \alpha)
+        \]
+        \emph{\textbf{\underline{Note:}}}
+        If $f$ is also continuous on $[a,b]$ then $f$ is Riemann-Stieljes integrable which implies $f$ is Darboux-Stieljes integrable.
+    \end{enumerate}
+    \textbf{\emph{\underline{Properties:}}}
+    When $f$ is Darboux-Stieltjes integrable on $[a,b]$ and $\alpha$ is increasing on $[a,b]$ then
+    \begin{enumerate}
+        \item $\abs{f}$ is Darboux-Stieltjes integrable on $[a,b]$ and \[
+            \mathcal{DS} \int_{a}^{b} f \dd{\alpha} \leq \mathcal{DS} \int_{a}^{b} \abs{f} \dd{\alpha}
+        \]
+        \item $f^2$ is Darboux-Stieltjes integrable on $[a,b]$.
+        \item If $g$ is also Darboux-Stieltjes integrable on $[a,b]$, then $fg$ is Darboux-Stieltjes integrable on $[a,b]$.
+        \item For $\alpha_1$ and $\alpha_2$ also increasing on $[a,b]$ and $f$ is Darboux-Stieltjes integrable with respect to $\alpha_1$ and $\alpha_2$, then $f$ is Darboux-Stieltjes integrable with respect to $\alpha_1$ and $\alpha_2$. 
+        Additionally, \begin{align*}
+            & \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha_1(x)} + \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha_2(x)}\\
+            = & \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha(x) + \alpha_2(x)}
+        \end{align*}
+        \item For $a < c < b$, $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$ if and only if $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,c]$ and $[c,b]$. 
+        Furthermore, \[
+            \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha(x)}
+            = \mathcal{DS} \int_{a}^{c} f(x) \dd{\alpha(x)} 
+            + \mathcal{DS} \int_{c}^{b} f(x) \dd{\alpha(x)}
+        \]
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    \textbf{Continuity:}
+    Let $f : [a,b] \to \R$. 
+    \begin{enumerate}
+        \item $f$ is \emph{\underline{Lipschitz Continuous}} on $[a,b]$ if \[
+            \exists_{C} : \forall_{x,y \in [a,b]} \abs{f(x) - f(y)} \leq \abs{x - y} 
+        \]
+        \item $f$ is \emph{\underline{Absolutely Continuous}} on $[a,b]$ if \[
+            \forall_{\epsilon>0} \exists_{\delta>0}
+            \forall_{
+                \text{finite collection } \qty{(x,x')} \text{ of nonoverlaping intervals} 
+                : \sum_{i=1}^{n} \abs{x_i' - x_i} < \delta
+            } \sum_{i=1}^{n} \abs{f(x_i') - f(x_i)} < \epsilon
+        \]
+        \item $f$ is \underline{\emph{uniformly continuous}} on $[a,b]$ if \[
+            \forall_{\epsilon>0} \exists_{\delta>0} : 
+                \qty(x,y \in [a,b]) \land \qty{\abs{x-y} < \delta}
+            \implies \abs{f(x) - f(y)} < \epsilon
+        \]
+        \item $f$ is \emph{\underline{continuous}} on $[a,b]$ if $f$ is continuous at all $x_0 \in [a,b]$.
+        i.e. \[
+            \forall_{\epsilon > 0} \exists_{\delta>0} : 
+            \forall_{x \in [a,b]} \land \abs{x - x_0} < \delta
+            \implies \abs{f(x) - f(x_0)} < \epsilon
+        \]
+    \end{enumerate}
+\end{definition}
+
+
+
 % Problem 1 ----------------------------------------------
+\newpage
 \section{}
 Let $f$ be a real-valued bounded function on $[-1,1]$. 
 Let\[
