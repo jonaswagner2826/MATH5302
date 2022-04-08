@@ -1,0 +1,443 @@
+% Standard Article Definition
+\documentclass[]{article}
+
+% Page Formatting
+\usepackage[margin=1in]{geometry}
+\setlength\parindent{0pt}
+
+% Graphics
+\usepackage{graphicx}
+
+% Math Packages
+\usepackage{physics}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{mathtools}
+
+% Extra Packages
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Section Heading Settings
+\usepackage{enumitem}
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand*{\thesection}{Problem \arabic{section}}
+\renewcommand*{\thesubsection}{\alph{subsection})}
+\renewcommand*{\thesubsubsection}{}%\quad \quad \roman{subsubsection})}
+
+%Custom Commands
+\newcommand{\Rel}{\mathcal{R}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\toI}{\xrightarrow{\textsf{\tiny I}}}
+\newcommand{\toS}{\xrightarrow{\textsf{\tiny S}}}
+\newcommand{\toB}{\xrightarrow{\textsf{\tiny B}}}
+
+\newcommand{\divisible}{ \ \vdots \ }
+\newcommand{\st}{\ : \ }
+
+% Theorem Definition
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+
+
+%opening
+\title{MATH 5302 Elementary Analysis II - Homework 5}
+\author{Jonas Wagner}
+\date{2022, March 28\textsuperscript{th}}
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Preliminaries}
+\begin{definition}
+    \textbf{\emph{Darboux-Stieltjes Integral}}
+    Let $f : [a,b] \to \R$ and $\alpha : [a,b] \to \R$, with $f$ bounded and $\alpha$ increasing on $[a,b]$.
+    Let partition $P$ be defined as \[
+        P = \qty{a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b}
+    \] Let \[
+        M(f, [x_1, x_2]) = \sup_{x \in [x_1, x_2]} f(x)
+    \] and \[
+        m(f, [x_1, x_2]) = \inf_{x \in [x_1, x_2]} f(x)
+    \]
+    \begin{enumerate}
+        \item The upper and lower \emph{\underline{Darboux-Stieltjes Sums}} are defined \[            
+            U(f, \alpha, P) = \sum_{i=1}^{n} M(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
+        \] and \[
+            L(f, \alpha, P) = \sum_{i=1}^{n} m(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
+        \] respectively with \[
+            \Delta_i \alpha = \alpha(x_i) - \alpha(x_{i-1})
+        \] A more general sum $S(f, \alpha, P)$ is when $f(x_i^*)$ for $x_i^* \in [x_{i-1}, x_{i}]$ is used instead.
+
+        \emph{\textbf{\underline{Note:}}} \[
+            m(f,[a,b]) \cdot (\alpha(b) - \alpha(a)) 
+            \leq L(f, \alpha, P) 
+            \leq U(f, \alpha, P)
+            \leq M(f,[a,b]) \cdot (\alpha(b) - \alpha(a)) 
+        \]
+        \item The upper and lower \emph{\underline{Darboux-Stieltjes Integrals}} are defined \[            
+            U(f, \alpha) = \inf_{P \text{ partition of } [a,b]} U(f, \alpha, P)
+        \] and \[
+            L(f, \alpha) = \sup_{P \text{ partition of } [a,b]} U(f, \alpha, P)
+        \] respectively.
+
+        \emph{\textbf{\underline{Note:}}}\[
+            L(f, \alpha)
+            \leq L(f, \alpha, P) 
+            \leq U(f, \alpha, P)
+            \leq U(f, \alpha)
+        \] for any $P$ partition of $[a,b]$.
+        \item $f$ is called \emph{\underline{Darboux-Stieltjes Integrable}} with respect to $\alpha$ if and only if \[
+            \forall_{\epsilon>0} \exists_{P = \qty{a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b}} : 
+            U(f,\alpha,P) - L(f,\alpha,P) < \epsilon
+        \] in which case the \emph{\underline{Darboux-Stieltjes Integral}} with respect to $\alpha$ is defined as \[
+            \mathcal{DS} \int_{a}^{b} f \dd{\alpha} = U(f,\alpha) = L(f, \alpha)
+        \]
+        \emph{\textbf{\underline{Note:}}}
+        If $f$ is also continuous on $[a,b]$ then $f$ is Riemann-Stieljes integrable which implies $f$ is Darboux-Stieljes integrable.
+    \end{enumerate}
+    \textbf{\emph{\underline{Properties:}}}
+    When $f$ is Darboux-Stieltjes integrable on $[a,b]$ and $\alpha$ is increasing on $[a,b]$ then
+    \begin{enumerate}
+        \item $\abs{f}$ is Darboux-Stieltjes integrable on $[a,b]$ and \[
+            \mathcal{DS} \int_{a}^{b} f \dd{\alpha} \leq \mathcal{DS} \int_{a}^{b} \abs{f} \dd{\alpha}
+        \]
+        \item $f^2$ is Darboux-Stieltjes integrable on $[a,b]$.
+        \item If $g$ is also Darboux-Stieltjes integrable on $[a,b]$, then $fg$ is Darboux-Stieltjes integrable on $[a,b]$.
+        \item For $\alpha_1$ and $\alpha_2$ also increasing on $[a,b]$ and $f$ is Darboux-Stieltjes integrable with respect to $\alpha_1$ and $\alpha_2$, then $f$ is Darboux-Stieltjes integrable with respect to $\alpha_1$ and $\alpha_2$. 
+        Additionally, \begin{align*}
+            & \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha_1(x)} + \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha_2(x)}\\
+            = & \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha(x) + \alpha_2(x)}
+        \end{align*}
+        \item For $a < c < b$, $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$ if and only if $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,c]$ and $[c,b]$. 
+        Furthermore, \[
+            \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha(x)}
+            = \mathcal{DS} \int_{a}^{c} f(x) \dd{\alpha(x)} 
+            + \mathcal{DS} \int_{c}^{b} f(x) \dd{\alpha(x)}
+        \]
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    \textbf{Continuity:}
+    Let $f : [a,b] \to \R$. 
+    \begin{enumerate}
+        \item $f$ is \emph{\underline{Lipschitz Continuous}} on $[a,b]$ if \[
+            \exists_{C} : \forall_{x,y \in [a,b]} \abs{f(x) - f(y)} \leq \abs{x - y} 
+        \]
+        \item $f$ is \emph{\underline{Absolutely Continuous}} on $[a,b]$ if \[
+            \forall_{\epsilon>0} \exists_{\delta>0}
+            \forall_{
+                \text{finite collection } \qty{(x,x')} \text{ of nonoverlaping intervals} 
+                : \sum_{i=1}^{n} \abs{x_i' - x_i} < \delta
+            } \sum_{i=1}^{n} \abs{f(x_i') - f(x_i)} < \epsilon
+        \]
+        \item $f$ is \underline{\emph{uniformly continuous}} on $[a,b]$ if \[
+            \forall_{\epsilon>0} \exists_{\delta>0} : 
+                \qty(x,y \in [a,b]) \land \qty{\abs{x-y} < \delta}
+            \implies \abs{f(x) - f(y)} < \epsilon
+        \]
+        \item $f$ is \emph{\underline{continuous}} on $[a,b]$ if $f$ is continuous at all $x_0 \in [a,b]$.
+        i.e. \[
+            \forall_{\epsilon > 0} \exists_{\delta>0} : 
+            \forall_{x \in [a,b]} \land \abs{x - x_0} < \delta
+            \implies \abs{f(x) - f(x_0)} < \epsilon
+        \]
+    \end{enumerate}
+    \emph{\underline{\textbf{Properties:}}}
+    \begin{enumerate}
+        \item $f$ continuous on closed $[a,b]$, then $f$ is uniformly continuous on $[a,b]$.
+        \item $f$ differentiable at $x \in [a,b]$ implies Locally Lipschitz continuous at $x$.
+        \item $C^1[a,b]$ is the set of differentiable functions with continuous derivatives on $[a,b]$.
+        \item $C^1[a,b]$ $\subset$ differentiable functions with bounded derivatives
+        \item Differentiable with bounded derivatives 
+        $\implies$ Lipschitz continuous 
+        $\implies$ Absolutely continuous
+        $\implies$ uniformly continuous
+        $\implies$ continuous
+    \end{enumerate}
+\end{definition}
+
+
+
+% Problem 1 ----------------------------------------------
+\newpage
+\section{}
+\subsubsection*{Problem:}
+Assume $f$ is a real-valued function defined on $[a,b]$ and $f$ is Lipschitz continuous on $[a,b]$. 
+Show that $f$ is absolutely continuous on $[a,b]$.
+
+\subsubsection*{Solution:}
+\begin{proposition}
+    Let $f : [a,b] \to \R$. 
+    If $f$ is Lipschitz continuous on $[a,b]$ then $f$ is also absolutely continuous on $[a,b]$. 
+    \begin{proof}
+        Consider the finite collection of nonoverlaping intervals, \[
+            \mathcal{I} = \qty{
+                (x_1, x'_1),
+                (x_2, x'_2),
+                \dots,
+                (x_n, x'_n)
+            }
+        \] where $x_1 = a$, $x'_N = b$, $x_i < x'_i \forall_{i = 1,\dots, n}$, and $x'_i \leq x_{i+1} \forall_{j = 1,\dots, n-1}$.
+        By definition, $f$ being Lipschitz continous on $[a,b]$ means:\[
+            \exists_{M} : \forall_{x,y \in [a,b]} \abs{f(x) - f(y)} \leq M \abs{x - y} 
+        \] Therefore, \[
+            \abs{f(x'_i) - f(x_i)} < M \abs{x'_i - x_i}, \ \forall_{(x_i, x'_i)\in\mathcal{I}}
+        \] Equivalently, \[
+            \sum_{i=1}^{n} \abs{f(x_i') - f(x_i)} < M \sum_{i=1}^{n} \abs{x_i' - x_i}
+        \] Taking $\delta = M \epsilon$, we have \[
+            \sum_{i=1}^{n} \abs{x_i' - x_i} < \delta = M \epsilon 
+            \implies \sum_{i=1}^{n} \abs{f(x_i') - f(x_i)} < \epsilon
+        \] Therefore, \[
+            \forall_{\epsilon>0} \exists_{\delta = M \epsilon}
+            \forall_{\mathcal{I} \text{ nonoverlaping }
+                : \sum_{i=1}^{n} \abs{x_i' - x_i} < \delta
+            } \sum_{i=1}^{n} \abs{f(x_i') - f(x_i)} < \epsilon
+        \] which is the definition of absolutely continuous.
+    \end{proof}
+\end{proposition}
+
+% Problem 2 ----------------------------------------------
+\newpage
+\section{}
+If $f$ is continuous and $\alpha$ is of bounded variation on $[a,b]$, then $f$ is Riemann-Stieltjes integrable with respect to $\alpha$ on $[a,b]$. 
+Let $\beta(x) = V_{a}^{x}(\alpha)$ and $\gamma(x) = \beta(x) - \alpha(x)$, $x \in [a,b]$. 
+Show that 
+% Part a ----
+\subsection{}
+\subsubsection*{Problem:}
+\[
+    \abs{\int_{a}^{b} f(x) \dd{\alpha(x)}} 
+    \leq \int_{a}^{b} \abs{f(x) \dd{\beta(x)}} 
+    \leq \max_{x \in [a,b]} \abs{f} V_{a}^{b}(\alpha).
+\]
+
+\subsubsection*{Solution:}
+By definition, \[
+    \beta(x) = V_{a}^{x} (\alpha) = \abs{\alpha(x) - \alpha(a)} = \alpha(x) + \gamma(x)
+\] and \[
+    \beta(x_{k}) - \beta(x_{k-1}) = \abs{\alpha(x_k) - \alpha(a)} - \abs{\alpha(x_{k-1}) - \alpha(a)} = \alpha(x_k) - \alpha(x_{k-1})
+\] 
+Note that $V_{a}^{x_{k}} \geq V_{a}^{x_{k-1}} \geq 0$, so \[
+    \beta(x_{k}) - \beta(x_{k-1}) > 0 \implies \beta(x_{k}) - \beta(x_{k-1}) = \abs{\beta(x_{k}) - \beta(x_{k-1})}
+\]
+
+Additionally, since $\alpha(x)$ is of bounded variation, \[
+    \Delta_k(\alpha) \leq V_{a}^{x_k}(\alpha) \leq V_{a}^{b} (\alpha)
+\] 
+
+We have that \[
+    \int_{a}^{b} f(x) \dd{\alpha(x)} 
+    = \lim_{\text{mesh}(P)\to 0} \sum_{i=1}^{n} f(x_i^*) (\alpha(x_i) - \alpha(x_{i-1}))
+\] therefore, \begin{align*}
+    \abs{\int_{a}^{b} f(x) \dd{\alpha(x)}} 
+        &= \lim_{\text{mesh}(P)\to 0} \abs{\sum_{i=1}^{n} f(x_i^*) (\alpha(x_i) - \alpha(x_{i-1}))}\\
+        &= \lim_{\text{mesh}(P)\to 0} \sum_{i=1}^{n} \abs{f(x_i^*) (\alpha(x_i) - \alpha(x_{i-1}))}\\
+        &\leq \lim_{\text{mesh}(P)\to 0} \sum_{i=1}^{n} \abs{f(x_i^*)} \abs{(\alpha(x_i) - \alpha(x_{i-1}))}\\
+        &= \lim_{\text{mesh}(P)\to 0} \sum_{i=1}^{n} \abs{f(x_i^*)} \abs{\beta(x_{k}) - \beta(x_{k-1})}\\
+        &= \lim_{\text{mesh}(P)\to 0} \sum_{i=1}^{n} \abs{f(x_i^*)} (\beta(x_{k}) - \beta(x_{k-1}))\\
+        &= \int_{a}^{b} \abs{f(x)} \dd{\beta(x)}\\
+        &= \lim_{\text{mesh}(P)\to 0} \sum_{i=1}^{n} \abs{f(x_i^*)} V_{x_{k}}^{x_{k-1}}(\alpha)\\
+        &\leq \lim_{\text{mesh}(P)\to 0} \sum_{i=1}^{n} \abs{f(x_i^*)} V_{a}^{b}(\alpha)\\
+        &= \max_{x \in [a,b]} \abs{f} V_{a}^{b}(\alpha)
+\end{align*}
+Thus,\[
+    \abs{\int_{a}^{b} f(x) \dd{\alpha(x)}} 
+    \leq \int_{a}^{b} \abs{f(x) \dd{\beta(x)}} 
+    \leq \max_{x \in [a,b]} \abs{f} V_{a}^{b}(\alpha).
+\]
+
+% Part b -----------------------
+\subsection{}
+\subsubsection*{Problem:}
+The function $\alpha$ is Riemann-Stieltjes integrable with respect to $f$ on $[a,b]$.
+
+\subsubsection*{Solution:}
+Since $\alpha$ of bounded variation and $f$ is continuous on $[a,b]$, \begin{align*}
+    \int_{a}^{b} \alpha(x) \dd{f(x)}
+        &= \lim_{\text{mesh}(P)\to 0} \sum_{i=1}^{n} \alpha(x_i^*) (f(x_i) - f(x_{i-1}))
+\end{align*}
+which clearly converges since $\alpha(x_{i-1}) \leq \alpha(x_i^*) \leq \alpha(x_{i})$ and $f(x_i) - f(x_{i-1}) \to 0$.
+
+% Problem 3 ----------------------------------------------
+\newpage
+\section{}
+\subsubsection*{Problem:}
+Given a positive integer $n$ and numbers $c_0, c_1, c_2, \dots, c_n$, let $\alpha$ be the step function defined on $[0,1]$ by \begin{align*}
+    \alpha(0) = 0,\\
+    \alpha(x) = c_0 \text{ for } 0 < x < \frac{1}{n},\\
+    \alpha(x) = c_0 \text{ for } \frac{k-1}{n} < x < \frac{k}{n}, k = 2, 3, \dots, n,\\
+    \alpha(1) = \sum_{i=0}^{n} c_i
+\end{align*}
+
+Show that $V_{0}^{1}(\alpha) \leq \sum_{i=0}^{n} \abs{c_i}$. 
+(Hint: Use Riemann-Stieltjes Integral to estimate the variation.)
+
+\subsubsection*{Solution:}
+
+
+
+
+
+
+
+% Problem 4 ----------------------------------------------
+\newpage
+\section{}
+\subsubsection*{Problem:}
+Let \[
+    f(x) = \begin{cases}
+        x^2 &\text{if} -1 \leq x \leq 0;\\
+        x^3 &\text{if} 0 < x \leq 1;
+    \end{cases}
+    \text{ and } 
+    \alpha(x) = \begin{cases}
+        1   &\text{if} x = -1;\\
+        2 x^2   &\text{if} -1 < x < 1;\\
+        -1  &\text{if} x = 1.
+    \end{cases}
+\]
+Evaluate the Darboux-Stieltjes integral $\int_{-1}^{1} f(x) \dd{\alpha(x)}$.
+
+\subsubsection*{Solution:}
+\begin{example}
+    Let \[
+        f(x) = \begin{cases}
+            x^2 & -1 \leq x \leq 0\\
+            x^3 &  0 < x \leq 1
+        \end{cases}
+    \] and \[
+        \alpha(x) = \begin{cases}
+            1   & x = -1\\
+            2 x^2   & -1 < x < 1\\
+            -1  & x = 1
+        \end{cases}
+    \] Evaluate the Darboux-Stieltjes integral $\int_{-1}^{1} f(x) \dd{\alpha(x)}$.
+\end{example}
+The definition of a Darboux-Stieltjes integral is \[
+    \mathcal{DS} \int_{a}^{b} f \dd{\alpha} 
+    = U(f, \alpha) = \inf_{P} U(f, \alpha, P)
+    = \sup_{P} L(f, \alpha, P) = L(f, \alpha)
+\] where the upper Darboux-Stieltjest sum is \[
+    U(f, \alpha, P) 
+    = \sum_{i=1}^{n} M(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
+    = \sum_{i=1}^{n} \sup_{x \in [x_{i-1}, x_i]} f(x) \cdot (\alpha(x_{i-1}) - \alpha(x_{i})
+\] and the lower Darboux-Stieltjest sum is \[
+    U(f, \alpha, P) 
+    = \sum_{i=1}^{n} m(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
+    = \sum_{i=1}^{n} \inf_{x \in [x_{i-1}, x_i]} f(x) \cdot (\alpha(x_{i-1}) - \alpha(x_{i})
+\] These definitions could be used to both directly compute the sums and that the integral exists; however, we can take the conclusion that $\int_{-1}^{1} f(x) \dd{\alpha(x)}$ exists since $f(x)$ is continuous and $\alpha(x)$ is differentiable apart from two finite points (at $a$ and $b$).
+
+Taking a few jumps we have that \begin{align*}
+    \int_{-1}^{1} f(x) \dd{\alpha(x)}
+        &= f(-1) (\alpha(-1^+) - \alpha(-1^-))
+            + \int_{-1}^{0} f(x) \dv{\alpha}{x}
+            + \int_{0}^{1} f(x) \dv{\alpha}{x}
+            + f(1) (\alpha(1^+) - \alpha(1^-))\\
+        &= (1) (2 - 1)
+            + \int_{-1}^{0} (x^2) (4 x) \dd{x}
+            + \int_{0}^{1} (x^3) (4 x) \dd{x}
+            + (1) (-1 - 2)\\
+        &= (1) (1)
+            + \int_{-1}^{0} 4 x^3 \dd{x}
+            + \int_{0}^{1} 4 x^4 \dd{x}
+            + (1) (-3)\\
+        &= 1
+            + \eval{x^4}_{-1}^{0}
+            + \eval{\frac{4}{5} x^5}_{0}^{1}
+            -3\\
+        &= 1 - 3 
+            + (0^4 - (-1)^4)
+            + \frac{4}{5} (1^5 - (0)^5)\\
+        &= -2 - 1 + \frac{4}{5}\\
+        &= \frac{-11}{5} = -2.2
+\end{align*}
+
+% Problem 5 ----------------------------------------------
+\newpage
+\section{}
+Let $C$ be the Cantor set in $[0, 1]$. 
+The Cantor set $C$ is created by iteratively deleting the open middle third from a set of non-overlapping closed intervals. 
+One starts by deleting the open middle third $(\frac{1}{3}, \frac{2}{3})$ from the interval $[0,1]$, leaving two closed intervals: $[0, \frac{1}{3}]$ and $[\frac{2}{3},1]$. 
+Next, the open middle third of each of these remaining intervals is deleted, leaving four closed intervals: $[0,\frac{1}{9}]$, $[\frac{2}{9},\frac{1}{3}]$, $[\frac{2}{3}$,$\frac{7}{9}]$, and $[\frac{8}{9},1]$.
+Continue this process forever.
+The Cantor set contains all points in the interval $[0, 1]$ that are not deleted at any step in this infinite process. 
+Let $D$ be the open set deleted. 
+Then $C = [0,1] \sim D$.
+
+A continuous function $f$ is defined to be zero on $C$ and on each component interval $(\alpha, \beta)$ of $D$ to have its graph as shown in the figure. 
+The exact equation is not important, but on $(\alpha,\beta)$, $f'$ is continuous, $f'(\alpha^+) = f'(\beta^-) = 0$, $\max_{x\in(\alpha,\beta)} \abs{f'(x)} = 1$, and $\max_{x\int(\alpha,\beta)} f(x) \leq (\beta-\alpha)^2$. 
+Show that the Riemann integral $\int_{0,1} f'(x) \dd{x}$ doesn't exist even though $f'(x)$ exists and are bounded on $[0,1]$.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics*[width=0.3\textwidth]{figs/pblm5.png}
+\end{figure}
+
+
+\begin{example}
+    Let $C \in [0,1]$ be the Cantor set and $D = C'$.
+    Let $f : [0,1] \to \R$ be a continuous function defined as $0$ $\forall_{x\in C}$ and on each interval of $D$, $(\alpha,\beta)$, we have \[
+        f'(\alpha^+) = f'(\beta^-) = 0 \land \max_{x\in(\alpha,\beta)} \abs{f'(x)}=1 \land \max_{x\in(\alpha,\beta)} f(x) \leq (\beta - \alpha)^2
+    \] However, the Riemann integral $\mathcal{R} \int_{0}^{1} f'(x) \dd{x}$ does not exist.
+\end{example}
+
+Consider the partition $P$ defined by\[
+    P = \qty{0 = x_0 < x_1 < \cdots < x_N = 1}
+\] with mesh size $\text{mesh}(P) < \delta$. 
+Let $(\alpha_0, \beta_0) \in [0,1]$ describe an arbitrary interval of $D$.
+
+The lower Riemann (Darboux) sum is defined as \begin{align*}
+    L(f,P) = \sum_{k=1}^{N} m(f, [x_{k-1}, x_k])
+\end{align*} The upper Riemann (Darboux) sum is defined as \begin{align*}
+    U(f,P) = \sum_{k=1}^{N} M(f, [x_{k-1}, x_k])
+\end{align*}
+
+When $\text{mesh}(P) > (\alpha_0 - \beta_0)$, $\forall_{k=1,\dots,N}$, $m(f, [x_{k-1}, x_{k}]) = 0$ since $\exists_{x \in [x_{k-1}, x_{k}] : x \in C}$ and $0 < M(f, [x_{k-1}, x_{k}]) \leq (\beta_0 - \alpha_0)^2$ since $\exists_{x \in [x_{k-1}, x_{k}] : x \in D}$.
+
+This means that $\forall_{P}$, \[
+    L(f,P) = \sum_{k=1}^{N} (m(f, [x_{k-1}, x_{k}] = 0) = 0
+\] and \[
+    U(f,P) = \sum_{k=1}^{N} (M(f, [x_{k-1}, x_{k}]) > 0) > 0
+\] Thus, \[
+    L(f) = 0 < U(f)
+\] and therefore \[
+    L(f) \neq U(f) 
+\] which means that $f$ is not Riemann Integrable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
