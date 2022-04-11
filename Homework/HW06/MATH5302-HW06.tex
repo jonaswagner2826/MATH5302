@@ -274,22 +274,41 @@ which clearly converges since $\alpha(x_{i-1}) \leq \alpha(x_i^*) \leq \alpha(x_
 \section{}
 \subsubsection*{Problem:}
 Given a positive integer $n$ and numbers $c_0, c_1, c_2, \dots, c_n$, let $\alpha$ be the step function defined on $[0,1]$ by \begin{align*}
-    \alpha(0) = 0,\\
-    \alpha(x) = c_0 \text{ for } 0 < x < \frac{1}{n},\\
-    \alpha(x) = c_0 \text{ for } \frac{k-1}{n} < x < \frac{k}{n}, k = 2, 3, \dots, n,\\
-    \alpha(1) = \sum_{i=0}^{n} c_i
+    \alpha(0) &= 0,\\
+    \alpha(x) &= c_0 \text{ for } 0 < x < \frac{1}{n},\\
+    \alpha(x) &= \sum_{i=0}^{k-1} c_i \text{ for } \frac{k-1}{n} < x < \frac{k}{n}, k = 2, 3, \dots, n,\\
+    \alpha(1) &= \sum_{i=0}^{n} c_i
 \end{align*}
 
 Show that $V_{0}^{1}(\alpha) \leq \sum_{i=0}^{n} \abs{c_i}$. 
 (Hint: Use Riemann-Stieltjes Integral to estimate the variation.)
 
 \subsubsection*{Solution:}
-
-
-
-
-
-
+Let partition $P$ be defined as \[
+    P = \qty{
+        0 = x_0 < x_1 < \cdots < x_{k_1} = \frac{k_1}{n} < \cdots < x_N = 1
+    }
+\] where $x_{k} = \frac{k_1}{n}$.
+Then we have \[
+    V_{a}^{b}(f) = \sup_P V_{a}^{b}(f,P)
+\] and \[
+    V_a^b(f) = \sum_{i=1}^{n} \abs{f(x_i) - f(x_{i-1})}
+\] which is very similar to the definition of a RS sum with $f(x) = 1$:\[
+    \sum_{i=1}^{n} f(x_i^*) \cdot \Delta_i \alpha
+\]
+\begin{align*}
+    V_{0}^{1}(\alpha) &= \sup_P V_{0}^{1}(\alpha,P)\\
+        &\approx \mathcal{RS} \int_{0}^{1} 1 \dd{\alpha(x)}\\
+        &= \lim_{N \to \infty} \sum_{i=1}^{N} (1) (\alpha(x_i) - \alpha(x_{i-1})\\
+    \intertext{since $\alpha(x_i) - \alpha(x_{i-1})$ is only nonzero whenever $i = k_j \forall_{j=1,\dots,n}$}
+        &= \sum_{i=1}^{n} (\alpha(x_{k_i}) - \alpha(x_{k_j-1})\\
+        &= \sum_{i=1}^{n} \qty(\sum_{j=1}^{i} c_j - \sum_{j=1}^{i-1} c_{j})\\
+        &= \sum_{i=1}^{n} c_i\\
+        &\leq \sum_{i=1}^{n} \abs{c_i}
+\end{align*}
+Therefore,\[
+    V_{0}^{1}(\alpha) \leq \sum_{i=1}^{n} \abs{c_i}
+\]
 
 % Problem 4 ----------------------------------------------
 \newpage
