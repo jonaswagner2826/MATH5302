@@ -1,0 +1,472 @@
+% Standard Article Definition
+\documentclass[]{article}
+
+% Page Formatting
+\usepackage[margin=1in]{geometry}
+\setlength\parindent{0pt}
+
+% Graphics
+\usepackage{graphicx}
+
+% Math Packages
+\usepackage{physics}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{mathtools}
+
+% Extra Packages
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Section Heading Settings
+\usepackage{enumitem}
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand*{\thesection}{Problem \arabic{section}}
+\renewcommand*{\thesubsection}{\alph{subsection})}
+\renewcommand*{\thesubsubsection}{}%\quad \quad \roman{subsubsection})}
+
+%Custom Commands
+\newcommand{\Rel}{\mathcal{R}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\toI}{\xrightarrow{\textsf{\tiny I}}}
+\newcommand{\toS}{\xrightarrow{\textsf{\tiny S}}}
+\newcommand{\toB}{\xrightarrow{\textsf{\tiny B}}}
+
+\newcommand{\divisible}{ \ \vdots \ }
+\newcommand{\st}{\ : \ }
+
+% Theorem Definition
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+
+
+%opening
+\title{MATH 5302 Elementary Analysis II - Homework 7}
+\author{Jonas Wagner}
+\date{2022, April 13\textsuperscript{th}}
+
+\begin{document}
+
+\maketitle
+
+\section*{Preliminaries}
+% \begin{definition}
+%     \textbf{\emph{Darboux-Stieltjes Integral}}
+%     Let $f : [a,b] \to \R$ and $\alpha : [a,b] \to \R$, with $f$ bounded and $\alpha$ increasing on $[a,b]$.
+%     Let partition $P$ be defined as \[
+%         P = \qty{a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b}
+%     \] Let \[
+%         M(f, [x_1, x_2]) = \sup_{x \in [x_1, x_2]} f(x)
+%     \] and \[
+%         m(f, [x_1, x_2]) = \inf_{x \in [x_1, x_2]} f(x)
+%     \]
+%     \begin{enumerate}
+%         \item The upper and lower \emph{\underline{Darboux-Stieltjes Sums}} are defined \[            
+%             U(f, \alpha, P) = \sum_{i=1}^{n} M(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
+%         \] and \[
+%             L(f, \alpha, P) = \sum_{i=1}^{n} m(f, [x_{i-1}, x_i]) \cdot \Delta_i \alpha
+%         \] respectively with \[
+%             \Delta_i \alpha = \alpha(x_i) - \alpha(x_{i-1})
+%         \] A more general sum $S(f, \alpha, P)$ is when $f(x_i^*)$ for $x_i^* \in [x_{i-1}, x_{i}]$ is used instead.
+
+%         \emph{\textbf{\underline{Note:}}} \[
+%             m(f,[a,b]) \cdot (\alpha(b) - \alpha(a)) 
+%             \leq L(f, \alpha, P) 
+%             \leq U(f, \alpha, P)
+%             \leq M(f,[a,b]) \cdot (\alpha(b) - \alpha(a)) 
+%         \]
+%         \item The upper and lower \emph{\underline{Darboux-Stieltjes Integrals}} are defined \[            
+%             U(f, \alpha) = \inf_{P \text{ partition of } [a,b]} U(f, \alpha, P)
+%         \] and \[
+%             L(f, \alpha) = \sup_{P \text{ partition of } [a,b]} U(f, \alpha, P)
+%         \] respectively.
+
+%         \emph{\textbf{\underline{Note:}}}\[
+%             L(f, \alpha)
+%             \leq L(f, \alpha, P) 
+%             \leq U(f, \alpha, P)
+%             \leq U(f, \alpha)
+%         \] for any $P$ partition of $[a,b]$.
+%         \item $f$ is called \emph{\underline{Darboux-Stieltjes Integrable}} with respect to $\alpha$ if and only if \[
+%             \forall_{\epsilon>0} \exists_{P = \qty{a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b}} : 
+%             U(f,\alpha,P) - L(f,\alpha,P) < \epsilon
+%         \] in which case the \emph{\underline{Darboux-Stieltjes Integral}} with respect to $\alpha$ is defined as \[
+%             \mathcal{DS} \int_{a}^{b} f \dd{\alpha} = U(f,\alpha) = L(f, \alpha)
+%         \]
+%         \emph{\textbf{\underline{Note:}}}
+%         If $f$ is also continuous on $[a,b]$ then $f$ is Riemann-Stieljes integrable which implies $f$ is Darboux-Stieljes integrable.
+%     \end{enumerate}
+%     \textbf{\emph{\underline{Properties:}}}
+%     When $f$ is Darboux-Stieltjes integrable on $[a,b]$ and $\alpha$ is increasing on $[a,b]$ then
+%     \begin{enumerate}
+%         \item $\abs{f}$ is Darboux-Stieltjes integrable on $[a,b]$ and \[
+%             \mathcal{DS} \int_{a}^{b} f \dd{\alpha} \leq \mathcal{DS} \int_{a}^{b} \abs{f} \dd{\alpha}
+%         \]
+%         \item $f^2$ is Darboux-Stieltjes integrable on $[a,b]$.
+%         \item If $g$ is also Darboux-Stieltjes integrable on $[a,b]$, then $fg$ is Darboux-Stieltjes integrable on $[a,b]$.
+%         \item For $\alpha_1$ and $\alpha_2$ also increasing on $[a,b]$ and $f$ is Darboux-Stieltjes integrable with respect to $\alpha_1$ and $\alpha_2$, then $f$ is Darboux-Stieltjes integrable with respect to $\alpha_1$ and $\alpha_2$. 
+%         Additionally, \begin{align*}
+%             & \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha_1(x)} + \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha_2(x)}\\
+%             = & \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha(x) + \alpha_2(x)}
+%         \end{align*}
+%         \item For $a < c < b$, $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,b]$ if and only if $f$ is Darboux-Stieltjes integrable with respect to $\alpha$ on $[a,c]$ and $[c,b]$. 
+%         Furthermore, \[
+%             \mathcal{DS} \int_{a}^{b} f(x) \dd{\alpha(x)}
+%             = \mathcal{DS} \int_{a}^{c} f(x) \dd{\alpha(x)} 
+%             + \mathcal{DS} \int_{c}^{b} f(x) \dd{\alpha(x)}
+%         \]
+%     \end{enumerate}
+% \end{definition}
+
+% \begin{definition}
+%     \textbf{Continuity:}
+%     Let $f : [a,b] \to \R$. 
+%     \begin{enumerate}
+%         \item $f$ is \emph{\underline{Lipschitz Continuous}} on $[a,b]$ if \[
+%             \exists_{C} : \forall_{x,y \in [a,b]} \abs{f(x) - f(y)} \leq \abs{x - y} 
+%         \]
+%         \item $f$ is \emph{\underline{Absolutely Continuous}} on $[a,b]$ if \[
+%             \forall_{\epsilon>0} \exists_{\delta>0}
+%             \forall_{
+%                 \text{finite collection } \qty{(x,x')} \text{ of nonoverlaping intervals} 
+%                 : \sum_{i=1}^{n} \abs{x_i' - x_i} < \delta
+%             } \sum_{i=1}^{n} \abs{f(x_i') - f(x_i)} < \epsilon
+%         \]
+%         \item $f$ is \underline{\emph{uniformly continuous}} on $[a,b]$ if \[
+%             \forall_{\epsilon>0} \exists_{\delta>0} : 
+%                 \qty(x,y \in [a,b]) \land \qty{\abs{x-y} < \delta}
+%             \implies \abs{f(x) - f(y)} < \epsilon
+%         \]
+%         \item $f$ is \emph{\underline{continuous}} on $[a,b]$ if $f$ is continuous at all $x_0 \in [a,b]$.
+%         i.e. \[
+%             \forall_{\epsilon > 0} \exists_{\delta>0} : 
+%             \forall_{x \in [a,b]} \land \abs{x - x_0} < \delta
+%             \implies \abs{f(x) - f(x_0)} < \epsilon
+%         \]
+%     \end{enumerate}
+%     \emph{\underline{\textbf{Properties:}}}
+%     \begin{enumerate}
+%         \item $f$ continuous on closed $[a,b]$, then $f$ is uniformly continuous on $[a,b]$.
+%         \item $f$ differentiable at $x \in [a,b]$ implies Locally Lipschitz continuous at $x$.
+%         \item $C^1[a,b]$ is the set of differentiable functions with continuous derivatives on $[a,b]$.
+%         \item $C^1[a,b]$ $\subset$ differentiable functions with bounded derivatives
+%         \item Differentiable with bounded derivatives 
+%         $\implies$ Lipschitz continuous 
+%         $\implies$ Absolutely continuous
+%         $\implies$ uniformly continuous
+%         $\implies$ continuous
+%     \end{enumerate}
+% \end{definition}
+
+
+\begin{definition}
+    \underline{\emph{$n$-dimensional Euclidean norm-space:}}
+    Let $\R^n$ be defined as \[
+        \R^n := \{
+            x = (x_1, x_2, \dots, x_n) 
+            \st x_j \in \R
+        \}
+    \] Let $A, B \subseteq \R^n$.
+    \begin{enumerate}
+        \item \emph{\underline{Compliment of $A$}} \[
+            A^c := \{
+                x \in \R^n \st x \neq A
+            \}
+        \] \item \emph{\underline{Union of $A$ and $B$}} \[
+            A \cup B := \{
+                x \in \R^n \st x \in A \lor x \in B
+            \}
+        \] \item \emph{\underline{Intersection of $A$ and $B$}} \[
+            A \cap B := \{
+                x \in \R^n \st x \in A \land x \in B
+            \}
+        \] \item \emph{\underline{Difference of $A$ and $B$}}\[
+            A \backslash B = A \cap B^c := \{
+                x \in \R^n \st x \in A \land x \neq B
+            \}
+        \] \item \emph{\underline{Closure of $A$}}\[
+            \overline{A} := \{
+                x \in \R^n \st x \in A \lor x = \lim_{k\to\infty} x_k \st [x_k] \in A
+            \}
+        \] \item \emph{\underline{Euclidean norm on $\R^n$}} \[
+            \norm{x} := \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
+        \] with triangular inequality: \[
+            \norm{x+y} \leq \norm{x} + \norm{y}
+        \] \item \emph{\underline{Metric on $\R^n$}} \[
+            d(x,y) = \norm{x - y}
+        \] with properties \begin{enumerate}
+            \item $d(x,y) \geq 0$
+            \item $d(x,y) = 0 \iff x = y$
+            \item $d(x,y) = d(y,x)$
+            \item $d(x,y) \leq d(x,z) + d(z,y)$
+        \end{enumerate}
+        \item $A$ is considered \emph{\underline{bounded}} if every point in $A$ is bounded: \[
+            \exists_{M > 0} \st \forall_{x\in A} \norm{x} \leq M
+        \]
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    \emph{\textbf{Open and Closed Sets:}} 
+    Let $A \subseteq \R^n$ and $x \in A$.
+    \begin{enumerate}
+        \item Denote the \emph{\underline{open ball}} centered at $x$ of radius $r$ as: \[
+            B(x,r) := \{
+                y \in \R^n \st d(x,y) < r
+            \}
+        \] \item $x$ is considered an \emph{\underline{interior point of $A$}} if :\[
+            \exists_{r > 0} \st B(x,r) \subseteq A
+        \] \item  $A$ is considered \emph{\underline{open}} if every point $x \in A$ is an interior point of $A$: \[
+            \forall_{x \in A} \exists_{r>0} \st B(x,r) \subseteq A
+        \] The following properties exist for open sets:\begin{enumerate}
+            \item $\emptyset$ is open
+            \item $\R^n$ is open
+            \item Union of any collection of open sets is open
+            \item Intersection of any finite collection of open sets is open
+            \item Any open ball is an open set
+        \end{enumerate}
+        \item The \emph{\underline{Interior of $A$}} is the set of all interior points of $A$ \[
+            A^\circ := \{
+                x \st x \text{is an interior point of $A$}
+            \}
+        \] Properties of $A^\circ$ \begin{enumerate}
+            \item $A$ open $\iff$ $A^\circ = A$
+            \item $A^\circ$ open
+            \item $(A^\circ)^\circ = A^\circ$
+            \item $(A \cap B)^\circ = A^\circ \cap B^\circ$
+            \item $A^\circ \cup B^\circ$ not generally equal to $(A \cup B)^\circ$
+            \item $A^\circ$ is the union of all open subsets of $A$
+            \item $A^\circ$ is the largest open subset of $A$
+        \end{enumerate}
+        \item $A$ is considered \emph{\underline{closed}} if $A^c$ is open. 
+        Properties of closed sets \begin{enumerate}
+            \item $\R^n$ is closed
+            \item $\emptyset$ is closed
+            \item The intersection of any collection of closed sets is closed
+            \item The union of any finite collection of closed sets is closed
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    \emph{\textbf{Compact set:}} 
+    Let $A \subseteq \R^n$. 
+    \begin{enumerate}
+        \item 
+        \item $A$ is called \emph{\underline{compact}} if every open cover of $A$ has a finite subcover.
+        \item Properties of compact sets \begin{enumerate}
+            \item $\emptyset$ is compact
+            \item Any finite set is compact
+            \item $A$ and $B$ compact $\implies$ $A \cup B$ compact
+            \item Any finite union of compact sets is compact
+            \item $B(x,r)$ is not compact
+            \item $\R^n$ is not compact
+            \item If $A$ is compact then $A$ is closed and bounded.
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    \emph{\textbf{Lebesgue Measure:}}
+    Let $A \subseteq \R^n$. 
+    \emph{Note:} 
+    For various $n$, a Lebesgue Measure is essentially:\begin{enumerate}
+        \item For $n=1$, $\lambda(A)$ is a length
+        \item For $n=2$, $\lambda(A)$ is an area
+        \item For $n=3$, $\lambda(A)$ is a volume
+    \end{enumerate}
+    Each of the following stages define the Lebesgue measure in increasing complexity. \begin{enumerate}
+        \item \emph{\textbf{Empty Set:}} \[
+            \lambda(\emptyset) = 0
+        \] 
+        \item \emph{\textbf{Special Rectangles:}}
+        
+        Let \[
+            I = [a_1, b_1] \cross \cdots \cross [a_n, b_n]
+        \] then \[
+            \lambda(I) = (b_1 - a_1) \cdots (b_n - a_n)
+        \]
+        \item \emph{\textbf{Special Polygons:}}
+        Special polygons are a finite union of special rectangles. 
+        They are closed and bounded subsets and therefore compact. 
+        
+        Let $P$ be a special polygon, decomposed into the following union of nonoverlaping special rectangles: \[
+            P = \bigcup_{k=1}^{N} I_k
+        \] The Lebesgue Measure for the special polygon is defined as the sum of the Lebesgue Measures of the special rectangles:\[
+            \lambda(P) = \sum_{k=1}^{N} \lambda(I_k)
+        \] The following are a few properties of the Lebesgue Measure for Special Polygons:\begin{enumerate}
+            \item $P_1 \subseteq P_2 \implies \lambda(P_1) \leq \lambda(P_2)$
+            \item $P_1 \cap P_2 = \emptyset \implies \lambda(P_1 \cup P_2) = \lambda(P_1) + \lambda(P_2)$
+        \end{enumerate}
+        \item \emph{\textbf{Open Sets:}}
+        Let $G \subseteq \R^n$ be open and $G \neq \emptyset$. 
+
+        The Lebesgue Measure of an open set is defined as \[
+            \lambda(G) = \sup \{
+                \lambda(P) \st P \subset G, \ P \textnormal{ is a special polygon}
+            \}
+        \] The following are some properties of the Lebesgue Measure for open sets: \begin{enumerate}
+            \item $0 \leq \lambda(G) \leq \infty$
+            \item $\lambda(G) = 0 \iff G = \emptyset$
+            \item $\lambda(\R^n) = \infty$
+            \item $G_1 \subseteq G_2 \implies \lambda(G_1) \leq \lambda(G_2)$
+            \item $\lambda\qty(\bigcup_{k=1}^{\infty} G_k) \leq \sum_{k=1}^{\infty} \lambda(G_k)$
+            \item $\bigcap_{k=1}^{\infty} G_k = \emptyset \implies \lambda\qty(\bigcup_{k=1}^{\infty} G_k) = \sum_{k=1}^{\infty} \lambda(G_k)$
+            \item If $P$ is a special polygon, then $\lambda(P) = \lambda(P^\circ)$
+        \end{enumerate}
+        \item \emph{\textbf{Compact Sets:}}
+        Let $K \subseteq \R^n$ be a compact set.
+
+        The Lebesgue Measure of a compact set is defined as \[
+            \lambda(K) = \inf \{
+                \lambda(G) \st K \subset G, \ G \textnormal{ is an open set}
+            \}
+        \] The following are some properties of the Lebesgue Measure for compact sets: \begin{enumerate}
+            \item $0 \leq \lambda(K) \leq \infty$
+            \item $K_1 \subseteq K_2 \implies \lambda(K_1) \leq \lambda(K_2)$
+            \item $\lambda(K_1 \cup K_2) \leq \lambda(K_1) + \lambda(K_2)$
+            \item $K_1 \cap K_2 = \emptyset \implies \lambda(K_1 \cup K_2) = \lambda(K_1) + \lambda(K_2)$
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+
+
+
+
+
+
+% Problem 1 ----------------------------------------------
+\newpage
+\section{}
+\subsection*{Problem:}
+Let $A \subset \R^n$ be a compact set. 
+Show that $A$ is bounded. 
+
+\subsection*{Solution:}
+\begin{theorem}
+    Let $A \subset \R^n$. 
+    If $A$ is a compact set then $A$ is also bounded.
+    \begin{proof}
+        For $x \in A$, let \[
+            G_{i} = B(x,r_i) = \{
+                y \in \R^n \st d(x,y) < r_{i}
+            \}, \forall_{i \in \N}
+        \] with $r_i \leq r_{i+1}$, meaning $G_i \subset G_{i+1}$ and also that \[
+            A \subseteq \bigcup_{i=1}^{\infty} G_i
+        \] $A$ compact means that the finite subcover exists \[
+            \exists_{i_1,i_2,\dots,i_N} \st A \subseteq \bigcup_{i=1}^{N} G_{i_k}
+        \] and therefore \[
+            \exists_k \st A \subseteq G_{i_k}
+        \] which means that \[
+            \exists_{r_k} \st \forall_{y \in A} d(x,y) \leq r_k
+        \] which is the definition of a bounded set.
+    \end{proof}
+\end{theorem}
+
+% Problem 2 ----------------------------------------------
+\newpage
+\section{}
+\subsection*{Problem:}
+Let $G$ be a nonempty subset of $\R^n$. 
+If $G$ is open and $P$ is a special polygon with $P\subset G$, prove there exists a special polygon $P'$ such that $P \subset P' \subset G$ and $\lambda(P) < \lambda(P')$. 
+(Hint: consider $G \backslash P$).
+
+\subsection*{Solution:}
+\begin{theorem}
+    Let $G \neq \emptyset \subset \R^n$ and $P \subset G$.
+    If $G$ open and $P$ is a special polygon, then \[
+        \exists_{P'} \st P \subset P' \subset G \land \lambda(P) < \lambda(P')
+    \]
+    \begin{proof}
+        By definition, $P$ is composed of a finite collection of nonoverlaping special rectangles:\[
+            P = \bigcup_{k=1}^{N} I_k
+        \] Since $G$ is open and $P \subset G$, \[
+            G \backslash P \neq \emptyset \implies \exists_{I_{N+1} \textnormal{ special rectangle}} \subset G \backslash P
+        \] $I_{N+1}$ is then another nonoverlaping special rectangle so that \[
+            P' = P \cup I_{N+1} = \bigcup_{k=1}^{N+1} I_k \subset G
+        \] Since $\lambda(P) = \sum_{k=1}^{N} \lambda(I_k)$, \[
+            \lambda(P') = \lambda(P) + \lambda(I_k) > P
+        \] therefore \[
+            P \subset P' \subset G \land \lambda(P) < \lambda(P')
+        \]
+    \end{proof}
+\end{theorem}
+
+% Problem 3 ----------------------------------------------
+\newpage
+\section{}
+\subsection*{Problem:}
+Use the definition of Lebesgue measure, $\lambda(G)$, of an open set $G \subset \R^n$ to prove the following statements: \begin{enumerate}
+    \item If $G$ is a bounded open set, then $\lambda(G) < \infty$.
+    \item Let \[
+        G = \{
+            (x,y) \in \R^2 \st 0 < x < 1 \land 0 < y < x^2
+        \}
+    \] Then $\lambda(G) = \frac{1}{3}$.
+\end{enumerate}
+(Hint: 
+relate $\lambda(G)$ to the lower and upper Darboux sums of the function $f(x) = x^2$ on $[0,1]$. 
+However, you cannot use the methods of calculus to the extent that $\lambda(G) = \int_0^1 x^2 \dd{x} = \frac{1}{3}$.
+You must use the actual definition of $\lambda(G)$).
+
+\subsection{If $G$ is a bounded open set, then $\lambda(G) < \infty$.}
+\begin{theorem}
+    Let $G \subset \R^n$.
+    If $G$ is a bounded open set then $\lambda(G) < \infty$.
+    \begin{proof}
+        The definition of $\lambda(G)$ as an open set is \[
+            \lambda(G) = \sup \{
+                \lambda(P) \st P \subset G, \ P \textnormal{ is a special polygon}
+            \}
+        \] Let $P_k$ be defined as a sequence with $P_k = \cup_{i=1}^{k} I_i \subset P_{k+1} \subset G \forall_{k \in \N}$.
+        Since $G$ is bounded, every $P_{k} \subset G$ would also be bounded (which is enough to conclude that $\lambda(P_k) \forall_{k}$ is bounded).
+        We have $\lambda(P_k) \leq \lambda(P_{k+1})$, and more specifically,\[
+            \lambda(P_{k+1}) = \lambda(P_{k}) + \lambda(I_{k+1})
+        \] Since $I_{k+1} \cup G \backslash P_{k+1} = G \backslash P_{k} \subset G \backslash P_{k-1}$, \[
+            \lambda(G \backslash P_{k}) = \lambda(G \backslash P_{k+1}) + \lambda(I_{k+1})
+        \] and therefore $\lambda(I_{k+1}) < \lambda(I_{k})$. 
+        This means that a finite upper bound exists on $P_k$ as \[
+            \sup{P_k} = \lim_{k\to \infty} \sum_{i=1}^k I_i
+        \] and thus $\lambda(G) = \sup{P_k} < \infty$.
+    \end{proof}
+\end{theorem}
+
+\subsection{
+    Let $G = \{(x,y) \in \R^2 \st 0 < x < 1 \land 0 < y < x^2\}$
+    Then $\lambda(G) = \frac{1}{3}$.
+}
+\begin{example}
+    Let \[
+        G = \{(x,y) \in \R^2 \st 0 < x < 1 \land 0 < y < x^2\}
+    \]
+    $\lambda(G) = \frac{1}{3}$.
+    \begin{proof}
+        Consider $f : (0,1) \to \R$ defined as \[
+            f(x) = x^2
+        \]
+    \end{proof}
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
