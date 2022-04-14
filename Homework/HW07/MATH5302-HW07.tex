@@ -246,7 +246,9 @@
             \item $A^\circ$ is the union of all open subsets of $A$
             \item $A^\circ$ is the largest open subset of $A$
         \end{enumerate}
-        \item $A$ is considered \emph{\underline{closed}} if $A^c$ is open. 
+        \item The \emph{\underline{Boundary of $A$}} is defined as the closure minus the Interior of $A$:\[
+            \partial A := \overline{A} \backslash A^\circ
+        \] \item $A$ is considered \emph{\underline{closed}} if $A^c$ is open. 
         Properties of closed sets \begin{enumerate}
             \item $\R^n$ is closed
             \item $\emptyset$ is closed
@@ -450,16 +452,111 @@ You must use the actual definition of $\lambda(G)$).
     \]
     $\lambda(G) = \frac{1}{3}$.
     \begin{proof}
-        Consider $f : (0,1) \to \R$ defined as \[
+        Consider $f : [0,1] \to \R$ defined as \[
             f(x) = x^2
+        \] Defining a partition of $[0,1]$ \[
+            \mathcal{P}_k = \{
+                0 = x_0 < x_1 < \cdots < x_k = 1
+            \}
+        \] Since $f$ is increasing $\forall_{x\in[0,1]}$, special polygons $P_{l_k} \subset G \subset P_{u_k}$ can be defined as the union of special rectangles:\[
+            P_{l_k} = \bigcup_{i=1}^{k} I_{l_i}, \ I_i = [x_{i-1}, x_i] \cross [0,f(x_{i-1})]
+        \] and \[
+            P_{u_k} = \bigcup_{i=1}^{k} I_{u_i}, \ I_i = [x_{i-1}, x_{i}] \cross [0,f(x_{i})]
+        \] We then have the Lebesgue Measures for the upper and lower special polygons as\[
+            \lambda(P_{l_k}) 
+            = \sum_{i=1}^{k} \lambda(I_{l_k}) 
+            = \sum_{i=1}^{k} (f(x_{i-1}) - 0) \cdot (x_{i} - x_{i-1})
+            = L(f, P_k)
+        \] and \[
+            \lambda(P_{u_k}) 
+            = \sum_{i=1}^{k} \lambda(I_{u_k}) 
+            = \sum_{i=1}^{k} (f(x_{i}) - 0) \cdot (x_{i} - x_{i-1})
+            = U(f, P_k)
+        \] where each are equivalent to their respective Darboux sums. 
+        Therefore, \[
+            \lambda(P_{l_k}) = L(f, P_k) \leq \sup_{P_k} \lambda(P_k) = L(f) \leq U(f) = \inf_{P_k} \lambda(P_k) \leq U(f,P_k) = \lambda(P_{u_k})
+        \]
+        Since we know that these Darboux sums result in equivalent Darboux integrals, $L(f) = U(f) = \mathcal{R}\int_{0}^{1} f = \frac{1}{3}$, we can say that \[
+            \lambda(P_{l_\infty}) = \lambda(G) = \lambda(P_{u_\infty}) = \frac{1}{3}
         \]
     \end{proof}
 \end{example}
 
+% Problem 4 ----------------------------------------------
+\newpage
+\section{}
+\subsection*{Problem:}
+Prove that every nonempty open subset of $\R$ can be expressed as a countable disjoint union of open intervals:\[
+    G = \bigcup_{k} (a_k,b_k)
+\] where the range on $k$ can be finite or infinite.
+Furthermore, show that this expression is unique except for the number of the component intervals.
+(Hint:
+for any $x\in G$, show that there exist a largest open interval $A_x$ such that $x\in A_x$ and $A_x \subseteq G$.
+Also note that the set of rational numbers is countable and dense in $\R$.
+)
 
+\subsection*{Solution:}
+\begin{theorem} \label{thm:pblm4}
+    Let $G \in \R$ be nonempty and open. 
+    $G$ can be expressed as a countable disjoint union of open intervals: \[
+        G = \bigcup_{k} (a_k, b_k)
+    \]
+    \begin{proof}
+        Let $x \in G$. 
+        The largest open interval within $G$ containing $x$ is defined as \[
+            A_x := (a_x,b_x) \subseteq G 
+                \st x \in (a_x,b_x)
+                \land \qty(
+                    \forall_{(a_x',b_x') \subseteq G} x \in (a_x',b_x') \implies (a_x',b_x') \subset (a_x,b_x)
+                )
+        \] From this definition we have the following for $A_x = (a_x, b_x)$, \[
+            A_x = (a_x, b_x) \subseteq G \implies a_x \in \overline{G} \land b_x \in \overline{G}
+        \] Furthermore, the definition that $A_x$ is the maximum possible subset implies that \[
+            a_x \in \partial G \land b_x \in \partial G
+        \] therefore \[
+            a_x < x < b_x \st a_x, b_x \in \partial G \land 
+        \] Since $G \subseteq \R$, these boundary points will be unique. 
+        i.e. \[
+            \forall_{x \in G} \exists_{\textnormal{unique }a_x, b_x \in \partial G} \st a_x < x < b_x
+        \] 
 
+        Consider $K = \{x_k \in \Q\}$. 
+        Since $\Q$ is complete in $\R$, and therefore complete in $G$, we have that \[
+            \exists_{K \subset \Q} \bigcup_{x_k \in K} A_{x_k} = G
+        \]
+        This is because every open region $A_k = (a_k,b_k) \in G$ will contain a point $x_k \in K$ which will result in the union of all these countable open regions to be equivalent to $G$.
+    \end{proof}
+\end{theorem}
 
+% Problem 5 ----------------------------------------------
+\newpage
+\section{}
+\subsection*{Problem:}
+In the notation of Problem 4, prove that $\lambda(G) = \sum_{k} (b_k - a_k)$.
 
+\subsection*{Solution:}
+\begin{theorem}
+    Let $G \subseteq \R$ be nonempty and open. 
+    The Lebesgue Measure of $G$ is defined as \[
+        \lambda(G) = \sum_{k} (b_k - a_k)
+    \]
+    \begin{proof}
+        From Theorem \ref{thm:pblm4} we have that \[
+            G = \bigcup_{k} (a_k, b_k)
+        \] Since $(a_k, b_k) \subset \R$, we know that \[
+            \lambda((a_k, b_k)) = b_k - a_k
+        \] Since $G$ is composed of a collection of disjoint open sets, we have that \[
+            \lambda(\bigcup_{k} (a_k, b_k)) = \sum_{k} \lambda((a_k, b_k))
+        \] Therefore, \[
+            \lambda(G) = \sum_{k} (b_k - a_k)
+        \]
+    \end{proof}
+\end{theorem}
+
+% Problem 6 ----------------------------------------------
+\newpage
+\section{}
+\subsection*{Problem:}
 
 
 
