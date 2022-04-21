@@ -1,3 +1,11 @@
 \contentsline {section}{\numberline {Problem 1}}{6}{section.1}%
 \contentsline {subsection}{\numberline {a)}}{6}{subsection.1.1}%
 \contentsline {subsection}{\numberline {b)}}{6}{subsection.1.2}%
+\contentsline {section}{\numberline {Problem 2}}{7}{section.2}%
+\contentsline {subsection}{\numberline {a)}}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {b)}}{7}{subsection.2.2}%
+\contentsline {section}{\numberline {Problem 3}}{9}{section.3}%
+\contentsline {section}{\numberline {Problem 4}}{10}{section.4}%
+\contentsline {subsection}{\numberline {a)}}{10}{subsection.4.1}%
+\contentsline {subsection}{\numberline {b)}}{10}{subsection.4.2}%
+\contentsline {section}{\numberline {Problem 5}}{11}{section.5}%

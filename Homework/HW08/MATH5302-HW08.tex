@@ -46,6 +46,7 @@
 \newtheorem{lemma}{Lemma}
 \newtheorem{proposition}{Proposition}
 \newtheorem{example}{Example}
+\newtheorem{counterExample}{Counter Example}
 
 
 %opening
@@ -313,12 +314,12 @@
     \end{enumerate}
 \end{definition}
 
-\begin{definition}
-    \emph{\textbf{Properties of the Lebesgue Measure:}}
+% \begin{definition}
+%     \emph{\textbf{Properties of the Lebesgue Measure:}}
 
-    Let $A \subseteq \R^n$.
+%     Let $A \subseteq \R^n$.
 
-\end{definition}
+% \end{definition}
 
 
 
@@ -330,6 +331,7 @@
 \newpage
 \section{}
 \subsection{}
+% la
 \subsubsection*{Problem:}
 Prove Property M6: 
 If the $A_k$'s are measurable and $A_1 \supseteq A_2 \supseteq A_3 \cdots$, 
@@ -342,26 +344,216 @@ then \[
 \subsubsection*{Solution:}
 
 \begin{theorem}
-    Let 
+    Let $A_1 \subseteq A_2 \subset A_3 \cdots$ be measurable. 
+    If $\lambda(A_1) < \infty$, then \[
+        \lambda \qty(
+            \bigcap_{k=1}^{\infty} A_k
+        ) = \lim_{k \to \infty} \lambda(A_k)
+    \]
+    \begin{proof}
+        Since all countable intersections of measurable sets are measurable, 
+        we know that $\lambda\qty(\bigcap_{k=1}^{\infty} A_k)$ exists.
+        
+        Additionally, we know that \[
+            \bigcap_{k=1}^{n} A_k = A_n
+        \] which leads to \[
+            \lambda\qty(\bigcap_{k=1}^n A_k) = \lambda(A_n)
+        \] whose limit for the countable sequence becomes $\lim_{k \to \infty} \lambda(A_k)$
+    \end{proof}
 \end{theorem}
 
-
+% 1b
 \subsection{}
 \subsubsection*{Problem:}
 Give an example to show why the assumption $\lambda(A_1) < \infty$ is needed in Property M6.
 \subsubsection*{Solution:}
+\begin{counterExample}
+    Let sequence $A_k$ be defined as \[
+        A_k = \R \backslash \{(-k,k)\}
+    \] In this case, $\lambda(A_1) = \lambda(\R \backslash \{(-1,1)\}) = \infty$ and \[
+        \forall_{k \in \N} A_{k+1} = A_{k} \backslash \{(-k, k)\}
+    \] implying \[
+        \forall_{k \in \N} A_{k} \supseteq A_{k+1}
+    \] however, the limit $\lim_{k \to \infty} \lambda(A_k)$ remains unbounded despite the fact that \[
+        \lim_{k \to \infty} A_k = \emptyset \implies \lambda(A_\infty = \emptyset) = 0
+    \]
+\end{counterExample}
+
+% Problem 2 ----------------------------------------------
+\newpage
+\section{}
+Let $A$ and $B$ be subsets of $\R^n$.
+% 2a
+\subsection{}
+\subsubsection*{Problem:}
+Suppose that $A$ and $B$ are measurable. 
+Prove that \[
+    \lambda(A) + \lambda(B) = \lambda(A \cup B) + \lambda(A \cap B)
+\]
+\subsubsection*{Solution:}
+\begin{theorem}
+    Let $A, B \subset \R^n$.
+    If $A$ and $B$ are measurable, then \[
+        \lambda(A) + \lambda(B) = \lambda(A \cup B) + \lambda(A \cap B)
+    \] \begin{proof}
+        We have that \begin{align*}
+            A &= (B \cap A^c) \cup (A \cap B)\\
+            B &= (A \cap B^c) \cup (A \cap B)\\
+            A \cup B &= (B \cap A^c) \cup (A \cap B) \cup (A \cap B^c)
+        \end{align*} and since each of these are disjoint unions, we have that \begin{align*}
+            \lambda(A) &= \lambda(B \cap A^c) + \lambda(A \cap B)\\
+            \lambda(B) &= \lambda(A \cap B^c) + \lambda(A \cap B)\\
+            \lambda(A \cup B) &= \lambda(B \cap A^c) + \lambda(A \cap B) + \lambda(A \cap B^c)
+        \end{align*} 
+        
+        Therefore we have\begin{align*}
+            \lambda(A) + \lambda(B) 
+                &= (\lambda(B \cap A^c) + \lambda(A \cap B)) + (\lambda(A \cap B^c) + \lambda(A \cap B))\\
+                &= \lambda(A \cap B^c) + 2 \lambda(A \cap B) + \lambda(B \cap A^c)\\
+                &= (\lambda(B \cap A^c) + \lambda(A \cap B) + (\lambda(A \cap B^c)) + \lambda(A \cap B))\\
+                &= \lambda(A \cup B) + \lambda(A \cap B)
+        \end{align*}
+    \end{proof}
+\end{theorem}
+
+% 2b
+\subsection{}
+\subsubsection*{Problem:}
+Prove that in general \[
+    \lambda^*(A) + \lambda^*(B) \geq \lambda^*(A \cup B) + \lambda^*(A \cap B)
+\]
+\subsubsection*{Solution:}
+\begin{theorem}
+    Let $A, B \subset \R^n$.
+    It is generally true that\[
+        \lambda^*(A) + \lambda^*(B) \geq \lambda^*(A \cup B) + \lambda^*(A \cap B)
+    \] \begin{proof}
+        We have that \begin{align*}
+            A &= (B \cap A^c) \cup (A \cap B)\\
+            B &= (A \cap B^c) \cup (A \cap B)\\
+            A \cup B &= (B \cap A^c) \cup (A \cap B) \cup (A \cap B^c)
+        \end{align*} Then we have \begin{align*}
+            \lambda^*(A) &\leq \lambda^*(B \cap A^c) + \lambda^*(A \cap B)\\
+            \lambda^*(B) &\leq \lambda^*(A \cap B^c) + \lambda^*(A \cap B)\\
+            \lambda^*(A \cup B) &\leq \lambda^*(B \cap A^c) + \lambda^*(A \cap B) + \lambda^*(A \cap B^c)
+        \end{align*} Additionally, \begin{align*}
+            \lambda^*(A \cap B) &\leq \min \qty{\lambda^*(A), \lambda^*(B)}\\
+            \lambda^*(A \cap B^c) &\leq \min \qty{\lambda^*(A), \lambda^*(B^c)}\\
+            \lambda^*(B \cap A^c) &\leq \min \qty{\lambda^*(B), \lambda^*(A^c)}\\
+        \end{align*} which implies the following \begin{align*}
+            \lambda^*(A) &\geq \lambda^*(A \cap B)\\
+            \lambda^*(A) &\geq \lambda^*(A \cap B^c)\\
+            \lambda^*(B) &\geq \lambda^*(B \cap A)\\
+            \lambda^*(B) &\geq \lambda^*(B \cap A^c)\\
+            \lambda^*(A^c) &\geq \lambda^*(B \cap A^c)\\
+            \lambda^*(B^c) &\geq \lambda^*(A \cap B^c)\\
+        \end{align*}
+        
+        Therefore, through a bunch of thoose fun inequalities, we have \[
+            \lambda^*(A) + \lambda^*(B) \geq \lambda^*(A \cup B) + \lambda^*(A \cap B)
+        \]
+    \end{proof}
+\end{theorem}
+
+% Problem 3 ----------------------------------------------
+\newpage
+\section{}
+\subsubsection*{Problem:}
+Let $a \in \R$ be fixed. 
+Prove that \[
+    \lambda(\qty{a} \cross \R^{n-1}) = 0
+\]
+\subsubsection*{Solution:}
+\begin{theorem}
+    The set $\qty{
+        \{a\} \cross \R^{n-1}
+    } \in \R^n$ has \[
+        \lambda(\qty{\{a\} \cross \R^{n-1}}) = 0 \forall_{a \in \R}
+    \]
+    \begin{proof}
+        This statement is essentially saying that the Lebesgue measure for any set (even ones with $\lambda(\cdot) = \infty$) are equal to zero when evaluating them at one dimension higher with a single point.
+
+        This is equivalent to saying that the area of a line is 0, or that the volume of a plane is 0.
+
+        More formally, we have for the smallest level of Lebesgue Measure (that everything is based on) has the following for $A = I_1 \cross I_2 \cross \cdots \cross I_n$, \[
+            \lambda(A) 
+            = \lambda(I_1 \cross I_2 \cross \cdots \cross I_n) 
+            = \abs{I_1} \cdot \abs{I_2} \cdots \abs{I_n}
+        \] Then we take the fact that for a fixed $a \in \R$ and arbitrary $A \in \R^{n\geq 1}$, 
+        $\lambda(\{a\}) = 0$, so \[
+            \lambda(\{\{a\} \cross \}) 
+            = \abs{\{a\}} \cdot \abs{A} 
+            = (0) \cdot \lambda(A)
+            = 0
+        \]
+    \end{proof}
+\end{theorem}
+
+% Problem 4 ----------------------------------------------
+\newpage
+\section{}
+\subsection{}
+\subsubsection*{Problem:}
+Let $\epsilon > 0$. 
+Prove that there exists an open set $G \subseteq \R$ such that $\Q \subset G$ and $\lambda(G) < \epsilon$.
+\subsubsection*{Solution:}
+\begin{theorem}
+    Let $\epsilon > 0$. \[
+        \forall_{\epsilon>0} \exists_{G \subset \R \ \text{open}} 
+        \implies \Q \subset G \land \lambda(G) < \epsilon
+    \]
+    \begin{proof}
+        Define $G$ as the union of open balls centered at each element of $\Q$ with radius of $\frac{\epsilon_0}{2}$, where $\epsilon_0$ times the number of elements is less than $\epsilon$. 
+        i.e.\[
+            G = \bigcup_{x_k \in \Q} B\qty(x_k, \frac{\epsilon_0}{2}), \ \sum_{x_k \in Q} \epsilon_0 < \epsilon
+        \] We can then calculate $\lambda(G)$ being the union of all the open subsets as \begin{align*}
+            \lambda(G) 
+                &= \sum_{x_k \in \Q} \lambda(B\qty(x_k, \frac{\epsilon_0}{2}))\\
+                &= \sum_{x_k \in \Q} \lambda{(x_k - \frac{\epsilon_0}{2}, x_k + \frac{\epsilon_0}{2})}\\
+                &= \sum_{x_k \in \Q} \abs{(x_k + \frac{\epsilon_0}{2})) - (x_k - \frac{\epsilon_0}{2}))}\\
+                &= \sum_{x_k \in \Q} 2 \frac{\epsilon_0}{2} \\
+                &= \sum_{x_k \in \Q} \epsilon_0
+        \end{align*}
+        and by the definition of $\epsilon_0$ we have that \[
+            \lambda(G) < \epsilon
+        \]
+    \end{proof}
+\end{theorem}
+
+\subsection{}
+\subsubsection*{Problem:}
+Construct a closed subset of $[0,1]$ whose measure is positive and whose interior is empty. 
+(Hint: Try the compliment of $G$ in (a).)
+\subsubsection*{Solution:}
+
+Let $H \subset [0,1]$ be defined as $G^c$, or \[
+    H 
+        = G^c 
+        = \bigcap_{x_k \in \Q_{[0,1]}} [0,1] \backslash B\qty(x_k, \frac{\epsilon_0}{2})
+        = \bigcup_{x_k \in \Q_{[0,1]}} [x_{k-1} + \frac{\epsilon_0}{2}, x_k - \frac{\epsilon_0}{2}]
+\]
+Looking back on how we constructed the special polygons from special rectangles it is clear to see how the sum of the Lebesgue measures of these disjoint intervals would be non-zero (specifically positive by definition of a measure) however the interior of $H$ can be seen as empty since each of the intervals are essentially (practically/infinitesimally small) nonexistent.
 
 
 
-
-
-
-
-
-
-
-
-
+% Problem 5 ----------------------------------------------
+\newpage
+\section{}
+\subsubsection*{Problem:}
+Prove that if $E \subset \R^n$ and $\lambda^*(E) < \infty$, then there exists a measurable set $A$ such that $E \subseteq A$ and $\lambda^*(E) = \lambda(A)$.
+\subsubsection*{Solution:}
+\begin{theorem}
+    Let $E \subset \R^n$ with $\lambda^*(E) < \infty$.
+    Then\[
+        \exists_{A \in \mathcal{L}_0} \st E \subseteq A \land \lambda^*(E) = \lambda(A)
+    \]\begin{proof}
+        Since $A \in \mathcal{L}_0 \subset \mathcal{L}$, we can look at the complete definition of the Lebesgue measure 
+        ($\lambda(A) = \sup\{\lambda{A \cap M} \st M \in \mathcal{L}\}$)
+        and work in reverse. 
+        To make it simple, we can achieve $E \subseteq A$ by ensuring $A$ is the open set that directly encapsulates $E$. 
+        This open set $A$ will be measurable is equivalently the solution to the outer measure $\lambda^*(E) = \inf\{\lambda(G) \st E \subseteq G, G \ \text{open}\}$ and so both of the properties hold.
+    \end{proof}
+\end{theorem}
 
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.1)  20 APR 2022 03:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.1)  20 APR 2022 23:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -315,27 +315,28 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 \c@lemma=\count299
 \c@proposition=\count300
 \c@example=\count301
+\c@counterExample=\count302
  (./MATH5302-HW08.aux)
 \openout1 = `MATH5302-HW08.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -373,16 +374,16 @@ LaTeX Font Info:    ... okay on input line 56.
 
 (c:/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count302
+\scratchcounter=\count303
 \scratchdimen=\dimen177
 \scratchbox=\box57
-\nofMPsegments=\count303
-\nofMParguments=\count304
+\nofMPsegments=\count304
+\nofMParguments=\count305
 \everyMPshowfont=\toks31
-\MPscratchCnt=\count305
+\MPscratchCnt=\count306
 \MPscratchDim=\dimen178
-\MPnumerator=\count306
-\makeMPintoPDFobject=\count307
+\MPnumerator=\count307
+\makeMPintoPDFobject=\count308
 \everyMPtoPDFconversion=\toks32
 ) (c:/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -390,8 +391,8 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (c:/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\c@lstlisting=\count308
-Package hyperref Info: Link coloring OFF on input line 56.
+\c@lstlisting=\count309
+Package hyperref Info: Link coloring OFF on input line 57.
  (c:/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (c:/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -399,25 +400,45 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (c:/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count309
+\c@section@level=\count310
 )
-LaTeX Info: Redefining \ref on input line 56.
-LaTeX Info: Redefining \pageref on input line 56.
-LaTeX Info: Redefining \nameref on input line 56.
+LaTeX Info: Redefining \ref on input line 57.
+LaTeX Info: Redefining \pageref on input line 57.
+LaTeX Info: Redefining \nameref on input line 57.
  (./MATH5302-HW08.out) (./MATH5302-HW08.out)
 \@outlinefile=\write3
 \openout3 = `MATH5302-HW08.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 59.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 60.
  (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 59.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 60.
  (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (./MATH5302-HW08.toc
 Overfull \hbox (36.09001pt too wide) detected at line 1
 \OT1/cmr/bx/n/10 Problem 1 
+ []
+
+
+Overfull \hbox (36.09001pt too wide) detected at line 4
+\OT1/cmr/bx/n/10 Problem 2 
+ []
+
+
+Overfull \hbox (36.09001pt too wide) detected at line 7
+\OT1/cmr/bx/n/10 Problem 3 
+ []
+
+
+Overfull \hbox (36.09001pt too wide) detected at line 8
+\OT1/cmr/bx/n/10 Problem 4 
+ []
+
+
+Overfull \hbox (36.09001pt too wide) detected at line 11
+\OT1/cmr/bx/n/10 Problem 5 
  []
 
 )
@@ -426,23 +447,23 @@ Overfull \hbox (36.09001pt too wide) detected at line 1
 
  [1
 
-{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6] (./MATH5302-HW08.aux)
+{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] (./MATH5302-HW08.aux)
 Package rerunfilecheck Info: File `MATH5302-HW08.out' has not changed.
-(rerunfilecheck)             Checksum: C4F4BF1013F92281EA6574D6929062B8;133.
+(rerunfilecheck)             Checksum: FE6D3550C6D4BD354D5C48C7086090FD;471.
  ) 
 Here is how much of TeX's memory you used:
- 12518 strings out of 478599
- 180065 string characters out of 5858102
- 512028 words of memory out of 5000000
- 30135 multiletter control sequences out of 15000+600000
+ 12563 strings out of 478599
+ 180590 string characters out of 5858102
+ 512121 words of memory out of 5000000
+ 30150 multiletter control sequences out of 15000+600000
  414786 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,6n,81p,463b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
-<c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on MATH5302-HW08.pdf (6 pages, 185864 bytes).
+ 71i,11n,81p,491b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
+<c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on MATH5302-HW08.pdf (11 pages, 236326 bytes).
 PDF statistics:
- 228 PDF objects out of 1000 (max. 8388607)
- 188 compressed objects within 2 object streams
- 94 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 334 PDF objects out of 1000 (max. 8388607)
+ 280 compressed objects within 3 object streams
+ 124 named destinations out of 1000 (max. 500000)
+ 89 words of extra memory for PDF output out of 10000 (max. 10000000)
 
