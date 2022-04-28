@@ -1,0 +1,559 @@
+% Standard Article Definition
+\documentclass[]{article}
+
+% Page Formatting
+\usepackage[margin=1in]{geometry}
+\setlength\parindent{0pt}
+
+% Graphics
+\usepackage{graphicx}
+
+% Math Packages
+\usepackage{physics}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{mathtools}
+
+% Extra Packages
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Section Heading Settings
+\usepackage{enumitem}
+% \renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand*{\thesection}{Problem \arabic{section}}
+\renewcommand*{\thesubsection}{\alph{subsection})}
+\renewcommand*{\thesubsubsection}{}%\quad \quad \roman{subsubsection})}
+
+%Custom Commands
+\newcommand{\Rel}{\mathcal{R}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\toI}{\xrightarrow{\textsf{\tiny I}}}
+\newcommand{\toS}{\xrightarrow{\textsf{\tiny S}}}
+\newcommand{\toB}{\xrightarrow{\textsf{\tiny B}}}
+
+\newcommand{\divisible}{ \ \vdots \ }
+\newcommand{\st}{\ : \ }
+
+% Theorem Definition
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{counterExample}{Counter Example}
+
+
+%opening
+\title{MATH 5302 Elementary Analysis II - Homework 9}
+\author{Jonas Wagner}
+\date{2022, April 27\textsuperscript{th}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+\section*{Preliminaries}
+
+% \begin{definition}
+%     \textbf{Continuity:}
+%     Let $f : [a,b] \to \R$. 
+%     \begin{enumerate}
+%         \item $f$ is \emph{\underline{Lipschitz Continuous}} on $[a,b]$ if \[
+%             \exists_{C} : \forall_{x,y \in [a,b]} \abs{f(x) - f(y)} \leq \abs{x - y} 
+%         \]
+%         \item $f$ is \emph{\underline{Absolutely Continuous}} on $[a,b]$ if \[
+%             \forall_{\epsilon>0} \exists_{\delta>0}
+%             \forall_{
+%                 \text{finite collection } \qty{(x,x')} \text{ of nonoverlaping intervals} 
+%                 : \sum_{i=1}^{n} \abs{x_i' - x_i} < \delta
+%             } \sum_{i=1}^{n} \abs{f(x_i') - f(x_i)} < \epsilon
+%         \]
+%         \item $f$ is \underline{\emph{uniformly continuous}} on $[a,b]$ if \[
+%             \forall_{\epsilon>0} \exists_{\delta>0} : 
+%                 \qty(x,y \in [a,b]) \land \qty{\abs{x-y} < \delta}
+%             \implies \abs{f(x) - f(y)} < \epsilon
+%         \]
+%         \item $f$ is \emph{\underline{continuous}} on $[a,b]$ if $f$ is continuous at all $x_0 \in [a,b]$.
+%         i.e. \[
+%             \forall_{\epsilon > 0} \exists_{\delta>0} : 
+%             \forall_{x \in [a,b]} \land \abs{x - x_0} < \delta
+%             \implies \abs{f(x) - f(x_0)} < \epsilon
+%         \]
+%     \end{enumerate}
+%     \emph{\underline{\textbf{Properties:}}}
+%     \begin{enumerate}
+%         \item $f$ continuous on closed $[a,b]$, then $f$ is uniformly continuous on $[a,b]$.
+%         \item $f$ differentiable at $x \in [a,b]$ implies Locally Lipschitz continuous at $x$.
+%         \item $C^1[a,b]$ is the set of differentiable functions with continuous derivatives on $[a,b]$.
+%         \item $C^1[a,b]$ $\subset$ differentiable functions with bounded derivatives
+%         \item Differentiable with bounded derivatives 
+%         $\implies$ Lipschitz continuous 
+%         $\implies$ Absolutely continuous
+%         $\implies$ uniformly continuous
+%         $\implies$ continuous
+%     \end{enumerate}
+% \end{definition}
+
+
+\begin{definition}
+    \underline{\emph{$n$-dimensional Euclidean norm-space:}}
+    Let $\R^n$ be defined as \[
+        \R^n := \{
+            x = (x_1, x_2, \dots, x_n) 
+            \st x_j \in \R
+        \}
+    \] Let $A, B \subseteq \R^n$.
+    \begin{enumerate}
+        \item \emph{\underline{Compliment of $A$}} \[
+            A^c := \{
+                x \in \R^n \st x \neq A
+            \}
+        \] \item \emph{\underline{Union of $A$ and $B$}} \[
+            A \cup B := \{
+                x \in \R^n \st x \in A \lor x \in B
+            \}
+        \] \item \emph{\underline{Intersection of $A$ and $B$}} \[
+            A \cap B := \{
+                x \in \R^n \st x \in A \land x \in B
+            \}
+        \] \item \emph{\underline{Difference of $A$ and $B$}}\[
+            A \backslash B = A \cap B^c := \{
+                x \in \R^n \st x \in A \land x \neq B
+            \}
+        \] \item \emph{\underline{Closure of $A$}}\[
+            \overline{A} := \{
+                x \in \R^n \st x \in A \lor x = \lim_{k\to\infty} x_k \st [x_k] \in A
+            \}
+        \] \item \emph{\underline{Euclidean norm on $\R^n$}} \[
+            \norm{x} := \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
+        \] with triangular inequality: \[
+            \norm{x+y} \leq \norm{x} + \norm{y}
+        \] \item \emph{\underline{Metric on $\R^n$}} \[
+            d(x,y) = \norm{x - y}
+        \] with properties \begin{enumerate}
+            \item $d(x,y) \geq 0$
+            \item $d(x,y) = 0 \iff x = y$
+            \item $d(x,y) = d(y,x)$
+            \item $d(x,y) \leq d(x,z) + d(z,y)$
+        \end{enumerate}
+        \item $A$ is considered \emph{\underline{bounded}} if every point in $A$ is bounded: \[
+            \exists_{M > 0} \st \forall_{x\in A} \norm{x} \leq M
+        \]
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    \emph{\textbf{Open and Closed Sets:}} 
+    Let $A \subseteq \R^n$ and $x \in A$.
+    \begin{enumerate}
+        \item Denote the \emph{\underline{open ball}} centered at $x$ of radius $r$ as: \[
+            B(x,r) := \{
+                y \in \R^n \st d(x,y) < r
+            \}
+        \] \item $x$ is considered an \emph{\underline{interior point of $A$}} if :\[
+            \exists_{r > 0} \st B(x,r) \subseteq A
+        \] \item  $A$ is considered \emph{\underline{open}} if every point $x \in A$ is an interior point of $A$: \[
+            \forall_{x \in A} \exists_{r>0} \st B(x,r) \subseteq A
+        \] The following properties exist for open sets:\begin{enumerate}
+            \item $\emptyset$ is open
+            \item $\R^n$ is open
+            \item Union of any collection of open sets is open
+            \item Intersection of any finite collection of open sets is open
+            \item Any open ball is an open set
+        \end{enumerate}
+        \item The \emph{\underline{Interior of $A$}} is the set of all interior points of $A$ \[
+            A^\circ := \{
+                x \st x \text{is an interior point of $A$}
+            \}
+        \] Properties of $A^\circ$ \begin{enumerate}
+            \item $A$ open $\iff$ $A^\circ = A$
+            \item $A^\circ$ open
+            \item $(A^\circ)^\circ = A^\circ$
+            \item $(A \cap B)^\circ = A^\circ \cap B^\circ$
+            \item $A^\circ \cup B^\circ$ not generally equal to $(A \cup B)^\circ$
+            \item $A^\circ$ is the union of all open subsets of $A$
+            \item $A^\circ$ is the largest open subset of $A$
+        \end{enumerate}
+        \item The \emph{\underline{Boundary of $A$}} is defined as the closure minus the Interior of $A$:\[
+            \partial A := \overline{A} \backslash A^\circ
+        \] \item $A$ is considered \emph{\underline{closed}} if $A^c$ is open. 
+        Properties of closed sets \begin{enumerate}
+            \item $\R^n$ is closed
+            \item $\emptyset$ is closed
+            \item The intersection of any collection of closed sets is closed
+            \item The union of any finite collection of closed sets is closed
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    \emph{\textbf{Compact set:}} 
+    Let $A \subseteq \R^n$. 
+    \begin{enumerate}
+        \item $A$ is called \emph{\underline{compact}} if every open cover of $A$ has a finite subcover.
+        \item Properties of compact sets \begin{enumerate}
+            \item $\emptyset$ is compact
+            \item Any finite set is compact
+            \item $A$ and $B$ compact $\implies$ $A \cup B$ compact
+            \item Any finite union of compact sets is compact
+            \item $B(x,r)$ is not compact
+            \item $\R^n$ is not compact
+            \item If $A$ is compact then $A$ is closed and bounded.
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    \emph{\textbf{Lebesgue Measure:}}
+    Let $A \subseteq \R^n$. 
+    \emph{Note:} 
+    For various $n$, a Lebesgue Measure is essentially:\begin{enumerate}
+        \item For $n=1$, $\lambda(A)$ is a length
+        \item For $n=2$, $\lambda(A)$ is an area
+        \item For $n=3$, $\lambda(A)$ is a volume
+    \end{enumerate}
+    Each of the following stages define the Lebesgue measure in increasing complexity. 
+    \begin{enumerate}
+        \setcounter{enumi}{-1}
+        \item \emph{\textbf{Empty Set:}} \[
+                \lambda(\emptyset) = 0
+            \] 
+        \item \emph{\textbf{Special Rectangles:}}
+        
+            Let \[
+                I = [a_1, b_1] \cross \cdots \cross [a_n, b_n]
+            \] then \[
+                \lambda(I) = (b_1 - a_1) \cdots (b_n - a_n)
+            \]
+            \item \emph{\textbf{Special Polygons:}}
+            Special polygons are a finite union of special rectangles. 
+            They are closed and bounded subsets and therefore compact. 
+            
+            Let $P$ be a special polygon, decomposed into the following union of nonoverlaping special rectangles: \[
+                P = \bigcup_{k=1}^{N} I_k
+            \] The Lebesgue Measure for the special polygon is defined as the sum of the Lebesgue Measures of the special rectangles:\[
+                \lambda(P) = \sum_{k=1}^{N} \lambda(I_k)
+            \] The following are a few properties of the Lebesgue Measure for Special Polygons:\begin{enumerate}
+                \item $P_1 \subseteq P_2 \implies \lambda(P_1) \leq \lambda(P_2)$
+                \item $P_1 \cap P_2 = \emptyset \implies \lambda(P_1 \cup P_2) = \lambda(P_1) + \lambda(P_2)$
+            \end{enumerate}
+        \item \emph{\textbf{Open Sets:}}
+            Let $G \subseteq \R^n$ be open and $G \neq \emptyset$. 
+
+            The Lebesgue Measure of an open set is defined as \[
+                \lambda(G) = \sup \{
+                    \lambda(P) \st P \subset G, \ P \textnormal{ is a special polygon}
+                \}
+            \] The following are some properties of the Lebesgue Measure for open sets: \begin{enumerate}
+                \item $0 \leq \lambda(G) \leq \infty$
+                \item $\lambda(G) = 0 \iff G = \emptyset$
+                \item $\lambda(\R^n) = \infty$
+                \item $G_1 \subseteq G_2 \implies \lambda(G_1) \leq \lambda(G_2)$
+                \item $\lambda\qty(\bigcup_{k=1}^{\infty} G_k) \leq \sum_{k=1}^{\infty} \lambda(G_k)$
+                \item $\bigcap_{k=1}^{\infty} G_k = \emptyset \implies \lambda\qty(\bigcup_{k=1}^{\infty} G_k) = \sum_{k=1}^{\infty} \lambda(G_k)$
+                \item If $P$ is a special polygon, then $\lambda(P) = \lambda(P^\circ)$
+            \end{enumerate}
+        \item \emph{\textbf{Compact Sets:}}
+            
+            Let $K \subseteq \R^n$ be a compact set.
+
+            The Lebesgue Measure of a compact set is defined as \[
+                \lambda(K) = \inf \{
+                    \lambda(G) \st K \subset G, \ G \textnormal{ is an open set}
+                \}
+            \] The following are some properties of the Lebesgue Measure for compact sets: \begin{enumerate}
+                \item $0 \leq \lambda(K) \leq \infty$
+                \item $K_1 \subseteq K_2 \implies \lambda(K_1) \leq \lambda(K_2)$
+                \item $\lambda(K_1 \cup K_2) \leq \lambda(K_1) + \lambda(K_2)$
+                \item $K_1 \cap K_2 = \emptyset \implies \lambda(K_1 \cup K_2) = \lambda(K_1) + \lambda(K_2)$
+            \end{enumerate}
+        \item \emph{\textbf{Finite Outer Measure:}}
+            \begin{definition}
+                Let $A \subseteq \R^n$.
+                The \emph{\underline{outer measure of $A$}} is defined as \[
+                    \lambda^*(A) = \inf \qty{
+                        \lambda(G) \st A \subseteq G \land G \ \text{open}
+                    }
+                \] The \emph{\underline{inner measure of $A$}} is defined as \[
+                    \lambda_*(A) = \sup \qty{
+                        \lambda(K) \st A \supseteq K \land K \ \text{compact}
+                    }
+                \] The following are properties of the outer and inner measures:\begin{enumerate}
+                    \item $\lambda_*(A) \leq \lambda^*(A)$
+                    \item $A \subseteq B \implies \lambda^*(A) \leq \lambda^*(B) \land \lambda_*(A) \leq \lambda_*(B)$
+                    \item $\lambda^*\qty(
+                        \bigcup_{k=1}^{\infty} A_k
+                    ) \leq \sum_{k=1}^{\infty} \lambda^*(A_k)$
+                    \item If all $A_k$'s are disjoint, then \[\lambda_{*}\qty(
+                            \bigcup_{k=1}^{\infty} A_k
+                        ) \geq \sum_{k=1}^{\infty} \lambda^*(A_k)
+                    \] \item If $A$ is open or compact, then $\lambda^*(A) = \lambda_*(A) = \lambda(A)$
+                \end{enumerate}
+            \end{definition}
+            \begin{definition}
+                Let $A\subseteq \R^n$ be a set with finite outer measure: 
+                    $\lambda^*(A) < \infty$
+                We say that $A \in \mathcal{L}_0$ if $\lambda^*(A) = \lambda_*(A)$
+                We define $\mathcal{L}_0$ as \[
+                    \mathcal{L}_0 = \qty{
+                        A \subseteq \R^n \st \lambda^*(A) = \lambda_*(A) < \infty
+                    }
+                \] If $A \in \mathcal{L}_0$ then the \emph{\underline{measure of $A$}} is \[
+                    \lambda(A) = \lambda^*(A) = \lambda_*(A)
+                \]
+            \end{definition}
+    \end{enumerate}
+\end{definition}
+
+% \begin{definition}
+%     \emph{\textbf{Properties of the Lebesgue Measure:}}
+
+%     Let $A \subseteq \R^n$.
+
+% \end{definition}
+
+
+
+
+
+
+
+% Problem 1 ----------------------------------------------
+\newpage
+\section{}
+\subsection{}
+% la
+\subsubsection*{Problem:}
+% Prove Property M6: 
+% If the $A_k$'s are measurable and $A_1 \supseteq A_2 \supseteq A_3 \cdots$, 
+% and if $\lambda(A_1) < \infty$, 
+% then \[
+%     \lambda \qty(
+%         \bigcap_{k=1}^{\infty} A_k
+%     ) = \lim_{k \to \infty} \lambda(A_k)
+% \]
+% \subsubsection*{Solution:}
+
+% \begin{theorem}
+%     Let $A_1 \subseteq A_2 \subset A_3 \cdots$ be measurable. 
+%     If $\lambda(A_1) < \infty$, then \[
+%         \lambda \qty(
+%             \bigcap_{k=1}^{\infty} A_k
+%         ) = \lim_{k \to \infty} \lambda(A_k)
+%     \]
+%     \begin{proof}
+%         Since all countable intersections of measurable sets are measurable, 
+%         we know that $\lambda\qty(\bigcap_{k=1}^{\infty} A_k)$ exists.
+        
+%         Additionally, we know that \[
+%             \bigcap_{k=1}^{n} A_k = A_n
+%         \] which leads to \[
+%             \lambda\qty(\bigcap_{k=1}^n A_k) = \lambda(A_n)
+%         \] whose limit for the countable sequence becomes $\lim_{k \to \infty} \lambda(A_k)$
+%     \end{proof}
+% \end{theorem}
+
+% 1b
+\subsection{}
+\subsubsection*{Problem:}
+% Give an example to show why the assumption $\lambda(A_1) < \infty$ is needed in Property M6.
+% \subsubsection*{Solution:}
+% \begin{counterExample}
+%     Let sequence $A_k$ be defined as \[
+%         A_k = \R \backslash \{(-k,k)\}
+%     \] In this case, $\lambda(A_1) = \lambda(\R \backslash \{(-1,1)\}) = \infty$ and \[
+%         \forall_{k \in \N} A_{k+1} = A_{k} \backslash \{(-k, k)\}
+%     \] implying \[
+%         \forall_{k \in \N} A_{k} \supseteq A_{k+1}
+%     \] however, the limit $\lim_{k \to \infty} \lambda(A_k)$ remains unbounded despite the fact that \[
+%         \lim_{k \to \infty} A_k = \emptyset \implies \lambda(A_\infty = \emptyset) = 0
+%     \]
+% \end{counterExample}
+
+% Problem 2 ----------------------------------------------
+\newpage
+\section{}
+% Let $A$ and $B$ be subsets of $\R^n$.
+% 2a
+\subsection{}
+\subsubsection*{Problem:}
+% Suppose that $A$ and $B$ are measurable. 
+% Prove that \[
+%     \lambda(A) + \lambda(B) = \lambda(A \cup B) + \lambda(A \cap B)
+% \]
+% \subsubsection*{Solution:}
+% \begin{theorem}
+%     Let $A, B \subset \R^n$.
+%     If $A$ and $B$ are measurable, then \[
+%         \lambda(A) + \lambda(B) = \lambda(A \cup B) + \lambda(A \cap B)
+%     \] \begin{proof}
+%         We have that \begin{align*}
+%             A &= (B \cap A^c) \cup (A \cap B)\\
+%             B &= (A \cap B^c) \cup (A \cap B)\\
+%             A \cup B &= (B \cap A^c) \cup (A \cap B) \cup (A \cap B^c)
+%         \end{align*} and since each of these are disjoint unions, we have that \begin{align*}
+%             \lambda(A) &= \lambda(B \cap A^c) + \lambda(A \cap B)\\
+%             \lambda(B) &= \lambda(A \cap B^c) + \lambda(A \cap B)\\
+%             \lambda(A \cup B) &= \lambda(B \cap A^c) + \lambda(A \cap B) + \lambda(A \cap B^c)
+%         \end{align*} 
+        
+%         Therefore we have\begin{align*}
+%             \lambda(A) + \lambda(B) 
+%                 &= (\lambda(B \cap A^c) + \lambda(A \cap B)) + (\lambda(A \cap B^c) + \lambda(A \cap B))\\
+%                 &= \lambda(A \cap B^c) + 2 \lambda(A \cap B) + \lambda(B \cap A^c)\\
+%                 &= (\lambda(B \cap A^c) + \lambda(A \cap B) + (\lambda(A \cap B^c)) + \lambda(A \cap B))\\
+%                 &= \lambda(A \cup B) + \lambda(A \cap B)
+%         \end{align*}
+%     \end{proof}
+% \end{theorem}
+
+% 2b
+\subsection{}
+\subsubsection*{Problem:}
+% Prove that in general \[
+%     \lambda^*(A) + \lambda^*(B) \geq \lambda^*(A \cup B) + \lambda^*(A \cap B)
+% \]
+% \subsubsection*{Solution:}
+% \begin{theorem}
+%     Let $A, B \subset \R^n$.
+%     It is generally true that\[
+%         \lambda^*(A) + \lambda^*(B) \geq \lambda^*(A \cup B) + \lambda^*(A \cap B)
+%     \] \begin{proof}
+%         We have that \begin{align*}
+%             A &= (B \cap A^c) \cup (A \cap B)\\
+%             B &= (A \cap B^c) \cup (A \cap B)\\
+%             A \cup B &= (B \cap A^c) \cup (A \cap B) \cup (A \cap B^c)
+%         \end{align*} Then we have \begin{align*}
+%             \lambda^*(A) &\leq \lambda^*(B \cap A^c) + \lambda^*(A \cap B)\\
+%             \lambda^*(B) &\leq \lambda^*(A \cap B^c) + \lambda^*(A \cap B)\\
+%             \lambda^*(A \cup B) &\leq \lambda^*(B \cap A^c) + \lambda^*(A \cap B) + \lambda^*(A \cap B^c)
+%         \end{align*} Additionally, \begin{align*}
+%             \lambda^*(A \cap B) &\leq \min \qty{\lambda^*(A), \lambda^*(B)}\\
+%             \lambda^*(A \cap B^c) &\leq \min \qty{\lambda^*(A), \lambda^*(B^c)}\\
+%             \lambda^*(B \cap A^c) &\leq \min \qty{\lambda^*(B), \lambda^*(A^c)}\\
+%         \end{align*} which implies the following \begin{align*}
+%             \lambda^*(A) &\geq \lambda^*(A \cap B)\\
+%             \lambda^*(A) &\geq \lambda^*(A \cap B^c)\\
+%             \lambda^*(B) &\geq \lambda^*(B \cap A)\\
+%             \lambda^*(B) &\geq \lambda^*(B \cap A^c)\\
+%             \lambda^*(A^c) &\geq \lambda^*(B \cap A^c)\\
+%             \lambda^*(B^c) &\geq \lambda^*(A \cap B^c)\\
+%         \end{align*}
+        
+%         Therefore, through a bunch of thoose fun inequalities, we have \[
+%             \lambda^*(A) + \lambda^*(B) \geq \lambda^*(A \cup B) + \lambda^*(A \cap B)
+%         \]
+%     \end{proof}
+% \end{theorem}
+
+% Problem 3 ----------------------------------------------
+\newpage
+\section{}
+\subsubsection*{Problem:}
+% Let $a \in \R$ be fixed. 
+% Prove that \[
+%     \lambda(\qty{a} \cross \R^{n-1}) = 0
+% \]
+% \subsubsection*{Solution:}
+% \begin{theorem}
+%     The set $\qty{
+%         \{a\} \cross \R^{n-1}
+%     } \in \R^n$ has \[
+%         \lambda(\qty{\{a\} \cross \R^{n-1}}) = 0 \forall_{a \in \R}
+%     \]
+%     \begin{proof}
+%         This statement is essentially saying that the Lebesgue measure for any set (even ones with $\lambda(\cdot) = \infty$) are equal to zero when evaluating them at one dimension higher with a single point.
+
+%         This is equivalent to saying that the area of a line is 0, or that the volume of a plane is 0.
+
+%         More formally, we have for the smallest level of Lebesgue Measure (that everything is based on) has the following for $A = I_1 \cross I_2 \cross \cdots \cross I_n$, \[
+%             \lambda(A) 
+%             = \lambda(I_1 \cross I_2 \cross \cdots \cross I_n) 
+%             = \abs{I_1} \cdot \abs{I_2} \cdots \abs{I_n}
+%         \] Then we take the fact that for a fixed $a \in \R$ and arbitrary $A \in \R^{n\geq 1}$, 
+%         $\lambda(\{a\}) = 0$, so \[
+%             \lambda(\{\{a\} \cross \}) 
+%             = \abs{\{a\}} \cdot \abs{A} 
+%             = (0) \cdot \lambda(A)
+%             = 0
+%         \]
+%     \end{proof}
+% \end{theorem}
+
+% Problem 4 ----------------------------------------------
+\newpage
+\section{}
+\subsection{}
+\subsubsection*{Problem:}
+% Let $\epsilon > 0$. 
+% Prove that there exists an open set $G \subseteq \R$ such that $\Q \subset G$ and $\lambda(G) < \epsilon$.
+% \subsubsection*{Solution:}
+% \begin{theorem}
+%     Let $\epsilon > 0$. \[
+%         \forall_{\epsilon>0} \exists_{G \subset \R \ \text{open}} 
+%         \implies \Q \subset G \land \lambda(G) < \epsilon
+%     \]
+%     \begin{proof}
+%         Define $G$ as the union of open balls centered at each element of $\Q$ with radius of $\frac{\epsilon_0}{2}$, where $\epsilon_0$ times the number of elements is less than $\epsilon$. 
+%         i.e.\[
+%             G = \bigcup_{x_k \in \Q} B\qty(x_k, \frac{\epsilon_0}{2}), \ \sum_{x_k \in Q} \epsilon_0 < \epsilon
+%         \] We can then calculate $\lambda(G)$ being the union of all the open subsets as \begin{align*}
+%             \lambda(G) 
+%                 &= \sum_{x_k \in \Q} \lambda(B\qty(x_k, \frac{\epsilon_0}{2}))\\
+%                 &= \sum_{x_k \in \Q} \lambda{(x_k - \frac{\epsilon_0}{2}, x_k + \frac{\epsilon_0}{2})}\\
+%                 &= \sum_{x_k \in \Q} \abs{(x_k + \frac{\epsilon_0}{2})) - (x_k - \frac{\epsilon_0}{2}))}\\
+%                 &= \sum_{x_k \in \Q} 2 \frac{\epsilon_0}{2} \\
+%                 &= \sum_{x_k \in \Q} \epsilon_0
+%         \end{align*}
+%         and by the definition of $\epsilon_0$ we have that \[
+%             \lambda(G) < \epsilon
+%         \]
+%     \end{proof}
+% \end{theorem}
+
+% \subsection{}
+% \subsubsection*{Problem:}
+% Construct a closed subset of $[0,1]$ whose measure is positive and whose interior is empty. 
+% (Hint: Try the compliment of $G$ in (a).)
+% \subsubsection*{Solution:}
+
+% Let $H \subset [0,1]$ be defined as $G^c$, or \[
+%     H 
+%         = G^c 
+%         = \bigcap_{x_k \in \Q_{[0,1]}} [0,1] \backslash B\qty(x_k, \frac{\epsilon_0}{2})
+%         = \bigcup_{x_k \in \Q_{[0,1]}} [x_{k-1} + \frac{\epsilon_0}{2}, x_k - \frac{\epsilon_0}{2}]
+% \]
+% Looking back on how we constructed the special polygons from special rectangles it is clear to see how the sum of the Lebesgue measures of these disjoint intervals would be non-zero (specifically positive by definition of a measure) however the interior of $H$ can be seen as empty since each of the intervals are essentially (practically/infinitesimally small) nonexistent.
+
+
+
+% Problem 5 ----------------------------------------------
+\newpage
+\section{}
+\subsubsection*{Problem:}
+% Prove that if $E \subset \R^n$ and $\lambda^*(E) < \infty$, then there exists a measurable set $A$ such that $E \subseteq A$ and $\lambda^*(E) = \lambda(A)$.
+% \subsubsection*{Solution:}
+% \begin{theorem}
+%     Let $E \subset \R^n$ with $\lambda^*(E) < \infty$.
+%     Then\[
+%         \exists_{A \in \mathcal{L}_0} \st E \subseteq A \land \lambda^*(E) = \lambda(A)
+%     \]\begin{proof}
+%         Since $A \in \mathcal{L}_0 \subset \mathcal{L}$, we can look at the complete definition of the Lebesgue measure 
+%         ($\lambda(A) = \sup\{\lambda{A \cap M} \st M \in \mathcal{L}\}$)
+%         and work in reverse. 
+%         To make it simple, we can achieve $E \subseteq A$ by ensuring $A$ is the open set that directly encapsulates $E$. 
+%         This open set $A$ will be measurable is equivalently the solution to the outer measure $\lambda^*(E) = \inf\{\lambda(G) \st E \subseteq G, G \ \text{open}\}$ and so both of the properties hold.
+%     \end{proof}
+% \end{theorem}
+
+
+\end{document}
